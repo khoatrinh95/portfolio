@@ -1,14 +1,5 @@
 [
   {
-    "title": "Pixel Memories",
-    "active": true,
-    "backgroundColor": "#536E49",
-    "mainColor": "#314D27",
-    "folderName": "pixel",
-    "desc1": "This modern art print pays tribute to one of the most iconic handheld consoles of the '90s — the transparent Gameboy. A nostalgic ode to childhood memories, this piece was inspired by the countless hours I spent playing with my sister, taking turns (and sometimes arguing!) over who got to play next.",
-    "desc2": "Rendered in vivid detail, every brushstroke in this digital painting was carefully placed to capture the layered complexity of the transparent shell, giving it a hyper-realistic feel. Perfect for gamers, collectors, and anyone who holds a special place in their heart for retro tech, this artwork is more than just decor — it’s a visual time capsule."
-  },
-  {
     "title": "Melting King",
     "active": true,
     "backgroundColor": "#CF7243",
@@ -16,6 +7,15 @@
     "folderName": "king",
     "desc1": "This striking modern artwork features a hyper-realistic chrome king chess piece, melting against a bold, vibrant backdrop. Painted digitally by hand, stroke by stroke, this piece incorporates 15 different shades of blue to achieve its striking depth and metallic realism. ",
     "desc2": "The fusion of surrealism and contemporary design makes it a true statement piece, perfect for those with bold personalities who appreciate unique, modern decor. Whether you're a chess lover, an art collector, or someone who enjoys daring aesthetics, this piece adds an edgy yet sophisticated touch to any space."
+  },
+  {
+    "title": "Pixel Memories",
+    "active": true,
+    "backgroundColor": "#536E49",
+    "mainColor": "#314D27",
+    "folderName": "pixel",
+    "desc1": "This modern art print pays tribute to one of the most iconic handheld consoles of the '90s — the transparent Gameboy. A nostalgic ode to childhood memories, this piece was inspired by the countless hours I spent playing with my sister, taking turns (and sometimes arguing!) over who got to play next.",
+    "desc2": "Rendered in vivid detail, every brushstroke in this digital painting was carefully placed to capture the layered complexity of the transparent shell, giving it a hyper-realistic feel. Perfect for gamers, collectors, and anyone who holds a special place in their heart for retro tech, this artwork is more than just decor — it’s a visual time capsule."
   },
   {
     "title": "Gentle Embrace",
