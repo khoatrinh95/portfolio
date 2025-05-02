@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DAS HAUS VON QUOI</title>
+    <link rel="stylesheet" href="/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cutive+Mono&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="top-bar">
+        <button class="circle-button" onclick="window.location.href='home-page.html'"></button>
+        <p id="home-label">Home</p>
+        <button class="circle-button back-to-list-button"></button>
+        <p id="back-to-list-label">Back to Artworks</p>
+
+        <p id="top-right-title"></p>
+    </div>
+    <div id="overview-container">
+        <div id="overview">
+            <ul id="item-list"></ul>
+
+            <div id="artwork-container">
+                <div id="outer-rectangle">
+                    <div id="inner-rectangle"></div>
+                </div>
+                <div id="artwork-subject"></div>
+            </div>
+        </div>
+    </div>
+    <!-- we need the detail-title to be outside of detail bc 
+    detail switches from display none -> block, which does not
+support animation, so we lose the animation of detial-title -->
+    <p id="detail-title"></p>
+
+    <div id="detail">
+        <div id="scroll-suggestor-container">
+            <div class="ss" id="ss1"></div>
+            <div class="ss" id="ss2"></div>
+            <div class="ss" id="ss3"></div>
+        </div>
+
+
+        <div class="center-art-section">
+            <div class="desc" id="desc-1">
+            </div>
+            <div class="detail-photo-v" id="full-art"></div>
+        </div>
+
+        <div class="left-art-section">
+            <div id="close-up-art-section">
+                <div class="detail-photo-v-sm" id="close-up-art-1"></div>
+                <div class="detail-photo-v-sm" id="close-up-art-2"></div>
+            </div>
+            
+            <div class="desc" id="desc-2">
+            </div>
+        </div>
+
+        <div class="center-art-section">
+            <div class="video-h">            
+                <video id="video-1" autoplay muted loop playsinline loading="lazy">
+                  </video>
+            </div>
+        </div>
+
+        <div class="center-art-section">
+            <div class="detail-photo-h" id="mockup-h-1"></div>
+        </div>
+
+        <div class="center-art-section">
+            <div class="detail-photo-v" id="mockup-v-2"></div>
+        </div>
+
+    </div>
+
+
+
+    <script src="./artwork-list.js"></script>
+</body>

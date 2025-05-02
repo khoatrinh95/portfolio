@@ -1,0 +1,674 @@
+:root {
+    /* artwork size */
+    --art-subject-width: 30vw;
+    /* if change value, make sure to change the --art-adjustment as well*/
+    --art-subject-height: 40vh;
+    --art-frame-width: 1vw;
+
+    /* artwork position */
+    --art-from-left: 55vw;
+    --art-adjustment: calc(-1 * (30vw/2 + var(--art-from-left) - 48vw));
+    /* use raw --art-subject-width value here bc CSS does not do var division */
+
+    /* home button*/
+    --home-button-from-left: 1vw;
+    --home-button-size: 20px;
+
+    /* item list*/
+    --item-list-from-left: 15vw;
+
+    /* back to list button*/
+    --back-to-list-button-from-top: 9vh;
+    --back-to-list-button-travel-distanceX: -11vw;
+    --back-to-list-button-travel-distanceY: calc(-4vh + 10px);
+
+    /* detail section */
+    --detail-photo-v-width: 50vw;
+    --detail-photo-h-width: 97vw;
+}
+
+body {
+    font-family: "Cutive Mono", monospace;
+    background-color: #ffffff;
+    color: #333;
+    text-align: center;
+    transition: background-color 0.5s ease;
+}
+
+.cutive-mono-regular {
+    font-family: "Cutive Mono", monospace;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.top-bar {
+    position: fixed;
+    width: 100%;
+    display: flex;
+    justify-content: right;
+    z-index: 5;
+}
+
+#top-right-title {
+    position: absolute;
+    right: 20px;
+}
+
+#hovered-item {
+    position: relative;
+    top: 10vh;
+
+}
+
+.main-carousel {
+    position: fixed;
+    bottom: 10px;
+    animation: scroll-left 60s linear infinite;
+    display: flex;
+    width: max-content;
+    justify-content: flex-start;
+}
+
+.main-carousel:hover {
+    animation-play-state: paused;
+}
+
+
+
+/* Animation keyframes */
+@keyframes scroll-left {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+.mix-circle-drop-shadow {
+    background-image: url('assets/images/mix-circle.png');
+    /* filter: drop-shadow(0 0 30px transparent); */
+}
+
+.mix-circle-drop-shadow:hover {
+    filter: drop-shadow(0 0 30px rgba(0, 0, 0, 0.4));
+    transition: all 0.3s;
+}
+
+.mix-circle {
+    position: relative;
+    height: 500px;
+    width: 1426px;
+    padding: 0;
+    margin: 0;
+    /* background: url('assets/videos/for-figma-15-480.mov'); */
+
+    /* -webkit-mask-image: url('assets/images/mix-circle.png'); */
+    /* PNG or SVG with transparency */
+    mask-image: url('assets/images/mix-circle.png');
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    cursor: pointer;
+}
+
+
+
+.embedded-video-container1 {
+    position: fixed;
+    left: 950px;
+    top: -50px;
+    overflow: hidden;
+    max-height: 550px;
+    max-width: 1600px;
+}
+
+.embedded-video-container2 {
+    position: fixed;
+    left: 3450px;
+    top: -50px;
+    overflow: hidden;
+    max-height: 550px;
+    max-width: 1600px;
+}
+
+.main-iframe {
+    width: 2000px;
+    height: 1000px;
+    pointer-events: none;
+}
+
+.circle-drop-shadow {
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    transition: box-shadow 0.3s;
+}
+
+.circle-drop-shadow:hover {
+    box-shadow: 0 0 30px 5px rgba(0, 0, 0, 0.3);
+}
+
+.circle-art {
+    width: 500px;
+    height: 500px;
+
+    mask-image: url('assets/images/circle.png');
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    cursor: pointer;
+}
+
+.carousel-image {
+    display: flex;
+    justify-content: center;
+    width: 500px;
+    /* height: 500px; */
+}
+
+
+.circle-button {
+    width: var(--home-button-size);
+    height: var(--home-button-size);
+    border-radius: 50%;
+    background-color: #d9d9d9;
+    border: none;
+    position: absolute;
+    top: var(--home-button-from-left);
+    left: var(--home-button-from-left);
+    cursor: pointer;
+    transition: background-color 0.3s;
+    z-index: 10;
+
+}
+
+.circle-button:hover {
+    background-color: #a4a6a4 !important;
+}
+
+#home-label {
+    position: absolute;
+    top: var(--home-button-from-left);
+    left: calc(var(--home-button-from-left) + var(--home-button-size) * 1.3);
+    margin: 0;
+    opacity: 0;
+    transform: translate(-20px, calc(var(--home-button-size) * 0.15));
+    transition: all 0.3s;
+    z-index: 9;
+}
+
+#home-label.visible {
+    transform: translate(0, calc(var(--home-button-size) * 0.15));
+    opacity: 1;
+}
+
+
+.youtube-title {
+    position: absolute;
+    color: #ffffff;
+    z-index: 100;
+    top: calc(50% - 10px);
+    left: calc(50% - 100px);
+    width: 200px;
+    height: 20px;
+    font-size: 20px;
+    margin: 0;
+}
+
+/* ------------------------    ARTWORK-LIST PAGE --------------------------*/
+
+.back-to-list-button {
+    position: absolute;
+    top: var(--back-to-list-button-from-top);
+    left: calc(var(--home-button-from-left) - var(--back-to-list-button-travel-distanceX));
+    transform: scale(0);
+    opacity: 1;
+    transition: opacity 0.5s ease, background-color 0.3s;
+}
+
+.back-to-list-button.visible {
+    animation: bounce-in 1s ease forwards;
+    opacity: 1;
+    animation-delay: 0.3s;
+}
+
+@keyframes bounce-in {
+    0% {
+        transform: scale(0) translate(var(--back-to-list-button-travel-distanceX), var(--back-to-list-button-travel-distanceY));
+        opacity: 1;
+    }
+
+    40% {
+        transform: scale(1.2, 1.1) translate(var(--back-to-list-button-travel-distanceX), var(--back-to-list-button-travel-distanceY));
+    }
+
+    55% {
+        transform: scale(0.9) translate(var(--back-to-list-button-travel-distanceX), var(--back-to-list-button-travel-distanceY));
+    }
+
+    70% {
+        transform: scale(1.05) translate(var(--back-to-list-button-travel-distanceX), var(--back-to-list-button-travel-distanceY));
+    }
+
+    85% {
+        transform: scale(0.98) translate(var(--back-to-list-button-travel-distanceX), var(--back-to-list-button-travel-distanceY));
+    }
+
+    100% {
+        transform: scale(1) translate(var(--back-to-list-button-travel-distanceX), var(--back-to-list-button-travel-distanceY));
+        opacity: 1;
+    }
+}
+
+#back-to-list-label {
+    position: absolute;
+    top: calc(var(--back-to-list-button-from-top) + var(--back-to-list-button-travel-distanceY));
+    left: calc(var(--home-button-from-left) + var(--home-button-size) * 1.3);
+    margin: 0;
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-20px, calc(var(--home-button-size) * 0.15));
+    transition: all 0.3s;
+    z-index: 9;
+}
+
+#back-to-list-label.visible {
+    transform: translate(0, calc(var(--home-button-size) * 0.15));
+    opacity: 1;
+}
+
+.scroll-container {
+    width: 100%;
+    white-space: nowrap;
+    position: relative;
+    padding: 10px 0;
+}
+
+
+#overview-container {
+    position: relative;
+    /* overflow: hidden; */
+}
+
+#overview {
+    position: relative;
+    padding-top: 12vh;
+    height: 88vh;
+    /* padding-top and height must add up to 100vh */
+    z-index: 1;
+}
+
+ul#item-list {
+    width: 20vw;
+    position: absolute;
+    left: var(--item-list-from-left);
+    height: fit-content;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+}
+
+li.item {
+    width: max-content;
+    cursor: pointer;
+    opacity: 1;
+    transition: transform 1s ease, opacity 0.6s ease;
+}
+
+/* This class gets applied to <ul>, and affects its children via descendant selector */
+ul#item-list.slide-left li.item {
+    transform: translate(calc(var(--item-list-from-left)*-1 + var(--home-button-from-left)), -8vh) scale(0.1);
+    opacity: 0;
+    pointer-events: none;
+}
+
+
+#artwork-container {
+    position: absolute;
+    left: var(--art-from-left);
+    border-radius: 0.5%;
+    transition: all 0.75s ease-in-out;
+}
+
+#artwork-container.move-left {
+    transform: translateX(var(--art-adjustment)) scale(1.5);
+}
+
+#outer-rectangle {
+    border-radius: 0.5%;
+    padding: var(--art-frame-width);
+    background-color: black;
+    box-shadow: -10px 10px 10px 0px rgba(0, 0, 0, 0.3);
+    transition: opacity 0.75s ease-in-out;
+}
+
+#outer-rectangle.invisible {
+    opacity: 0;
+}
+
+#inner-rectangle {
+    width: var(--art-subject-width);
+    border-radius: 0.5%;
+    aspect-ratio: 3 / 4;
+    box-shadow: inset -10px 4px 8px rgba(0, 0, 0, 0.3);
+    z-index: 3;
+    transition: background-image 0.3s ease-in-out;
+    opacity: 1;
+    background-size: cover;
+    background-position: center;
+}
+
+#artwork-subject {
+    background-size: cover;
+    background-position: center;
+    width: var(--art-subject-width);
+    aspect-ratio: 3 / 4;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: var(--art-frame-width);
+    z-index: 2;
+    opacity: 0;
+    transition: all 0.5s ease;
+}
+
+#artwork-subject.visible {
+    opacity: 1;
+}
+
+
+#detail {
+    position: relative;
+    display: none;
+    opacity: 0;
+    overflow: visible;
+    white-space: nowrap;
+    text-align: center;
+    z-index: 3;
+    transition: opacity 0.5s ease-in-out;
+}
+
+#detail.visible {
+    display: block;
+    opacity: 1;
+}
+
+#detail-title {
+    position: fixed;
+    top: calc(var(--art-subject-height)/2);
+    opacity: 0;
+    font-size: 8.5vw;
+    letter-spacing: 0.3em;
+    overflow: visible;
+    white-space: nowrap;
+    pointer-events: none;
+    user-select: none;
+    transform: translateY(-600px);
+    transition: transform 0.75s ease-in-out, opacity 0.75s ease-in-out;
+}
+
+#detail-title.visible {
+    transform: translateY(0px);
+    opacity: 0.5;
+}
+
+
+#scroll-suggestor-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.ss {
+    width: var(--home-button-size);
+    height: var(--home-button-size);
+    border-radius: 50%;
+    margin: 5px;
+    background-color: #d9d9d9;
+    border: none;
+    transition: opacity 0.5s ease;
+}
+
+.ss.finished-1 {
+    transform: translateY(-50px);
+}
+
+.ss.finished-2 {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.ss.animation-1 {
+    animation: bounce 1s ease-in-out forwards;
+}
+
+.ss.animation-2 {
+    animation: bounce-2 1s ease forwards;
+}
+
+#ss1 {
+    animation-delay: 0.2s;
+}
+
+#ss2 {
+    animation-delay: 0.1s;
+}
+
+@keyframes bounce {
+
+    0% {
+        transform: translateY(0);
+    }
+
+    40% {
+        transform: scale(0.95, 1.05) translateY(-80px);
+        opacity: 0.8;
+    }
+
+    80% {
+        transform: scale(1.2, 0.8) translateY(-47px);
+    }
+
+    95% {
+        transform: translateY(-55px);
+    }
+
+    100% {
+        transform: translateY(-50px);
+    }
+}
+
+@keyframes bounce-2 {
+
+    0% {
+        transform: translateY(-50px);
+    }
+
+    40% {
+        transform: scale(0.95, 1.05) translateY(-80px);
+        opacity: 0.8;
+    }
+
+    80% {
+        transform: scale(1.2, 0.8) translateY(-47px);
+    }
+
+    95% {
+        transform: translateY(-55px);
+    }
+
+    100% {
+        transform: translateY(-50px);
+    }
+}
+
+
+
+.center-art-section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 10vh;
+    margin-bottom: 10vh;
+    position: relative;
+}
+
+.left-art-section {
+    width: 100%;
+    display: flex;
+    justify-content: left;
+    margin-top: 10vh;
+    margin-bottom: 10vh;
+    position: relative;
+}
+
+.right-art-section {
+    width: 100%;
+    display: flex;
+    justify-content: right;
+    margin-top: 10vh;
+    margin-bottom: 10vh;
+    position: relative;
+}
+
+.desc {
+    width: var(--detail-photo-v-width);
+    white-space: normal;
+    /* allows wrapping (default behavior) */
+    word-wrap: break-word;
+    /* breaks long words to fit in the container */
+    overflow-wrap: break-word;
+    position: absolute;
+    color: white;
+}
+
+#desc-1 {
+    width: 25vw;
+    top: 30vh;
+    left: 2vw;
+    text-align: left;
+    transform: translateX(-30vw);
+    transition: transform 0.7s ease;
+}
+
+#desc-1.visible {
+    transform: translateX(0);
+}
+
+.detail-photo-v {
+    width: var(--detail-photo-v-width);
+    border-radius: 0.5%;
+    aspect-ratio: 3 / 4;
+    background-size: cover;
+    background-position: center;
+}
+
+.detail-photo-v-sm {
+    width: calc(var(--detail-photo-v-width)*0.7);
+    border-radius: 0.5%;
+    aspect-ratio: 3 / 4;
+    background-size: cover;
+    background-position: center;
+}
+
+.detail-photo-h {
+    width: var(--detail-photo-h-width);
+    border-radius: 0.5%;
+    aspect-ratio: 5 / 3;
+    background-size: cover;
+    background-position: center;
+}
+
+#full-art {
+    opacity: 0;
+    transition: opacity 0.7s ease;
+}
+
+#full-art.visible {
+    opacity: 1;
+}
+
+#close-up-art-section {
+    width: 100%;
+    position: relative;
+    margin-left: 5vw;
+    height: calc(var(--detail-photo-h-width)*0.75);
+    opacity: 0;
+    transition: opacity 0.7s ease;
+}
+
+#close-up-art-section.visible {
+    opacity: 1;
+}
+
+#close-up-art-1 {
+    box-shadow: -10px 10px 10px 0px rgba(0, 0, 0, 0.3);
+}
+
+
+#desc-2 {
+    width: 35vw;
+    top: 30vh;
+    right: 10vw;
+    text-align: right;
+    transform: translateX(60vw);
+    transition: transform 0.7s ease;
+}
+
+#desc-2.visible {
+    transform: translateX(0);
+}
+
+#close-up-art-2 {
+    position: absolute;
+    top: calc(var(--detail-photo-v-width)*0.5);
+    left: calc(var(--detail-photo-v-width)*0.5);
+    box-shadow: -10px 10px 10px 0px rgba(0, 0, 0, 0.3);
+}
+
+
+
+#mockup-h-1 {
+    opacity: 0;
+    transition: opacity 0.7s ease;
+}
+
+#mockup-h-1.visible {
+    opacity: 1;
+}
+
+#mockup-v-2 {
+    opacity: 0;
+    transition: opacity 0.7s ease;
+}
+
+#mockup-v-2.visible {
+    opacity: 1;
+}
+
+#mockup-h-2 {
+
+}
+
+
+.video-h {
+    border-radius: 0.5%;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+#video-1 {
+    width: var(--detail-photo-h-width);
+}
+

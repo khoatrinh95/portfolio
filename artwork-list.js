@@ -1,0 +1,285 @@
+// import { doesFileExist } from './utils.js';
+
+const circleHomeButton = document.getElementsByClassName("circle-button")[0];
+const circleBackToListButton = document.getElementsByClassName("circle-button")[1];
+const homeLabel = document.getElementById("home-label");
+const backToListLabel = document.getElementById("back-to-list-label");
+const artWorkContainer = document.getElementById("artwork-container");
+const artWorkFrame = document.getElementById("outer-rectangle");
+const artWork = document.getElementById("inner-rectangle");
+const detailSection = document.getElementById("detail");
+const overviewSection = document.getElementById("overview");
+const detailTitle = document.getElementById("detail-title");
+const artworkSubject = document.getElementById("artwork-subject");
+const list = document.getElementById('item-list');
+const scrollSuggestors = Array.from(document.getElementsByClassName("ss"));
+const detailFullArt = document.getElementById("full-art");
+const closeUpArtSection = document.getElementById("close-up-art-section");
+const closeUpArt1 = document.getElementById("close-up-art-1");
+const closeUpArt2 = document.getElementById("close-up-art-2");
+const video1 = document.getElementById("video-1");
+const videoSource1 = document.getElementById("video-source-1");
+const mockupH1 = document.getElementById("mockup-h-1");
+const mockupV1 = document.getElementById("mockup-v-1");
+const mockupV2 = document.getElementById("mockup-v-2");
+const desc1 = document.getElementById("desc-1");
+const desc2 = document.getElementById("desc-2");
+
+
+
+circleHomeButton.addEventListener('mouseover', () => {
+    homeLabel.classList.add('visible');
+});
+
+circleHomeButton.addEventListener('mouseleave', () => {
+    homeLabel.classList.remove('visible');
+});
+
+circleBackToListButton.addEventListener('mouseover', () => {
+    backToListLabel.classList.add('visible');
+});
+
+circleBackToListButton.addEventListener('mouseleave', () => {
+    backToListLabel.classList.remove('visible');
+});
+
+circleBackToListButton.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.removeEventListener('scroll', onScrollFnc);
+    artWorkContainer.classList.remove('move-left');
+    artWorkFrame.classList.remove('invisible');
+    detailSection.classList.remove('visible');
+    list.classList.remove('slide-left');
+    artworkSubject.classList.remove('visible');
+    detailTitle.classList.remove('visible');
+    circleBackToListButton.classList.remove('visible');
+    backToListLabel.classList.remove('visible');
+});
+
+
+
+fetch('artworks.json')
+    .then(res => res.json())
+    .then(items => {
+
+        index = 0;
+        items.forEach((item, i) => {
+            if (!item.active) {
+                return;
+            }
+
+            const li = document.createElement('li');
+            li.className = 'item';
+            li.textContent = item.title;
+
+            li.style.transitionDelay = `${i * 30}ms`;
+
+            li.addEventListener('mouseover', () => {
+                clearSelection();
+                changeArtwork(li, item);
+            });
+
+            li.addEventListener('click', () => {
+                artWorkContainer.classList.add('move-left');
+                artWorkFrame.classList.add('invisible');
+                detailSection.classList.add('visible');
+                list.classList.add('slide-left');
+                artworkSubject.classList.add('visible');
+                detailTitle.classList.add('visible');
+                circleBackToListButton.classList.add('visible');
+                changeDetailTitle(items[i]);
+                changeDetailPhotos(items[i]);
+                changeDetailVideo(items[i]);
+                changeDescriptions(items[i]);
+                setTimeout(() => {
+                    checkInitialScroll();
+                }, 3000);
+                clearScrollSuggestorsStates();
+
+                onScrollFnc = function () {onScroll(items[i]);
+                };
+                
+                window.removeEventListener('scroll', onScrollFnc);
+                window.addEventListener('scroll',  onScrollFnc);
+            });
+
+            list.appendChild(li);
+        });
+
+
+        // Default showing the first artwork
+        listItems = document.getElementsByClassName("item");
+        changeArtwork(listItems[0], items[0]);
+    })
+    .catch(err => console.error('Error loading JSON:', err));
+
+function clearSelection() {
+    const items = Array.from(document.getElementsByClassName("item"));
+    items.forEach(item => {
+        currentString = item.textContent;
+        item.textContent = currentString.replace("→ ", "");
+    });
+}
+
+function changeArtwork(listItem, item) {
+    changeBackgroundColor(item.backgroundColor)
+    circleHomeButton.style.backgroundColor = item.mainColor;
+    circleBackToListButton.style.backgroundColor = item.mainColor;
+    listItem.textContent = '→ ' + item.title;
+    artWork.style.backgroundImage = `url(assets/artworks/${item.folderName}/full.png)`;
+    artworkSubject.style.backgroundImage = `url(assets/artworks/${item.folderName}/subject.png)`;
+}
+
+function changeDescriptions(item) {
+    desc1.textContent = item.desc1;
+    desc2.textContent = item.desc2;
+}
+
+function changeDetailTitle(item) {
+    detailTitle.textContent = item.title;
+    detailTitle.style.color = item.mainColor;
+}
+
+function changeDetailPhotos(item) {
+    detailFullArt.style.backgroundImage = `url(assets/artworks/${item.folderName}/mockup-v-1.png)`;
+    // detailFullArt.style.backgroundImage = `url(assets/artworks/${item.folderName}/full.png)`;
+
+    closeUpArt1.style.backgroundImage = `url(assets/artworks/${item.folderName}/detail-1.png)`;
+    closeUpArt2.style.backgroundImage = `url(assets/artworks/${item.folderName}/detail-2.png)`;
+    mockupH1.style.backgroundImage = `url(assets/artworks/${item.folderName}/mockup-h-1.png)`;
+    // mockupV1.style.backgroundImage = `url(assets/artworks/${item.folderName}/mockup-v-1.png)`;
+    mockupV2.style.backgroundImage = `url(assets/artworks/${item.folderName}/mockup-v-2.png)`;
+}
+
+function changeDetailVideo(item) {
+    const file = `assets/artworks/${item.folderName}/video.mov`;
+    // fileExists = doesFileExist(file)
+    video1.src = file;
+    video1.load();
+}
+
+function onScroll(item) {
+    fadeDetailTitle();
+    fadeBackgroundColor(item);
+    fadeSections();
+}
+
+function changeBackgroundColor(color){
+    document.body.style.backgroundColor = color;
+}
+
+function fadeBackgroundColor(item){
+    const scrollPercent = Math.min(getScrollPercent() / 100, 1);
+    if (scrollPercent > 0.1) {
+        changeBackgroundColor('#000000');
+    } else {
+        changeBackgroundColor(item.backgroundColor);    
+    }
+    
+}
+
+function fadeDetailTitle() {
+    const scrollPercent = Math.min(getScrollPercent() / 100, 1);
+    const opacity = Math.max((1 - scrollPercent*2) * 0.5, 0.1);
+    detailTitle.style.opacity = opacity;
+}
+
+function fadeSections() {
+    const scrollPercent = Math.min(getScrollPercent() / 100, 1);
+    if (scrollPercent > 0.1) {
+        desc1.classList.add("visible");
+        detailFullArt.classList.add("visible");
+      
+    } else {
+        desc1.classList.remove("visible");
+        detailFullArt.classList.remove("visible");
+    }
+
+    if (scrollPercent > 0.25) {
+        desc2.classList.add("visible");
+        closeUpArtSection.classList.add("visible");
+        
+    } else {
+        desc2.classList.remove("visible");
+        closeUpArtSection.classList.remove("visible");
+    }
+
+    if (scrollPercent > 0.65) {
+        mockupH1.classList.add("visible");        
+    } else {
+        mockupH1.classList.remove("visible");
+    }
+
+    if (scrollPercent > 0.85) {
+        mockupV2.classList.add("visible");        
+    } else {
+        mockupV2.classList.remove("visible");
+    }
+}
+
+let animationInterval;
+
+function startRepeatingBounce(ss) {
+    animationInterval = setInterval(() => {
+        ss.classList.remove('animation-2'); // reset
+            void ss.offsetWidth; // force reflow
+            ss.classList.add('animation-2');
+    }, 5000);
+}
+
+function stopRepeatingBounceOnScroll() {
+    const scrollPercent = getScrollPercent();
+
+    if (scrollPercent > 20) {
+        clearInterval(animationInterval);
+        window.removeEventListener('scroll', stopRepeatingBounceOnScroll);
+
+        // Optionally fade out or remove the suggestors
+        scrollSuggestors.forEach(ss => {
+            ss.classList.remove('animation-1');
+            ss.classList.remove('animation-2');
+            ss.classList.add('finished-2');
+        });
+    }
+}
+
+function checkInitialScroll() {
+    const scrollPercent = getScrollPercent();
+
+    if (scrollPercent > 20) {
+        console.log("User has scrolled");
+        scrollSuggestors.forEach(ss => {
+            ss.classList.add('finished-2');
+        });
+    } else {
+        console.log("User has not scrolled");
+        scrollSuggestors.forEach(ss => {
+            ss.classList.add('animation-1');
+            ss.addEventListener('animationend', function handler() {
+                ss.classList.remove('animation-1');
+                ss.classList.add('finished-1'); // "bake in" final transform
+                ss.removeEventListener('animationend', handler); // prevent repeats
+            });
+        });
+
+        setTimeout(() => {
+            startRepeatingBounce(scrollSuggestors[0]);
+            window.addEventListener('scroll', stopRepeatingBounceOnScroll);
+        }, 3000);
+    }
+}
+
+function clearScrollSuggestorsStates() {
+    scrollSuggestors.forEach(ss => {
+        ss.classList.remove('animation-1');
+        ss.classList.remove('animation-2');
+        ss.classList.remove('finished-1');
+        ss.classList.remove('finished-2');
+    });
+}
+
+function getScrollPercent() {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    return (scrollTop / docHeight) * 100;
+}
