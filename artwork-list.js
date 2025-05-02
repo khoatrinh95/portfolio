@@ -1,4 +1,4 @@
-// import { doesFileExist } from './utils.js';
+import { doesFileExist } from './utils.js';
 
 const circleHomeButton = document.getElementsByClassName("circle-button")[0];
 const circleBackToListButton = document.getElementsByClassName("circle-button")[1];
@@ -43,6 +43,8 @@ circleBackToListButton.addEventListener('mouseleave', () => {
     backToListLabel.classList.remove('visible');
 });
 
+let onScrollFnc = null;
+
 circleBackToListButton.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     window.removeEventListener('scroll', onScrollFnc);
@@ -62,7 +64,6 @@ fetch('artworks.json')
     .then(res => res.json())
     .then(items => {
 
-        index = 0;
         items.forEach((item, i) => {
             if (!item.active) {
                 return;
@@ -108,7 +109,7 @@ fetch('artworks.json')
 
 
         // Default showing the first artwork
-        listItems = document.getElementsByClassName("item");
+        let listItems = document.getElementsByClassName("item");
         changeArtwork(listItems[0], items[0]);
     })
     .catch(err => console.error('Error loading JSON:', err));
@@ -116,7 +117,7 @@ fetch('artworks.json')
 function clearSelection() {
     const items = Array.from(document.getElementsByClassName("item"));
     items.forEach(item => {
-        currentString = item.textContent;
+        let currentString = item.textContent;
         item.textContent = currentString.replace("→ ", "");
     });
 }
@@ -151,12 +152,19 @@ function changeDetailPhotos(item) {
     mockupV2.style.backgroundImage = `url(assets/artworks/${item.folderName}/mockup-v-2.png)`;
 }
 
-function changeDetailVideo(item) {
-    const file = `assets/artworks/${item.folderName}/video.mov`;
-    // fileExists = doesFileExist(file)
+async function changeDetailVideo(item) {
+  const file = `assets/artworks/${item.folderName}/video.mov`;
+  const exists = await doesFileExist(file);
+
+  if (exists) {
     video1.src = file;
+    video1.style.display = 'block'; // or '' to reset to CSS default
     video1.load();
+  } else {
+    video1.style.display = 'none';
+  }
 }
+
 
 function onScroll(item) {
     fadeDetailTitle();
