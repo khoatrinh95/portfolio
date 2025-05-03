@@ -24,6 +24,9 @@ const mockupV1 = document.getElementById("mockup-v-1");
 const mockupV2 = document.getElementById("mockup-v-2");
 const desc1 = document.getElementById("desc-1");
 const desc2 = document.getElementById("desc-2");
+const circleFooters = Array.from(document.getElementsByClassName("circle-footer"));
+const footer = document.getElementsByClassName("footer")[0];
+const mixCircleFooter = document.getElementById("mix-circle-footer");
 
 
 
@@ -58,7 +61,16 @@ circleBackToListButton.addEventListener('click', () => {
     backToListLabel.classList.remove('visible');
 });
 
-
+footer.addEventListener('mouseover', () => {
+    moveLogoCircles();
+})
+footer.addEventListener('mouseleave', () => {
+    const scrollPercent = Math.min(getScrollPercent() / 100, 1);
+    if (scrollPercent > 0.98) {
+        return;
+    }
+    unmoveLogoCircles();
+})
 
 fetch('artworks.json')
     .then(res => res.json())
@@ -170,6 +182,7 @@ function onScroll(item) {
     fadeDetailTitle();
     fadeBackgroundColor(item);
     fadeSections();
+    expandFooter();
 }
 
 function changeBackgroundColor(color){
@@ -225,6 +238,29 @@ function fadeSections() {
     }
 }
 
+function moveLogoCircles() {
+    circleFooters.forEach(cf => {
+        cf.classList.add("visible");
+    })
+    mixCircleFooter.classList.add("visible");
+}
+
+function unmoveLogoCircles() {
+    circleFooters.forEach(cf => {
+        cf.classList.remove("visible");
+    })
+    mixCircleFooter.classList.remove("visible");
+}
+
+function expandFooter() {
+    const scrollPercent = Math.min(getScrollPercent() / 100, 1);
+    if (scrollPercent > 0.98) {
+        moveLogoCircles();
+    } else {
+        unmoveLogoCircles();
+    }
+}
+
 let animationInterval;
 
 function startRepeatingBounce(ss) {
@@ -238,7 +274,7 @@ function startRepeatingBounce(ss) {
 function stopRepeatingBounceOnScroll() {
     const scrollPercent = getScrollPercent();
 
-    if (scrollPercent > 20) {
+    if (scrollPercent > 10) {
         clearInterval(animationInterval);
         window.removeEventListener('scroll', stopRepeatingBounceOnScroll);
 
@@ -254,7 +290,7 @@ function stopRepeatingBounceOnScroll() {
 function checkInitialScroll() {
     const scrollPercent = getScrollPercent();
 
-    if (scrollPercent > 20) {
+    if (scrollPercent > 10) {
         console.log("User has scrolled");
         scrollSuggestors.forEach(ss => {
             ss.classList.add('finished-2');
