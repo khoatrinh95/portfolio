@@ -1,4 +1,8 @@
 :root {
+    /* colors */
+    --dark-grey: #a4a6a4;
+
+
     /* artwork size */
     --art-subject-width: 30vw;
     --art-subject-height: 40vh;
@@ -9,7 +13,7 @@
     --art-adjustment: calc(-1 * (var(--art-subject-width) * 0.5 + var(--art-from-left) - 48.5vw));
 
     /* home button*/
-    --home-button-from-left: 1vw;
+    --home-button-from-left: 10px;
     --home-button-size: 20px;
 
     /* item list*/
@@ -18,10 +22,9 @@
     /* back to list button*/
     --back-to-list-button-from-top: 9vh;
     --back-to-list-button-travel-distanceX: -11vw;
-    --back-to-list-button-travel-distanceY: calc((9vh - 1vw - 20px - 12px) * -1); 
+    --back-to-list-button-travel-distanceY: calc((9vh - var(--home-button-from-left) - 20px - 12px) * -1); 
     /* calc:
     9vh: distance from top
-    1vh: gap between home button and top
     20px: home button size
     12px: gap between back-to-list btn and home btn 
     -1: travel upward */
@@ -53,11 +56,14 @@ body {
     display: flex;
     justify-content: right;
     z-index: 5;
+    top: 8px; /* need to declare top explicit bc not sure why in the homepage, top is 16px ?? -> To be investigated*/
 }
 
-#top-right-title {
+.top-right-title {
     position: absolute;
-    right: 20px;
+    right: 30px;
+    top: var(--home-button-from-left);
+    margin: 0;
 }
 
 #hovered-item {
@@ -196,7 +202,7 @@ body {
 }
 
 .circle-button:hover {
-    background-color: #a4a6a4 !important;
+    background-color: var(--dark-grey) !important;
 }
 
 #home-label {
@@ -208,6 +214,7 @@ body {
     transform: translate(-20px, calc(var(--home-button-size) * 0.15));
     transition: all 0.3s;
     z-index: 9;
+    color: white;
 }
 
 #home-label.visible {
@@ -228,7 +235,29 @@ body {
     margin: 0;
 }
 
-/* ------------------------    ARTWORK-LIST PAGE --------------------------*/
+/* ----------------------------------------------    ARTWORK-LIST PAGE ----------------------------------------------------*/
+
+.shop-label {
+    color: white;
+    cursor: pointer;
+}
+
+.shop-label::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    height: 1px;
+    width: 100%;
+    background-color: white; /* underline color */
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+
+.shop-label:hover::after {
+    transform: scaleX(1);
+  }
 
 .back-to-list-button {
     position: absolute;
@@ -283,6 +312,7 @@ body {
     transform: translate(-20px, calc(var(--home-button-size) * 0.15));
     transition: all 0.3s;
     z-index: 9;
+    color: white;
 }
 
 #back-to-list-label.visible {

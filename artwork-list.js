@@ -27,8 +27,10 @@ const desc2 = document.getElementById("desc-2");
 const circleFooters = Array.from(document.getElementsByClassName("circle-footer"));
 const footer = document.getElementsByClassName("footer")[0];
 const mixCircleFooter = document.getElementById("mix-circle-footer");
+const shopLabel = Array.from(document.getElementsByClassName("shop-label"))[0];
 
-
+let onScrollFnc = null;
+let handleClickShopLabel = null;
 
 circleHomeButton.addEventListener('mouseover', () => {
     homeLabel.classList.add('visible');
@@ -46,7 +48,9 @@ circleBackToListButton.addEventListener('mouseleave', () => {
     backToListLabel.classList.remove('visible');
 });
 
-let onScrollFnc = null;
+resetShopLabel();
+
+
 
 circleBackToListButton.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -59,6 +63,7 @@ circleBackToListButton.addEventListener('click', () => {
     detailTitle.classList.remove('visible');
     circleBackToListButton.classList.remove('visible');
     backToListLabel.classList.remove('visible');
+    resetShopLabel();
 });
 
 footer.addEventListener('mouseover', () => {
@@ -104,6 +109,7 @@ fetch('artworks.json')
                 changeDetailPhotos(items[i]);
                 changeDetailVideo(items[i]);
                 changeDescriptions(items[i]);
+                changeShopLabel(items[i]);
                 setTimeout(() => {
                     checkInitialScroll();
                 }, 3000);
@@ -197,6 +203,24 @@ function fadeBackgroundColor(item){
         changeBackgroundColor(item.backgroundColor);    
     }
     
+}
+
+function changeShopLabel(item) {
+    shopLabel.textContent= "Shop this print";
+    shopLabel.removeEventListener("click", handleClickShopLabel);
+    handleClickShopLabel = function () {
+        window.open(item.etsyLink,'_blank');
+    };
+    shopLabel.addEventListener("click", handleClickShopLabel);
+}
+
+function resetShopLabel() {
+    shopLabel.textContent= "Shop";
+    shopLabel.removeEventListener("click", handleClickShopLabel);
+    handleClickShopLabel = function () {
+        window.open('https://dashausvonquoi.etsy.com','_blank');
+    };
+    shopLabel.addEventListener("click", handleClickShopLabel);
 }
 
 function fadeDetailTitle() {

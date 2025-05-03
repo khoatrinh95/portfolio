@@ -1,6 +1,7 @@
 [
   {
     "title": "Melting King",
+    "etsyLink": "https://www.etsy.com/ca/listing/1897008591/melting-chrome-king-chess-piece-bold",
     "active": true,
     "backgroundColor": "#CF7243",
     "mainColor": "#D7582B",
@@ -10,6 +11,7 @@
   },
   {
     "title": "Pixel Memories",
+    "etsyLink": "https://www.etsy.com/ca/listing/1901877643/pixel-memories-hyper-realistic",
     "active": true,
     "backgroundColor": "#536E49",
     "mainColor": "#314D27",
@@ -19,6 +21,7 @@
   },
   {
     "title": "Gentle Embrace",
+    "etsyLink": "https://www.etsy.com/ca/listing/1878375139/gentle-embrace-manatee-hugging-a-diver",
     "active": true,
     "backgroundColor": "#CE7F89",
     "mainColor": "#A54A5B",
@@ -28,6 +31,7 @@
   },
   {
     "title": "Rising Beyond The Deep",
+    "etsyLink": "https://www.etsy.com/ca/listing/1861412114/rising-beyond-the-deep-anglerfish-art",
     "active": true,
     "backgroundColor": "#4589B6",
     "mainColor": "#0E486E",
@@ -37,6 +41,7 @@
   },
   {
     "title": "The Timeless Motorcycle",
+    "etsyLink": "https://www.etsy.com/ca/listing/1858946956/the-timeless-motorcycle-a-nostalgic",
     "active": true,
     "backgroundColor": "#6F747A",
     "mainColor": "#536E49",
@@ -46,6 +51,7 @@
   },
   {
     "title": "Everything Bagel",
+    "etsyLink": "https://www.etsy.com/ca/listing/1838050762/everything-bagel-print-bauhaus-inspired",
     "active": true,
     "backgroundColor": "#D6A783",
     "mainColor": "#BE513D",
@@ -55,6 +61,7 @@
   },
   {
     "title": "Golden Hour",
+    "etsyLink": "https://www.etsy.com/ca/listing/1853716061/golden-hour-minimalist-sunset-art",
     "active": true,
     "backgroundColor": "#BC99A0",
     "mainColor": "#5D3017",
@@ -64,6 +71,7 @@
   },
   {
     "title": "The Matcha Wave",
+    "etsyLink": "https://www.etsy.com/ca/listing/1869654287/the-matcha-wave-a-tribute-to-tradition-o",
     "active": true,
     "backgroundColor": "#A6BE9E",
     "mainColor": "#70362A",
@@ -73,6 +81,7 @@
   },
   {
     "title": "Summer Lantern",
+    "etsyLink": "https://www.etsy.com/ca/listing/1843602716/summer-lanterns-memories-of-the",
     "active": true,
     "backgroundColor": "#E6D9BD",
     "mainColor": "#DFAA64",
@@ -82,6 +91,7 @@
   },
   {
     "title": "Man on the Moon",
+    "etsyLink": "https://www.etsy.com/ca/listing/1854127629/man-on-the-moon-a-journey-through",
     "active": true,
     "backgroundColor": "#C89962",
     "mainColor": "#B95413",
@@ -91,6 +101,7 @@
   },
   {
     "title": "Pink Note",
+    "etsyLink": "https://www.etsy.com/ca/listing/1901877643/pixel-memories-hyper-realistic",
     "active": false,
     "backgroundColor": "#D07A8E",
     "mainColor": "#D25A73",
