@@ -27,6 +27,7 @@ const circleFooters = Array.from(document.getElementsByClassName("circle-footer"
 const footer = document.getElementsByClassName("footer")[0];
 const mixCircleFooter = document.getElementById("mix-circle-footer");
 const shopLabel = Array.from(document.getElementsByClassName("shop-label"))[0];
+const getInTouchLabel = document.getElementById("l3");
 
 let onScrollFnc = null;
 let handleClickShopLabel = null;
@@ -46,6 +47,10 @@ circleBackToListButton.addEventListener('mouseover', () => {
 circleBackToListButton.addEventListener('mouseleave', () => {
     backToListLabel.classList.remove('visible');
 });
+
+getInTouchLabel.addEventListener('click', () => {
+    window.location.href = "mailto:dashausvonquoi@gmail.com";
+})
 
 resetShopLabel();
 
@@ -288,6 +293,7 @@ function stopRepeatingBounceOnScroll() {
     if (scrollPercent > 10) {
         clearInterval(animationInterval);
         window.removeEventListener('scroll', stopRepeatingBounceOnScroll);
+        circleFooters[0].classList.remove('animation');
     }
 }
 
