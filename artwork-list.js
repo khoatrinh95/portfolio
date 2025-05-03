@@ -12,7 +12,6 @@ const overviewSection = document.getElementById("overview");
 const detailTitle = document.getElementById("detail-title");
 const artworkSubject = document.getElementById("artwork-subject");
 const list = document.getElementById('item-list');
-const scrollSuggestors = Array.from(document.getElementsByClassName("ss"));
 const detailFullArt = document.getElementById("full-art");
 const closeUpArtSection = document.getElementById("close-up-art-section");
 const closeUpArt1 = document.getElementById("close-up-art-1");
@@ -113,7 +112,6 @@ fetch('artworks.json')
                 setTimeout(() => {
                     checkInitialScroll();
                 }, 3000);
-                clearScrollSuggestorsStates();
 
                 onScrollFnc = function () {onScroll(items[i]);
                 };
@@ -161,12 +159,9 @@ function changeDetailTitle(item) {
 
 function changeDetailPhotos(item) {
     detailFullArt.style.backgroundImage = `url(assets/artworks/${item.folderName}/mockup-v-1.png)`;
-    // detailFullArt.style.backgroundImage = `url(assets/artworks/${item.folderName}/full.png)`;
-
     closeUpArt1.style.backgroundImage = `url(assets/artworks/${item.folderName}/detail-1.png)`;
     closeUpArt2.style.backgroundImage = `url(assets/artworks/${item.folderName}/detail-2.png)`;
     mockupH1.style.backgroundImage = `url(assets/artworks/${item.folderName}/mockup-h-1.png)`;
-    // mockupV1.style.backgroundImage = `url(assets/artworks/${item.folderName}/mockup-v-1.png)`;
     mockupV2.style.backgroundImage = `url(assets/artworks/${item.folderName}/mockup-v-2.png)`;
 }
 
@@ -231,7 +226,7 @@ function fadeDetailTitle() {
 
 function fadeSections() {
     const scrollPercent = Math.min(getScrollPercent() / 100, 1);
-    if (scrollPercent > 0.1) {
+    if (scrollPercent > 0.075) {
         desc1.classList.add("visible");
         detailFullArt.classList.add("visible");
       
@@ -287,64 +282,33 @@ function expandFooter() {
 
 let animationInterval;
 
-function startRepeatingBounce(ss) {
-    animationInterval = setInterval(() => {
-        ss.classList.remove('animation-2'); // reset
-            void ss.offsetWidth; // force reflow
-            ss.classList.add('animation-2');
-    }, 5000);
-}
-
 function stopRepeatingBounceOnScroll() {
     const scrollPercent = getScrollPercent();
 
     if (scrollPercent > 10) {
         clearInterval(animationInterval);
         window.removeEventListener('scroll', stopRepeatingBounceOnScroll);
-
-        // Optionally fade out or remove the suggestors
-        scrollSuggestors.forEach(ss => {
-            ss.classList.remove('animation-1');
-            ss.classList.remove('animation-2');
-            ss.classList.add('finished-2');
-        });
     }
 }
 
 function checkInitialScroll() {
+    const movingCircle = circleFooters[0];
     const scrollPercent = getScrollPercent();
-
     if (scrollPercent > 10) {
-        console.log("User has scrolled");
-        scrollSuggestors.forEach(ss => {
-            ss.classList.add('finished-2');
-        });
+        return;
     } else {
-        console.log("User has not scrolled");
-        scrollSuggestors.forEach(ss => {
-            ss.classList.add('animation-1');
-            ss.addEventListener('animationend', function handler() {
-                ss.classList.remove('animation-1');
-                ss.classList.add('finished-1'); // "bake in" final transform
-                ss.removeEventListener('animationend', handler); // prevent repeats
-            });
-        });
+        movingCircle.classList.add("animation");
 
-        setTimeout(() => {
-            startRepeatingBounce(scrollSuggestors[0]);
-            window.addEventListener('scroll', stopRepeatingBounceOnScroll);
-        }, 3000);
+        animationInterval = setInterval(() => {
+            movingCircle.classList.remove('animation'); // reset
+            void movingCircle.offsetWidth; // force reflow
+            movingCircle.classList.add('animation');
+        }, 5000);
+
+        window.addEventListener('scroll', stopRepeatingBounceOnScroll);
     }
 }
 
-function clearScrollSuggestorsStates() {
-    scrollSuggestors.forEach(ss => {
-        ss.classList.remove('animation-1');
-        ss.classList.remove('animation-2');
-        ss.classList.remove('finished-1');
-        ss.classList.remove('finished-2');
-    });
-}
 
 function getScrollPercent() {
     const scrollTop = window.scrollY || document.documentElement.scrollTop
