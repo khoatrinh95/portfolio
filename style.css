@@ -450,7 +450,7 @@ ul#item-list.slide-left li.item {
     white-space: nowrap;
     pointer-events: none;
     user-select: none;
-    transform: translateY(-600px);
+    transform: translateY(-70vh);
     transition: transform 0.75s ease-in-out, opacity 0.75s ease-in-out;
 }
 
