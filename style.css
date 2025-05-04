@@ -66,6 +66,25 @@ body {
     margin: 0;
 }
 
+.circle-button {
+    width: var(--home-button-size);
+    height: var(--home-button-size);
+    border-radius: 50%;
+    background-color: #d9d9d9;
+    border: none;
+    position: absolute;
+    top: var(--home-button-from-left);
+    left: var(--home-button-from-left);
+    cursor: pointer;
+    transition: background-color 0.3s;
+    z-index: 10;
+
+}
+
+.circle-button:hover {
+    background-color: var(--dark-grey) !important;
+}
+
 #hovered-item {
     position: relative;
     top: 10vh;
@@ -191,26 +210,6 @@ body {
     /* height: 500px; */
 }
 
-
-.circle-button {
-    width: var(--home-button-size);
-    height: var(--home-button-size);
-    border-radius: 50%;
-    background-color: #d9d9d9;
-    border: none;
-    position: absolute;
-    top: var(--home-button-from-left);
-    left: var(--home-button-from-left);
-    cursor: pointer;
-    transition: background-color 0.3s;
-    z-index: 10;
-
-}
-
-.circle-button:hover {
-    background-color: var(--dark-grey) !important;
-}
-
 #home-label {
     position: absolute;
     top: var(--home-button-from-left);
@@ -241,7 +240,13 @@ body {
     margin: 0;
 }
 
-/* ----------------------------------------------    ARTWORK-LIST PAGE ----------------------------------------------------*/
+/* 
+------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------    ARTWORK-LIST PAGE ----------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------
+*/
 
 .shop-label {
     color: white;
@@ -783,4 +788,91 @@ ul#item-list.slide-left li.item {
 
 #l3 {
     opacity: 1;
+}
+
+/* 
+------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------    ABOUT-ME PAGE ----------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------
+*/
+
+#circle-button-about-me {
+    background-color: black;
+}
+
+.vertical-space {
+    width: 100%;
+    height: 5vh;
+}
+
+#top-bar-about-me {
+    left: 8px
+}
+
+
+#about-me-section {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    transform: translateY(100vh);
+    opacity: 1;
+    /* background-color: white; */
+    transition: all 2s ease;
+    display: flex;
+    justify-content: space-between;
+}
+
+#about-me-section.visible {
+    transform: translateY(0);
+}
+
+#about-me-background {
+    background-color: #d9d9d9;
+    width: 100%;
+    height: 100%;
+    opacity: 0.9;
+    position: absolute;
+    z-index: 0;
+}
+
+#about-me-text {
+    position: relative;
+    z-index: 1;
+    text-align: left;
+    width: 50vw;
+    padding-top: 10vh;
+    padding-left: 3vw;
+    overflow-y: scroll;
+    font-size: 16px;
+}
+
+#about-me-photo-container {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#about-me-photo {
+    width: 40vw;
+    margin: 3vw;
+    box-shadow: 10px 10px 10px 0px rgba(0, 0, 0, 0.3);
+}
+
+#logo-bottom {
+    height: 12px;
+}
+
+.bold-text {
+    font-weight:bolder;
+}
+
+.italic-text {
+    font-style: italic;
 }

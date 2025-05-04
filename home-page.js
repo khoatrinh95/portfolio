@@ -3,6 +3,9 @@ const aboutMeCircles = document.querySelectorAll("#circle-about-me");
 const mixCircles = document.querySelectorAll(".mix-circle");
 const displayText = document.querySelector("p#hovered-item");
 const customCursor = document.getElementById("custom-cursor");
+const aboutMeSection = document.getElementById("about-me-section");
+const aboutMeExit = document.getElementById("top-bar-about-me");
+const circleButtonHome = document.querySelectorAll(".mix-circle");
 
 artCircles.forEach(circle => {
   circle.addEventListener('mouseenter', () => {
@@ -16,6 +19,9 @@ artCircles.forEach(circle => {
   });
   circle.addEventListener('mousemove', (e) => {
     cursorMovement(e);
+  });
+  circle.addEventListener('click', () => {
+    window.location.href='artwork-list.html';
   });
 })
 
@@ -32,6 +38,10 @@ aboutMeCircles.forEach(circle => {
   circle.addEventListener('mousemove', (e) => {
     cursorMovement(e);
   });
+  circle.addEventListener('click', () => {
+    aboutMeSection.classList.add("visible");
+    
+  });
 })
 
 mixCircles.forEach(circle => {
@@ -47,6 +57,13 @@ mixCircles.forEach(circle => {
   circle.addEventListener('mousemove', (e) => {
     cursorMovement(e);
   });
+  circle.addEventListener('click', () => {
+    window.open('https://www.youtube.com/@LifeOfQuoi','_blank');
+  });
+})
+
+aboutMeExit.addEventListener('click', () => {
+  aboutMeSection.classList.remove("visible");
 })
 
 function cursorMovement(e) {
