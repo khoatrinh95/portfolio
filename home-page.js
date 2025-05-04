@@ -15,8 +15,7 @@ artCircles.forEach(circle => {
     customCursor.style.display = "none";
   });
   circle.addEventListener('mousemove', (e) => {
-    customCursor.style.left = `${e.clientX + 10}px`;
-    customCursor.style.top = `${e.clientY + 10}px`;
+    cursorMovement(e);
   });
 })
 
@@ -31,8 +30,7 @@ aboutMeCircles.forEach(circle => {
     customCursor.style.display = "none";
   });
   circle.addEventListener('mousemove', (e) => {
-    customCursor.style.left = `${e.clientX + 10}px`;
-    customCursor.style.top = `${e.clientY + 10}px`;
+    cursorMovement(e);
   });
 })
 
@@ -47,10 +45,11 @@ mixCircles.forEach(circle => {
     customCursor.style.display = "none";
   });
   circle.addEventListener('mousemove', (e) => {
-    customCursor.style.left = `${e.clientX + 10}px`;
-    customCursor.style.top = `${e.clientY + 10}px`;
+    cursorMovement(e);
   });
 })
 
-
-
+function cursorMovement(e) {
+  customCursor.style.left = `${e.clientX - 20}px`;
+  customCursor.style.top = `${e.clientY + 30}px`;
+}
