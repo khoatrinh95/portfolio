@@ -72,6 +72,12 @@ body {
 
 }
 
+#custom-cursor {
+    position: fixed;
+    z-index: 100;
+    color: white;
+}
+
 .main-carousel {
     position: fixed;
     bottom: 10px;
@@ -122,7 +128,6 @@ body {
     mask-size: contain;
     mask-repeat: no-repeat;
     mask-position: center;
-    cursor: pointer;
 }
 
 
