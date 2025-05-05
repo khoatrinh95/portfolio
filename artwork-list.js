@@ -28,6 +28,10 @@ const footer = document.getElementsByClassName("footer")[0];
 const mixCircleFooter = document.getElementById("mix-circle-footer");
 const shopLabel = Array.from(document.getElementsByClassName("shop-label"))[0];
 const getInTouchLabel = document.getElementById("l3");
+const aboutMeLabel = document.getElementById("l1");
+const aboutMeSection = document.getElementById("about-me-section");
+const aboutMeExit = document.getElementById("top-bar-about-me");
+
 
 let onScrollFnc = null;
 let handleClickShopLabel = null;
@@ -51,6 +55,14 @@ circleBackToListButton.addEventListener('mouseleave', () => {
 getInTouchLabel.addEventListener('click', () => {
     window.location.href = "mailto:dashausvonquoi@gmail.com";
 })
+
+aboutMeLabel.addEventListener('click', () => {
+    aboutMeSection.classList.add("visible");
+})
+
+aboutMeExit.addEventListener('click', () => {
+    aboutMeSection.classList.remove("visible");
+  })
 
 resetShopLabel();
 
