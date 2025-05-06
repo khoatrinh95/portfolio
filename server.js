@@ -11,7 +11,7 @@ app.use(express.static(path.join(__dirname)));
 
 // Serve the homepage
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'home-page.html'));
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 // Special handling for video files (for Safari range requests)
