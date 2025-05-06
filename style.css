@@ -124,7 +124,7 @@ body {
 }
 
 .mix-circle-drop-shadow {
-    background-image: url('assets/images/mix-circle.png');
+    background-image: url('assets/images/mix-circle.webp');
     /* filter: drop-shadow(0 0 30px transparent); */
 }
 
@@ -139,11 +139,7 @@ body {
     width: 1426px;
     padding: 0;
     margin: 0;
-    /* background: url('assets/videos/for-figma-15-480.mov'); */
-
-    /* -webkit-mask-image: url('assets/images/mix-circle.png'); */
-    /* PNG or SVG with transparency */
-    mask-image: url('assets/images/mix-circle.png');
+    mask-image: url('assets/images/mix-circle.webp');
     mask-size: contain;
     mask-repeat: no-repeat;
     mask-position: center;
@@ -196,7 +192,7 @@ body {
     width: 500px;
     height: 500px;
 
-    mask-image: url('assets/images/circle.png');
+    mask-image: url('assets/images/circle.webp');
     mask-size: contain;
     mask-repeat: no-repeat;
     mask-position: center;
@@ -665,7 +661,7 @@ ul#item-list.slide-left li.item {
 
 #mix-circle-footer {
     width: calc(15px * 2.852); /* 2.852 is the ratio of the mixed circle*/
-    mask-image: url('assets/images/mix-circle.png');
+    mask-image: url('assets/images/mix-circle.webp');
     mask-size: contain;
     mask-repeat: no-repeat;
     mask-position: center;
@@ -678,7 +674,7 @@ ul#item-list.slide-left li.item {
 }
 
 .circle-footer {
-    mask-image: url('assets/images/circle.png');
+    mask-image: url('assets/images/circle.webp');
     mask-size: contain;
     mask-repeat: no-repeat;
     mask-position: center;

@@ -160,8 +160,8 @@ function changeArtwork(listItem, item) {
     circleHomeButton.style.backgroundColor = item.mainColor;
     circleBackToListButton.style.backgroundColor = item.mainColor;
     listItem.textContent = '→ ' + item.title;
-    artWork.style.backgroundImage = `url(assets/artworks/${item.folderName}/full.png)`;
-    artworkSubject.style.backgroundImage = `url(assets/artworks/${item.folderName}/subject.png)`;
+    artWork.style.backgroundImage = `url(assets/artworks/${item.folderName}/full.webp)`;
+    artworkSubject.style.backgroundImage = `url(assets/artworks/${item.folderName}/subject.webp)`;
 }
 
 function changeDescriptions(item) {
@@ -175,11 +175,11 @@ function changeDetailTitle(item) {
 }
 
 function changeDetailPhotos(item) {
-    detailFullArt.style.backgroundImage = `url(assets/artworks/${item.folderName}/mockup-v-1.png)`;
-    closeUpArt1.style.backgroundImage = `url(assets/artworks/${item.folderName}/detail-1.png)`;
-    closeUpArt2.style.backgroundImage = `url(assets/artworks/${item.folderName}/detail-2.png)`;
-    mockupH1.style.backgroundImage = `url(assets/artworks/${item.folderName}/mockup-h-1.png)`;
-    mockupV2.style.backgroundImage = `url(assets/artworks/${item.folderName}/mockup-v-2.png)`;
+    detailFullArt.style.backgroundImage = `url(assets/artworks/${item.folderName}/mockup-v-1.webp)`;
+    closeUpArt1.style.backgroundImage = `url(assets/artworks/${item.folderName}/detail-1.webp)`;
+    closeUpArt2.style.backgroundImage = `url(assets/artworks/${item.folderName}/detail-2.webp)`;
+    mockupH1.style.backgroundImage = `url(assets/artworks/${item.folderName}/mockup-h-1.webp)`;
+    mockupV2.style.backgroundImage = `url(assets/artworks/${item.folderName}/mockup-v-2.webp)`;
 }
 
 async function changeDetailVideo(item) {
