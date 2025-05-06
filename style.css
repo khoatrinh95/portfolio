@@ -812,19 +812,17 @@ ul#item-list.slide-left li.item {
     width: 100%;
     height: 100%;
     position: fixed;
-    top: 0;
+    top: 100vh;
     left: 0;
     z-index: 10;
-    transform: translateY(100vh);
     opacity: 1;
-    /* background-color: white; */
     transition: all 2s ease-in-out;
     display: flex;
     justify-content: space-between;
 }
 
 #about-me-section.visible {
-    transform: translateY(0);
+    transform: translateY(-100vh);
 }
 
 #about-me-background {
