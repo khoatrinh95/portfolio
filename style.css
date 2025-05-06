@@ -815,7 +815,7 @@ ul#item-list.slide-left li.item {
     top: 100vh;
     left: 0;
     z-index: 10;
-    opacity: 1;
+    opacity: 0;
     transition: all 2s ease-in-out;
     display: flex;
     justify-content: space-between;
@@ -823,6 +823,7 @@ ul#item-list.slide-left li.item {
 
 #about-me-section.visible {
     transform: translateY(-100vh);
+    opacity: 1;
 }
 
 #about-me-background {
@@ -854,7 +855,8 @@ ul#item-list.slide-left li.item {
 }
 
 #about-me-photo {
-    height: 95vh;
+    width: 40vw;
+    aspect-ratio: 3/4;
     margin: 3vw;
     box-shadow: 10px 10px 10px 0px rgba(0, 0, 0, 0.3);
 }
