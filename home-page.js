@@ -6,6 +6,51 @@ const customCursor = document.getElementById("custom-cursor");
 const aboutMeSection = document.getElementById("about-me-section");
 const aboutMeExit = document.getElementById("top-bar-about-me");
 const circleButtonHome = document.querySelectorAll(".mix-circle");
+const backgroundCircles = document.getElementById("background-circles");
+
+
+// Generate dots
+const pattern = document.getElementById('pattern');
+const cols = Math.ceil(window.innerWidth / 40);
+const rows = Math.ceil(window.innerHeight / 40);
+for (let i = 0; i < cols * rows; i++) {
+  const dot = document.createElement('div');
+  dot.className = 'dot';
+  pattern.appendChild(dot);
+}
+
+const dots = document.querySelectorAll('.dot');
+document.addEventListener('mousemove', e => {
+  dots.forEach(dot => {
+    const rect = dot.getBoundingClientRect();
+    const dx = rect.left + rect.width / 2 - e.clientX;
+    const dy = rect.top + rect.height / 2 - e.clientY;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+
+    // coeeficient of dx and dy
+    const cx = dx > 0 ? -1 : 1;
+    const cy = dy > 0 ? -1 : 1;
+
+    if (distance < 60) {
+      dot.style.opacity = 0.5;
+      translateX = 5*cx;
+      translateY = 5*cy;
+      dot.style.transform = `scale(1.3) translate(${translateX}px, ${translateY}px)`;
+    } else if (distance < 100) {
+      dot.style.opacity = 0.2;
+      translateX = 3*cx;
+      translateY = 3*cy;
+      dot.style.transform = `scale(1.3) translate(${translateX}px, ${translateY}px)`;
+    } else if (distance < 120) {
+      dot.style.opacity = 0.1;
+      dot.style.transform = 'scale(1.1)';
+    } else if (distance < 140) {
+      dot.style.opacity = 0.05;
+    } else {
+      dot.style.opacity = 0.02;
+    }
+  });
+});
 
 artCircles.forEach(circle => {
   circle.addEventListener('mouseenter', () => {
