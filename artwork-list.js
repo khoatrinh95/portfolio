@@ -183,7 +183,7 @@ function changeDetailPhotos(item) {
 }
 
 async function changeDetailVideo(item) {
-  const file = `assets/artworks/${item.folderName}/video.mov`;
+  const file = `assets/artworks/${item.folderName}/video.webm`;
   const exists = await doesFileExist(file);
 
   if (exists) {
