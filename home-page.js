@@ -33,13 +33,13 @@ document.addEventListener('mousemove', e => {
 
     if (distance < 60) {
       dot.style.opacity = 0.5;
-      translateX = 5*cx;
-      translateY = 5*cy;
+      translateX = distance*0.1*cx;
+      translateY = distance*0.1*cy;
       dot.style.transform = `scale(1.3) translate(${translateX}px, ${translateY}px)`;
     } else if (distance < 100) {
       dot.style.opacity = 0.2;
-      translateX = 3*cx;
-      translateY = 3*cy;
+      translateX = distance*0.05*cx;
+      translateY = distance*0.05*cy;
       dot.style.transform = `scale(1.3) translate(${translateX}px, ${translateY}px)`;
     } else if (distance < 120) {
       dot.style.opacity = 0.1;
