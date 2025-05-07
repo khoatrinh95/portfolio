@@ -156,13 +156,24 @@ function clearSelection() {
 }
 
 function changeArtwork(listItem, item) {
-    changeBackgroundColor(item.backgroundColor)
+    changeBackgroundColor(item.backgroundColor);
     circleHomeButton.style.backgroundColor = item.mainColor;
     circleBackToListButton.style.backgroundColor = item.mainColor;
     listItem.textContent = '→ ' + item.title;
-    artWork.style.backgroundImage = `url(assets/artworks/${item.folderName}/full.webp)`;
-    artworkSubject.style.backgroundImage = `url(assets/artworks/${item.folderName}/subject.webp)`;
+
+    preloadAndChangeBackgroundImage(artWork, `assets/artworks/${item.folderName}/full.webp`);
+    preloadAndChangeBackgroundImage(artworkSubject, `assets/artworks/${item.folderName}/subject.webp`);
 }
+
+
+function preloadAndChangeBackgroundImage(el, url) {
+    const img = new Image();
+    img.src = url;
+    img.onload = () => {
+      el.style.backgroundImage = `url(${url})`;
+    };
+  }
+  
 
 function changeDescriptions(item) {
     desc1.textContent = item.desc1;
