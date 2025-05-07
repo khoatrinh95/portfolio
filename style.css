@@ -53,8 +53,6 @@ body {
 .top-bar {
     position: fixed;
     width: 100%;
-    display: flex;
-    justify-content: right;
     z-index: 5;
     top: 8px; /* need to declare top explicit bc not sure why in the homepage, top is 16px ?? -> To be investigated*/
 }
