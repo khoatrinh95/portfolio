@@ -8,6 +8,7 @@ const aboutMeExit = document.getElementById("top-bar-about-me");
 const circleButtonHome = document.querySelectorAll(".mix-circle");
 const backgroundCircles = document.getElementById("background-circles");
 const topRightTitle = document.getElementById("top-right-title-home-page");
+const topLeftTitle = document.getElementById("top-left-title-home-page");
 const homePageContent = document.getElementById("home-page-content");
 const welcomeLogoContainer = document.getElementById("welcome-logo-container");
 const welcomeBackground = document.getElementById("welcome-background");
@@ -32,6 +33,7 @@ window.addEventListener('load', () => {
 
   setTimeout(() => {
     topRightTitle.classList.add("after-welcome");
+    topLeftTitle.classList.add("after-welcome");
     welcomeLogoContainer.classList.add("after-welcome");
     homePageContent.classList.add("visible");
     welcomeBackground.classList.add("after-welcome");

@@ -70,6 +70,13 @@ body {
     top: 8px; /* need to declare top explicit bc not sure why in the homepage, top is 16px ?? -> To be investigated*/
 }
 
+.top-left-title {
+    position: absolute;
+    left: 10px;
+    top: var(--home-button-from-left);
+    margin: 0;
+}
+
 .top-right-title {
     position: absolute;
     right: 30px;
@@ -77,13 +84,27 @@ body {
     margin: 0;
 }
 
+#top-left-title-home-page {
+    position: absolute;
+    top: 50vh;
+    left: 50vw;
+    margin: 0;
+    transform: translate(-50%, -90px); /* -100px bc it should be above the middle point*/
+    transition: all 1.5s ease;
+}
+
+#top-left-title-home-page.after-welcome {
+    transform: translate(calc(-50vw + 18px), calc(-50vh + 18px)); 
+    /*18px = 10px (left of top-left-title) + 8px (left of top-bar)*/
+    /*18px = 10px (top of top-left-title) + 8px (top of top-bar)*/
+}
+
 #top-right-title-home-page {
     position: absolute;
     top: 50vh;
     left: 50vw;
     margin: 0;
-    transform: translate(-50%, -60px); /* -30px bc it should be above the middle point*/
-    left: 50vw;
+    transform: translate(-50%, -60px); /* -60px bc it should be above the middle point*/
     transition: all 1.5s ease;
 }
 
@@ -114,7 +135,7 @@ body {
 
 #welcome-logo-container {
     position: absolute;
-    top: calc(50vh + -35px + 15px); /* 15px is the gap between text and logo*/
+    top: calc(50vh + -35px + 20px); /* 20px is the gap between text and logo*/
     left: 50vw;
     display: flex;
     transform: translate(-50%, -50%);
@@ -173,13 +194,6 @@ body {
     100% {
         transform: translateY(0);
     }
-}
-
-.top-left-title {
-    position: absolute;
-    left: 10px;
-    top: var(--home-button-from-left);
-    margin: 0;
 }
 
 .circle-button {
