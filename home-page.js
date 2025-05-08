@@ -11,15 +11,27 @@ const topRightTitle = document.getElementById("top-right-title-home-page");
 const homePageContent = document.getElementById("home-page-content");
 const welcomeLogoContainer = document.getElementById("welcome-logo-container");
 const welcomeBackground = document.getElementById("welcome-background");
+const welcomeLogoCircles = document.querySelectorAll(".welcome-logo-circle");
 
-
+let waitAnimationInterval = null;
 window.addEventListener('load', () => {
+
+  waitAnimationInterval = setInterval(() => {
+      welcomeLogoCircles.forEach(c => {
+        c.classList.remove('wait-animate');
+        void c.offsetWidth; // force reflow
+        c.classList.add('wait-animate');
+      })
+  }, 3000);
+
   setTimeout(() => {
     topRightTitle.classList.add("after-welcome");
     welcomeLogoContainer.classList.add("after-welcome");
     homePageContent.classList.add("visible");
     welcomeBackground.classList.add("after-welcome");
+    clearInterval(waitAnimationInterval);
   }, 5000);
+
 })
 
 // Generate dots

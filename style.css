@@ -39,7 +39,7 @@
 body {
     font-family: "Cutive Mono", monospace;
     background-color: #ffffff;
-    color: #333;
+    color: black;
     text-align: center;
     transition: background-color 0.5s ease;
 }
@@ -82,7 +82,7 @@ body {
     top: 50vh;
     left: 50vw;
     margin: 0;
-    transform: translate(-50%, -30px); /* -30px bc it should be above the middle point*/
+    transform: translate(-50%, -60px); /* -30px bc it should be above the middle point*/
     left: 50vw;
     transition: all 1.5s ease;
 }
@@ -114,7 +114,7 @@ body {
 
 #welcome-logo-container {
     position: absolute;
-    top: calc(50vh + 15px); /* 15px is the gap between text and logo*/
+    top: calc(50vh + -35px + 15px); /* 15px is the gap between text and logo*/
     left: 50vw;
     display: flex;
     transform: translate(-50%, -50%);
@@ -135,10 +135,6 @@ body {
     transition: all 0.7s ease;
 }
 
-#welcome-logo-mix-circle.visible {
-
-}
-
 .welcome-logo-circle {
     mask-image: url('assets/images/circle.webp');
     mask-size: contain;
@@ -146,6 +142,37 @@ body {
     mask-position: center;
     background-color: black;
     transition: all 0.7s ease;
+    
+}
+
+.welcome-logo-circle.wait-animate {
+    animation: wait-bounce 2s ease-in-out;
+}
+
+#c1 {
+    animation-delay: 0s;
+}
+
+#c2 {
+    animation-delay: 0.5s; 
+}
+
+#c3 {
+    animation-delay: 1s;
+}
+
+@keyframes wait-bounce {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-15px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
 }
 
 .top-left-title {
