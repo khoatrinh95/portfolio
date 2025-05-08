@@ -9,6 +9,41 @@ const circleButtonHome = document.querySelectorAll(".mix-circle");
 const backgroundCircles = document.getElementById("background-circles");
 
 
+const carousel = document.getElementById('main-carousel');
+  let scrollX = 0;
+  let contentWidth = carousel.scrollWidth / 2;
+
+  let baseSpeed = 1; // Auto-scroll speed
+  let boostSpeed = 0; // Extra speed from user scroll
+  let scrollMultiplier = 0.5; // Tweak this for how strong scroll is
+
+  window.addEventListener('wheel', (e) => {
+    e.preventDefault(); // 👈 block default vertical scroll
+
+    // Use vertical scroll to boost horizontal movement
+    boostSpeed += e.deltaY * scrollMultiplier;
+  }, { passive: false }); // 👈 must be false to use preventDefault()
+
+  function animate() {
+    scrollX += baseSpeed + boostSpeed;
+
+    // Loop content
+    if (scrollX >= contentWidth) {
+      scrollX -= contentWidth;
+    } else if (scrollX < 0) {
+      scrollX += contentWidth;
+    }
+
+    // Apply transform
+    carousel.style.transform = `translateX(${-scrollX}px)`;
+
+    // Gradually decay boost speed
+    boostSpeed *= 0.9; // Decay factor — lower = faster slowdown
+
+    requestAnimationFrame(animate);
+  }
+
+  animate();
 // Generate dots
 const pattern = document.getElementById('pattern');
 const cols = Math.ceil(window.innerWidth / 75);
