@@ -93,13 +93,32 @@ body {
     18px = 10px (top of top-right-title) + 8px (top of top-bar)*/
 }
 
+#welcome-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    background-image: url(/assets/images/welcome.webp);
+    filter: saturate(0);
+    background-repeat: no-repeat;
+    background-size: cover;
+    transition: all 1.5s;
+}
+
+#welcome-background.after-welcome {
+   opacity: 0.2;
+}
+
+
 #welcome-logo-container {
     position: absolute;
     top: calc(50vh + 15px); /* 15px is the gap between text and logo*/
     left: 50vw;
     display: flex;
     transform: translate(-50%, -50%);
-    transition: all 1.5s ease;
+    transition: all 1s ease;
 }
 
 #welcome-logo-container.after-welcome {

@@ -10,6 +10,7 @@ const backgroundCircles = document.getElementById("background-circles");
 const topRightTitle = document.getElementById("top-right-title-home-page");
 const homePageContent = document.getElementById("home-page-content");
 const welcomeLogoContainer = document.getElementById("welcome-logo-container");
+const welcomeBackground = document.getElementById("welcome-background");
 
 
 window.addEventListener('load', () => {
@@ -17,7 +18,8 @@ window.addEventListener('load', () => {
     topRightTitle.classList.add("after-welcome");
     welcomeLogoContainer.classList.add("after-welcome");
     homePageContent.classList.add("visible");
-  }, 1000);
+    welcomeBackground.classList.add("after-welcome");
+  }, 5000);
 })
 
 // Generate dots
