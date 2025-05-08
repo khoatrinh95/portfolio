@@ -99,8 +99,8 @@ animate();
 
 artCircles.forEach(circle => {
   circle.addEventListener('mouseenter', () => {
-    displayText.textContent = "Artworks";
-    customCursor.textContent = "Artworks";
+    displayText.textContent = "Artwork";
+    customCursor.textContent = "Artwork";
     customCursor.style.display = "block";
   });
   circle.addEventListener('mouseleave', () => {
