@@ -7,7 +7,18 @@ const aboutMeSection = document.getElementById("about-me-section");
 const aboutMeExit = document.getElementById("top-bar-about-me");
 const circleButtonHome = document.querySelectorAll(".mix-circle");
 const backgroundCircles = document.getElementById("background-circles");
+const topRightTitle = document.getElementById("top-right-title-home-page");
+const homePageContent = document.getElementById("home-page-content");
+const welcomeLogoContainer = document.getElementById("welcome-logo-container");
 
+
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    topRightTitle.classList.add("after-welcome");
+    welcomeLogoContainer.classList.add("after-welcome");
+    homePageContent.classList.add("visible");
+  }, 1000);
+})
 
 // Generate dots
 const pattern = document.getElementById('pattern');
@@ -47,7 +58,7 @@ document.addEventListener('mousemove', e => {
     } else if (distance < 140) {
       dot.style.opacity = 0.05;
     } else {
-      dot.style.opacity = 0.02;
+      dot.style.opacity = 0;
     }
   });
 });
@@ -70,6 +81,7 @@ window.addEventListener('wheel', (e) => {
   // const dotsMovingDistance = e.deltaY * 5 * -1;
   // dots.forEach(dot => {
   //   dot.style.transform = `translateX(${dotsMovingDistance}px)`;
+  //   dot.style.opacity = 0.05;
   // })
 }, { passive: false }); // 👈 must be false to use preventDefault()
 
