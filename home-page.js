@@ -11,8 +11,8 @@ const backgroundCircles = document.getElementById("background-circles");
 
 // Generate dots
 const pattern = document.getElementById('pattern');
-const cols = Math.ceil(window.innerWidth / 40);
-const rows = Math.ceil(window.innerHeight / 40);
+const cols = Math.ceil(window.innerWidth / 75);
+const rows = Math.ceil(window.innerHeight / 75);
 for (let i = 0; i < cols * rows; i++) {
   const dot = document.createElement('div');
   dot.className = 'dot';

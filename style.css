@@ -255,6 +255,7 @@ body {
     grid-template-columns: repeat(auto-fill, 80px);
     grid-template-rows: repeat(auto-fill, 60px);
     pointer-events: none;
+    overflow: hidden;
     opacity: 1;
   }
 
