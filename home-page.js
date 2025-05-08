@@ -16,6 +16,12 @@ const welcomeLogoCircles = document.querySelectorAll(".welcome-logo-circle");
 let waitAnimationInterval = null;
 window.addEventListener('load', () => {
 
+  welcomeLogoCircles.forEach(c => {
+    c.classList.remove('wait-animate');
+    void c.offsetWidth; // force reflow
+    c.classList.add('wait-animate');
+  });
+
   waitAnimationInterval = setInterval(() => {
       welcomeLogoCircles.forEach(c => {
         c.classList.remove('wait-animate');
