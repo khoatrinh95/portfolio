@@ -9,41 +9,6 @@ const circleButtonHome = document.querySelectorAll(".mix-circle");
 const backgroundCircles = document.getElementById("background-circles");
 
 
-const carousel = document.getElementById('main-carousel');
-  let scrollX = 0;
-  let contentWidth = carousel.scrollWidth / 2;
-
-  let baseSpeed = 1; // Auto-scroll speed
-  let boostSpeed = 0; // Extra speed from user scroll
-  let scrollMultiplier = 0.5; // Tweak this for how strong scroll is
-
-  window.addEventListener('wheel', (e) => {
-    e.preventDefault(); // 👈 block default vertical scroll
-
-    // Use vertical scroll to boost horizontal movement
-    boostSpeed += e.deltaY * scrollMultiplier;
-  }, { passive: false }); // 👈 must be false to use preventDefault()
-
-  function animate() {
-    scrollX += baseSpeed + boostSpeed;
-
-    // Loop content
-    if (scrollX >= contentWidth) {
-      scrollX -= contentWidth;
-    } else if (scrollX < 0) {
-      scrollX += contentWidth;
-    }
-
-    // Apply transform
-    carousel.style.transform = `translateX(${-scrollX}px)`;
-
-    // Gradually decay boost speed
-    boostSpeed *= 0.9; // Decay factor — lower = faster slowdown
-
-    requestAnimationFrame(animate);
-  }
-
-  animate();
 // Generate dots
 const pattern = document.getElementById('pattern');
 const cols = Math.ceil(window.innerWidth / 75);
@@ -68,13 +33,13 @@ document.addEventListener('mousemove', e => {
 
     if (distance < 60) {
       dot.style.opacity = 0.5;
-      translateX = distance*0.1*cx;
-      translateY = distance*0.1*cy;
+      translateX = distance * 0.1 * cx;
+      translateY = distance * 0.1 * cy;
       dot.style.transform = `scale(1.3) translate(${translateX}px, ${translateY}px)`;
     } else if (distance < 100) {
       dot.style.opacity = 0.2;
-      translateX = distance*0.05*cx;
-      translateY = distance*0.05*cy;
+      translateX = distance * 0.05 * cx;
+      translateY = distance * 0.05 * cy;
       dot.style.transform = `scale(1.3) translate(${translateX}px, ${translateY}px)`;
     } else if (distance < 120) {
       dot.style.opacity = 0.1;
@@ -86,6 +51,51 @@ document.addEventListener('mousemove', e => {
     }
   });
 });
+
+
+const carousel = document.getElementById('main-carousel');
+let scrollX = 0;
+let contentWidth = carousel.scrollWidth / 2;
+
+let baseSpeed = 1; // Auto-scroll speed
+let boostSpeed = 0; // Extra speed from user scroll
+let scrollMultiplier = 0.5; // Tweak this for how strong scroll is
+
+window.addEventListener('wheel', (e) => {
+  e.preventDefault(); // 👈 block default vertical scroll
+
+  // Use vertical scroll to boost horizontal movement
+  boostSpeed += e.deltaY * scrollMultiplier;
+
+  // const dotsMovingDistance = e.deltaY * 5 * -1;
+  // dots.forEach(dot => {
+  //   dot.style.transform = `translateX(${dotsMovingDistance}px)`;
+  // })
+}, { passive: false }); // 👈 must be false to use preventDefault()
+
+function animate() {
+  scrollX += baseSpeed + boostSpeed;
+
+  // Loop content
+  if (scrollX >= contentWidth) {
+    scrollX -= contentWidth;
+  } else if (scrollX < 0) {
+    scrollX += contentWidth;
+  }
+
+  // Apply transform
+  carousel.style.transform = `translateX(${-scrollX}px)`;
+
+  // Gradually decay boost speed
+  boostSpeed *= 0.9; // Decay factor — lower = faster slowdown
+
+  requestAnimationFrame(animate);
+}
+
+animate();
+
+
+
 
 artCircles.forEach(circle => {
   circle.addEventListener('mouseenter', () => {
@@ -101,7 +111,7 @@ artCircles.forEach(circle => {
     cursorMovement(e);
   });
   circle.addEventListener('click', () => {
-    window.location.href='artwork-list.html';
+    window.location.href = 'artwork-list.html';
   });
 })
 
@@ -120,7 +130,7 @@ aboutMeCircles.forEach(circle => {
   });
   circle.addEventListener('click', () => {
     aboutMeSection.classList.add("visible");
-    
+
   });
 })
 
@@ -138,7 +148,7 @@ mixCircles.forEach(circle => {
     cursorMovement(e);
   });
   circle.addEventListener('click', () => {
-    window.open('https://www.youtube.com/@LifeOfQuoi','_blank');
+    window.open('https://www.youtube.com/@LifeOfQuoi', '_blank');
   });
 })
 
