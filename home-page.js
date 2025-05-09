@@ -98,46 +98,66 @@ document.addEventListener('mousemove', e => {
 
 
 const carousel = document.getElementById('main-carousel');
-let scrollX = 0;
-let contentWidth = carousel.scrollWidth / 2;
+  let scrollX = 0;
+  let baseSpeed = 1; // automatic scroll speed
+  let boostSpeed = 0; // from scroll or swipe
+  const scrollMultiplier = 0.1;
 
-let baseSpeed = 1; // Auto-scroll speed
-let boostSpeed = 0; // Extra speed from user scroll
-let scrollMultiplier = 0.5; // Tweak this for how strong scroll is
+  // Get half the scroll width (since content is duplicated)
+  let contentWidth = carousel.scrollWidth / 2;
 
-window.addEventListener('wheel', (e) => {
-  e.preventDefault(); // 👈 block default vertical scroll
+  // Handle desktop scroll
+  window.addEventListener('wheel', (e) => {
+    e.preventDefault(); // block vertical scroll
+    boostSpeed += e.deltaY * scrollMultiplier;
+  }, { passive: false });
 
-  // Use vertical scroll to boost horizontal movement
-  boostSpeed += e.deltaY * scrollMultiplier;
+  // Mobile swipe handling
+  let startX = 0;
+  let isTouching = false;
 
-  // const dotsMovingDistance = e.deltaY * 5 * -1;
-  // dots.forEach(dot => {
-  //   dot.style.transform = `translateX(${dotsMovingDistance}px)`;
-  //   dot.style.opacity = 0.05;
-  // })
-}, { passive: false }); // 👈 must be false to use preventDefault()
+  window.addEventListener('touchstart', (e) => {
+    if (e.touches.length === 1) {
+      startX = e.touches[0].clientX;
+      isTouching = true;
+    }
+  }, { passive: true });
 
-function animate() {
-  scrollX += baseSpeed + boostSpeed;
+  window.addEventListener('touchmove', (e) => {
+    if (!isTouching || e.touches.length !== 1) return;
 
-  // Loop content
-  if (scrollX >= contentWidth) {
-    scrollX -= contentWidth;
-  } else if (scrollX < 0) {
-    scrollX += contentWidth;
+    const currentX = e.touches[0].clientX;
+    const deltaX = currentX - startX;
+
+    boostSpeed -= deltaX * 0.5; // adjust multiplier to control sensitivity
+    startX = currentX;
+
+    e.preventDefault(); // block vertical scroll on mobile
+  }, { passive: false });
+
+  window.addEventListener('touchend', () => {
+    isTouching = false;
+  });
+
+  function animate() {
+    scrollX += baseSpeed + boostSpeed;
+
+    // seamless looping
+    if (scrollX >= contentWidth) {
+      scrollX -= contentWidth;
+    } else if (scrollX < 0) {
+      scrollX += contentWidth;
+    }
+
+    carousel.style.transform = `translateX(${-scrollX}px)`;
+
+    // gradually reduce boost speed (inertia)
+    boostSpeed *= 0.9;
+
+    requestAnimationFrame(animate);
   }
 
-  // Apply transform
-  carousel.style.transform = `translateX(${-scrollX}px)`;
-
-  // Gradually decay boost speed
-  boostSpeed *= 0.9; // Decay factor — lower = faster slowdown
-
-  requestAnimationFrame(animate);
-}
-
-animate();
+  animate();
 
 
 
