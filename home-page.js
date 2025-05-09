@@ -14,33 +14,44 @@ const welcomeLogoContainer = document.getElementById("welcome-logo-container");
 const welcomeBackground = document.getElementById("welcome-background");
 const welcomeLogoCircles = document.querySelectorAll(".welcome-logo-circle");
 
-let waitAnimationInterval = null;
-window.addEventListener('load', () => {
 
-  welcomeLogoCircles.forEach(c => {
-    c.classList.remove('wait-animate');
-    void c.offsetWidth; // force reflow
-    c.classList.add('wait-animate');
-  });
+const hasVisited = sessionStorage.getItem('hasVisitedThisSession');
 
-  waitAnimationInterval = setInterval(() => {
+if (!hasVisited) {
+  let waitAnimationInterval = null;
+  window.addEventListener('load', () => {
+    welcomeLogoCircles.forEach(c => {
+      c.classList.remove('wait-animate');
+      void c.offsetWidth; // force reflow
+      c.classList.add('wait-animate');
+    });
+
+    waitAnimationInterval = setInterval(() => {
       welcomeLogoCircles.forEach(c => {
         c.classList.remove('wait-animate');
         void c.offsetWidth; // force reflow
         c.classList.add('wait-animate');
       })
-  }, 3000);
+    }, 3000);
 
-  setTimeout(() => {
-    topRightTitle.classList.add("after-welcome");
-    topLeftTitle.classList.add("after-welcome");
-    welcomeLogoContainer.classList.add("after-welcome");
-    homePageContent.classList.add("visible");
-    welcomeBackground.classList.add("after-welcome");
-    clearInterval(waitAnimationInterval);
-  }, 5000);
+    setTimeout(() => {
+      topRightTitle.classList.add("transition", "after-welcome");
+      topLeftTitle.classList.add("transition", "after-welcome");
+      welcomeLogoContainer.classList.add("transition", "after-welcome");
+      homePageContent.classList.add("visible");
+      welcomeBackground.classList.add("transition", "after-welcome");
+      clearInterval(waitAnimationInterval);
+    }, 5000);
+    sessionStorage.setItem('hasVisitedThisSession', 'true');
+  })
+} else {
+  topRightTitle.classList.add("after-welcome");
+  topLeftTitle.classList.add("after-welcome");
+  welcomeLogoContainer.style.display = 'none';
+  homePageContent.classList.add("visible");
+  welcomeBackground.classList.add("after-welcome");
+}
 
-})
 
 // Generate dots
 const pattern = document.getElementById('pattern');
