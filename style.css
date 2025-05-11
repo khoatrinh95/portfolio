@@ -959,9 +959,13 @@ ul#item-list.slide-left li.item {
 }
 
 #x {
-    color: white;
-    font-size: 15px;
-    font-family: Arial, Helvetica, sans-serif;
+    position: relative;
+    top: -1px; /* need this vertical nudging, needed for monospace font to center the text*/
+    color: #947F60;
+    font-size: 14px;
+    font-family: "Roboto Mono", monospace;
+    font-weight: 100;
+    font-style: normal;
 }
 
 .vertical-space {
