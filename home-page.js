@@ -13,6 +13,7 @@ const homePageContent = document.getElementById("home-page-content");
 const welcomeLogoContainer = document.getElementById("welcome-logo-container");
 const welcomeBackground = document.getElementById("welcome-background");
 const welcomeLogoCircles = document.querySelectorAll(".welcome-logo-circle");
+const carousel = document.getElementById('main-carousel');
 
 
 const hasVisited = sessionStorage.getItem('hasVisitedThisSession');
@@ -99,52 +100,66 @@ if (!isMobile()) {
 }
 
 
-const carousel = document.getElementById('main-carousel');
-  let scrollX = 0;
-  let baseSpeed = 1; // automatic scroll speed
-  let boostSpeed = 0; // from scroll or swipe
+
+let scrollX = 0;
+let boostSpeed = 0;
+let animationFrameId = null;
+let isRunning = false;
+
+function toggleCarousel() {
+  const baseSpeed = 1;
   const scrollMultiplier = 0.1;
+  const contentWidth = carousel.scrollWidth / 2;
 
-  // Get half the scroll width (since content is duplicated)
-  let contentWidth = carousel.scrollWidth / 2;
-
-  // Handle desktop scroll
-  window.addEventListener('wheel', (e) => {
-    e.preventDefault(); // block vertical scroll
-    boostSpeed += e.deltaY * scrollMultiplier;
-  }, { passive: false });
-
-  // Mobile swipe handling
-  let startX = 0;
+  // Shared between events
   let isTouching = false;
+  let startX = 0;
 
-  window.addEventListener('touchstart', (e) => {
-    if (e.touches.length === 1) {
-      startX = e.touches[0].clientX;
-      isTouching = true;
-    }
-  }, { passive: true });
+  // --- Event handlers ---
+  const onWheel = (e) => {
+    if (!isRunning) return;
+    e.preventDefault();
+    boostSpeed += e.deltaY * scrollMultiplier;
+  };
 
-  window.addEventListener('touchmove', (e) => {
-    if (!isTouching || e.touches.length !== 1) return;
+  const onTouchStart = (e) => {
+    if (!isRunning || e.touches.length !== 1) return;
+    startX = e.touches[0].clientX;
+    isTouching = true;
+  };
 
+  const onTouchMove = (e) => {
+    if (!isRunning || !isTouching || e.touches.length !== 1) return;
     const currentX = e.touches[0].clientX;
     const deltaX = currentX - startX;
-
-    boostSpeed -= deltaX * 0.5; // adjust multiplier to control sensitivity
+    boostSpeed -= deltaX * 0.5;
     startX = currentX;
+    e.preventDefault();
+  };
 
-    e.preventDefault(); // block vertical scroll on mobile
-  }, { passive: false });
-
-  window.addEventListener('touchend', () => {
+  const onTouchEnd = () => {
     isTouching = false;
-  });
+  };
+
+  function addEvents() {
+    window.addEventListener('wheel', onWheel, { passive: false });
+    window.addEventListener('touchstart', onTouchStart, { passive: true });
+    window.addEventListener('touchmove', onTouchMove, { passive: false });
+    window.addEventListener('touchend', onTouchEnd);
+  }
+
+  function removeEvents() {
+    window.removeEventListener('wheel', onWheel);
+    window.removeEventListener('touchstart', onTouchStart);
+    window.removeEventListener('touchmove', onTouchMove);
+    window.removeEventListener('touchend', onTouchEnd);
+  }
 
   function animate() {
+    if (!isRunning) return;
+
     scrollX += baseSpeed + boostSpeed;
 
-    // seamless looping
     if (scrollX >= contentWidth) {
       scrollX -= contentWidth;
     } else if (scrollX < 0) {
@@ -153,13 +168,29 @@ const carousel = document.getElementById('main-carousel');
 
     carousel.style.transform = `translateX(${-scrollX}px)`;
 
-    // gradually reduce boost speed (inertia)
     boostSpeed *= 0.9;
 
-    requestAnimationFrame(animate);
+    animationFrameId = requestAnimationFrame(animate);
   }
 
-  animate();
+  if (isRunning) {
+    // 🔴 Pause
+    isRunning = false;
+    cancelAnimationFrame(animationFrameId);
+    animationFrameId = null;
+    removeEvents();
+  } else {
+    // 🟢 Resume
+    isRunning = true;
+    addEvents();
+    animate();
+  }
+}
+
+
+
+toggleCarousel();
+
 
 
 
@@ -197,7 +228,7 @@ aboutMeCircles.forEach(circle => {
   });
   circle.addEventListener('click', () => {
     aboutMeSection.classList.add("visible");
-
+    toggleCarousel();
   });
 })
 
@@ -221,6 +252,7 @@ mixCircles.forEach(circle => {
 
 aboutMeExit.addEventListener('click', () => {
   aboutMeSection.classList.remove("visible");
+  toggleCarousel();
 })
 
 function cursorMovement(e) {
