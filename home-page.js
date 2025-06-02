@@ -53,48 +53,50 @@ if (!hasVisited) {
 }
 
 
-// Generate dots
-const pattern = document.getElementById('pattern');
-const cols = Math.ceil(window.innerWidth / 75);
-const rows = Math.ceil(window.innerHeight / 75);
-for (let i = 0; i < cols * rows; i++) {
-  const dot = document.createElement('div');
-  dot.className = 'dot';
-  pattern.appendChild(dot);
-}
+if (!isMobile()) {
+  // Generate dots
+  const pattern = document.getElementById('pattern');
+  const cols = Math.ceil(window.innerWidth / 75);
+  const rows = Math.ceil(window.innerHeight / 75);
+  for (let i = 0; i < cols * rows; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'dot';
+    pattern.appendChild(dot);
+  }
 
-const dots = document.querySelectorAll('.dot');
-document.addEventListener('mousemove', e => {
-  dots.forEach(dot => {
-    const rect = dot.getBoundingClientRect();
-    const dx = rect.left + rect.width / 2 - e.clientX;
-    const dy = rect.top + rect.height / 2 - e.clientY;
-    const distance = Math.sqrt(dx * dx + dy * dy);
+  const dots = document.querySelectorAll('.dot');
+  document.addEventListener('mousemove', e => {
+    dots.forEach(dot => {
+      const rect = dot.getBoundingClientRect();
+      const dx = rect.left + rect.width / 2 - e.clientX;
+      const dy = rect.top + rect.height / 2 - e.clientY;
+      const distance = Math.sqrt(dx * dx + dy * dy);
 
-    // coeeficient of dx and dy
-    const cx = dx > 0 ? -1 : 1;
-    const cy = dy > 0 ? -1 : 1;
+      // coeeficient of dx and dy
+      const cx = dx > 0 ? -1 : 1;
+      const cy = dy > 0 ? -1 : 1;
 
-    if (distance < 60) {
-      dot.style.opacity = 0.5;
-      translateX = distance * 0.1 * cx;
-      translateY = distance * 0.1 * cy;
-      dot.style.transform = `scale(1.3) translate(${translateX}px, ${translateY}px)`;
-    } else if (distance < 100) {
-      dot.style.opacity = 0.2;
-      translateX = distance * 0.05 * cx;
-      translateY = distance * 0.05 * cy;
-      dot.style.transform = `scale(1.3) translate(${translateX}px, ${translateY}px)`;
-    } else if (distance < 120) {
-      dot.style.opacity = 0.1;
-      dot.style.transform = 'scale(1.1)';
-    } else if (distance < 140) {
-      dot.style.opacity = 0.05;
-    } else {
-      dot.style.opacity = 0;
-    }
+      if (distance < 60) {
+        dot.style.opacity = 0.5;
+        translateX = distance * 0.1 * cx;
+        translateY = distance * 0.1 * cy;
+        dot.style.transform = `scale(1.3) translate(${translateX}px, ${translateY}px)`;
+      } else if (distance < 100) {
+        dot.style.opacity = 0.2;
+        translateX = distance * 0.05 * cx;
+        translateY = distance * 0.05 * cy;
+        dot.style.transform = `scale(1.3) translate(${translateX}px, ${translateY}px)`;
+      } else if (distance < 120) {
+        dot.style.opacity = 0.1;
+        dot.style.transform = 'scale(1.1)';
+      } else if (distance < 140) {
+        dot.style.opacity = 0.05;
+      } else {
+        dot.style.opacity = 0;
+      }
+    });
   });
-});
+}
 
 
 const carousel = document.getElementById('main-carousel');
@@ -166,7 +168,7 @@ artCircles.forEach(circle => {
   circle.addEventListener('mouseenter', () => {
     displayText.textContent = "Artwork";
     customCursor.textContent = "Artwork";
-    customCursor.style.display = "block";
+    customCursor.style.display = isMobile() ? "none" : "block";
   });
   circle.addEventListener('mouseleave', () => {
     displayText.textContent = '';
@@ -184,7 +186,7 @@ aboutMeCircles.forEach(circle => {
   circle.addEventListener('mouseenter', () => {
     displayText.textContent = "About Me";
     customCursor.textContent = "About Me";
-    customCursor.style.display = "block";
+    customCursor.style.display = isMobile() ? "none" : "block";
   });
   circle.addEventListener('mouseleave', () => {
     displayText.textContent = '';
@@ -203,7 +205,7 @@ mixCircles.forEach(circle => {
   circle.addEventListener('mouseenter', () => {
     displayText.textContent = "Youtube";
     customCursor.textContent = "Youtube";
-    customCursor.style.display = "block";
+    customCursor.style.display = isMobile() ? "none" : "block";
   });
   circle.addEventListener('mouseleave', () => {
     displayText.textContent = '';
@@ -224,4 +226,61 @@ aboutMeExit.addEventListener('click', () => {
 function cursorMovement(e) {
   customCursor.style.left = `${e.clientX - 20}px`;
   customCursor.style.top = `${e.clientY + 30}px`;
+}
+
+
+if (isMobile()) {
+  const screenMidX = window.innerWidth / 2;
+  const rangeStart = screenMidX - 400;
+  const rangeEnd = screenMidX;
+
+  let frameCounter = 0;
+  const frameSkip = 4; // Run midpoint check every 4 frames (~15fps)
+
+  function checkMidpoint() {
+
+    artCircles.forEach(circle => {
+      const rect = circle.getBoundingClientRect();
+      const leftX = rect.left;
+
+      if (leftX > rangeStart && leftX < rangeEnd) {
+        displayText.textContent = "Artwork";
+      }
+    });
+
+    aboutMeCircles.forEach(circle => {
+      const rect = circle.getBoundingClientRect();
+      const leftX = rect.left;
+
+      if (leftX > rangeStart && leftX < rangeEnd) {
+        displayText.textContent = "About Me";
+      }
+    });
+
+    mixCircles.forEach(circle => {
+      const rect = circle.getBoundingClientRect();
+      const leftX = rect.left;
+
+      if (leftX > rangeStart && leftX < rangeEnd) {
+        displayText.textContent = "Youtube";
+      }
+    });
+  }
+
+  function checkMidpointLoop() {
+    frameCounter++;
+
+    if (frameCounter % frameSkip === 0) {
+      checkMidpoint();
+    }
+
+    requestAnimationFrame(checkMidpointLoop);
+  }
+
+  requestAnimationFrame(checkMidpointLoop);
+}
+
+
+function isMobile() {
+  return window.innerWidth <= 768;
 }
