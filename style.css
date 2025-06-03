@@ -1232,4 +1232,14 @@ ul#item-list.slide-left li.item {
     #l2 {
         display: none;
     }
+
+    #home-label {
+        opacity: 1;
+        left: calc(var(--home-button-from-left) + var(--home-button-size) + 26px);
+        top: calc(var(--home-button-from-left) - 2.5px);
+    }
+
+    #back-to-list-label {
+        top: calc(var(--back-to-list-button-from-top) + var(--back-to-list-button-travel-distanceY) - 2.5px);
+    }
   }
