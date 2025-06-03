@@ -6,7 +6,11 @@
     /* artwork size */
     --art-subject-width: 30vw;
     --art-subject-height: 40vh;
-    --art-frame-width: 1vw;
+    --art-frame-width: 15px;
+
+    --art-subject-width-mobile: 80vw;
+    --art-subject-height-mobile: 80vh;
+    --art-frame-width-mobile: 8px;
 
     /* artwork position */
     --art-from-left: 55vw;
@@ -1241,5 +1245,35 @@ ul#item-list.slide-left li.item {
 
     #back-to-list-label {
         top: calc(var(--back-to-list-button-from-top) + var(--back-to-list-button-travel-distanceY) - 2.5px);
+    }
+
+    ul#item-list {
+        display: none;
+    }
+
+    #overview {
+        display: flex;
+        justify-content: center;
+        padding-top: 15vh;
+        height: 85vh;
+        /* padding-top and height must add up to 100vh */
+    }
+
+    #artwork-container {
+        position: relative;
+        left: 0;
+    }
+
+    #outer-rectangle {
+        padding: var(--art-frame-width-mobile);
+    }
+
+    #inner-rectangle {
+        width: var(--art-subject-width-mobile);
+    }
+
+    #artwork-subject {
+        width: var(--art-subject-width-mobile);
+        margin: var(--art-frame-width-mobile);
     }
   }
