@@ -1089,6 +1089,11 @@ ul#item-list.slide-left li.item {
     font-style: italic;
 }
 
+#big-text {
+    font-size: 30px; 
+    font-weight: bold;
+}
+
 
 @media (max-width: 768px) {
 
@@ -1176,8 +1181,12 @@ ul#item-list.slide-left li.item {
     }
 
     .social::after {
-    transform: scaleX(1);
-  }
+        transform: scaleX(1);
+    }
+
+    #big-text {
+        font-size: 20px;
+    }
 
 
   }
