@@ -82,16 +82,20 @@ circleBackToListButton.addEventListener('click', () => {
     resetShopLabel();
 });
 
-footer.addEventListener('mouseover', () => {
-    moveLogoCircles();
-})
-footer.addEventListener('mouseleave', () => {
-    const scrollPercent = Math.min(getScrollPercent() / 100, 1);
-    if (scrollPercent > 0.98) {
-        return;
-    }
-    unmoveLogoCircles();
-})
+if (!isMobile()) {
+    footer.addEventListener('mouseover', () => {
+        moveLogoCircles();
+    })
+    footer.addEventListener('mouseleave', () => {
+        const scrollPercent = Math.min(getScrollPercent() / 100, 1);
+        if (scrollPercent > 0.98) {
+            return;
+        }
+        unmoveLogoCircles();
+    })
+}
+
+
 
 fetch('artworks.json')
     .then(res => res.json())
@@ -211,7 +215,9 @@ function onScroll(item) {
     fadeDetailTitle();
     fadeBackgroundColor(item);
     fadeSections();
-    expandFooter();
+    if (!isMobile()) {
+        expandFooter();
+    }
 }
 
 function changeBackgroundColor(color){
@@ -343,4 +349,8 @@ function getScrollPercent() {
     const scrollTop = window.scrollY || document.documentElement.scrollTop
     const docHeight = document.documentElement.scrollHeight - window.innerHeight;
     return (scrollTop / docHeight) * 100;
+}
+
+function isMobile() {
+  return window.innerWidth <= 768;
 }
