@@ -130,6 +130,10 @@ fetch('artworks.json')
                 changeDetailVideo(items[i]);
                 changeDescriptions(items[i]);
                 changeShopLabel(items[i]);
+
+                setTimeout(() => {
+                    checkInitialScroll();
+                }, 3000);
                 
 
                 onScrollFnc = function () {onScroll(items[i]);
@@ -138,13 +142,6 @@ fetch('artworks.json')
                 window.removeEventListener('scroll', onScrollFnc);
                 window.addEventListener('scroll',  onScrollFnc);
 
-                if (isMobile()) {
-                    backToListLabel.classList.add('visible');
-                } else {
-                    setTimeout(() => {
-                        checkInitialScroll();
-                    }, 3000);
-                }
             });
 
             list.appendChild(li);
