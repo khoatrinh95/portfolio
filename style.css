@@ -989,6 +989,7 @@ ul#item-list.slide-left li.item {
     left: 0;
     z-index: 10;
     overflow-y: auto;
+    overflow-x: hidden;
     opacity: 0;
     transition: all 2s ease-in-out;
 }
@@ -1151,4 +1152,24 @@ ul#item-list.slide-left li.item {
         top: 20vh;
     }
 
+    #about-me-content {
+        flex-direction: column; /* Stack photo and text vertically */
+        align-items: center;    /* Optional: center them horizontally */
+    }
+
+    #about-me-text {
+        width: 90vw;
+        padding: 0;
+        margin-bottom: 100px;
+    }
+
+    #about-me-photo-container {
+        order: -1; /* Put the photo ABOVE the text */
+        width: 100vw;
+        margin-top: 50px;
+    }
+
+    #about-me-photo {
+        width: 90vw;
+    }
   }
