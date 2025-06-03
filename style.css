@@ -1048,6 +1048,7 @@ ul#item-list.slide-left li.item {
 
 #socials {
     margin-top: 10px;
+    margin-bottom: 10px;
     display: flex;
 }
 
@@ -1161,6 +1162,7 @@ ul#item-list.slide-left li.item {
         width: 90vw;
         padding: 0;
         margin-bottom: 100px;
+        overflow-y: hidden;
     }
 
     #about-me-photo-container {
@@ -1172,4 +1174,10 @@ ul#item-list.slide-left li.item {
     #about-me-photo {
         width: 90vw;
     }
+
+    .social::after {
+    transform: scaleX(1);
+  }
+
+
   }
