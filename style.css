@@ -1218,15 +1218,6 @@ ul#item-list.slide-left li.item {
         left: 0;
     }
 
-    #logo-labels-container {
-        position: absolute;
-        right: 0;
-        display: flex;
-        height: 100%;
-        align-items: center;
-        color: white;
-    }
-
     #name-footer {
         display: none;
     }
@@ -1242,8 +1233,14 @@ ul#item-list.slide-left li.item {
     }
 
     #logo-labels-container {
-        width: 100%;
         justify-content: space-between;
+        width: 90vw;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .label {
+        margin: 0;
     }
 
     #l2 {
