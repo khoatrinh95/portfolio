@@ -31,6 +31,7 @@ const getInTouchLabel = document.getElementById("l3");
 const aboutMeLabel = document.getElementById("l1");
 const aboutMeSection = document.getElementById("about-me-section");
 const aboutMeExit = document.getElementById("top-bar-about-me");
+const itemCarousel = document.getElementById("item-carousel");
 
 
 let onScrollFnc = null;
@@ -151,6 +152,37 @@ fetch('artworks.json')
         // Default showing the first artwork
         let listItems = document.getElementsByClassName("item");
         changeArtwork(listItems[0], items[0]);
+
+
+        if (isMobile()) {
+            
+            let activeItems = [];
+
+            items.forEach((item, i) => {
+                if (!item.active) {
+                    return;
+                }
+                activeItems.push(item);
+                const div = document.createElement('div');
+                div.className = 'item-c';
+                div.textContent = item.title;
+
+                itemCarousel.appendChild(div);
+            })
+            const allItemC = Array.from(document.getElementsByClassName("item-c"));
+            const firstItem = allItemC[0];
+            const firstItemLength = firstItem.getBoundingClientRect().width;
+            
+            // move the whole item-carousel to the left to center the first item in the screen
+            itemCarousel.style.transform = `translateX(-${firstItemLength/2}px)`;
+
+            styleItemCarousel(allItemC, 0);
+
+
+            swipeArtworkMobile(allItemC, activeItems);
+
+            
+        }
     })
     .catch(err => console.error('Error loading JSON:', err));
 
@@ -166,7 +198,10 @@ function changeArtwork(listItem, item) {
     changeBackgroundColor(item.backgroundColor);
     circleHomeButton.style.backgroundColor = item.mainColor;
     circleBackToListButton.style.backgroundColor = item.mainColor;
-    listItem.textContent = '→ ' + item.title;
+    if (listItem != null) {
+        listItem.textContent = '→ ' + item.title;
+    }
+    
 
     preloadAndChangeBackgroundImage(artWork, `assets/artworks/${item.folderName}/full.webp`);
     preloadAndChangeBackgroundImage(artworkSubject, `assets/artworks/${item.folderName}/subject.webp`);
@@ -356,4 +391,91 @@ function getScrollPercent() {
 
 function isMobile() {
   return window.innerWidth <= 768;
+}
+
+
+function swipeArtworkMobile(allDivs, items) {
+    // Shared between events
+    let isTouching = false;
+    let startX = 0;
+    let currentX = 0;
+    let deltaX = 0;
+    let currentIdx = 0;
+
+    // --- Event handlers ---
+    const onTouchStart = (e) => {
+        if (e.touches.length !== 1) return;
+        startX = e.touches[0].clientX;
+        currentX = startX;
+        isTouching = true;
+    };
+
+    const onTouchMove = (e) => {
+        if (!isTouching || e.touches.length !== 1) return;
+        currentX = e.touches[0].clientX;
+        e.preventDefault();
+    };
+
+    const onTouchEnd = () => {
+        isTouching = false;
+        deltaX = currentX - startX;
+
+        // console.log(`START: ${startX}`);
+        // console.log(`CURRENT: ${currentX}`);
+        // console.log(`DELTA: ${deltaX}`);    
+        // console.log("");    
+        
+        if (deltaX > 0) {
+            // swipe right
+            currentIdx = Math.max(0, --currentIdx);
+        }  else if (deltaX < 0) {
+            //swipe left
+            currentIdx = Math.min(items.length-1, ++currentIdx);
+        } else {
+            // touch
+        }
+        changeArtwork(null, items[currentIdx]);
+        styleItemCarousel(allDivs, currentIdx);
+        const offset = getOffset(allDivs, currentIdx);
+        itemCarousel.style.transform = `translateX(-${offset}px)`;
+
+    };
+
+    function addEvents() {
+        window.addEventListener('touchstart', onTouchStart, { passive: true });
+        window.addEventListener('touchmove', onTouchMove, { passive: false });
+        window.addEventListener('touchend', onTouchEnd);
+    }
+
+
+    addEvents();
+}
+
+function getOffset(allDivs, idx) {
+    // to know how much to move the item-carousel by currentIdx
+    
+    const marginRight = 20; // this comes from the margin-right of .item-c
+
+    if (idx < 0 || idx >= allDivs.length) {
+        return 0;
+    }
+    
+    let offset = 0;
+    for (let i = 0; i <= idx; i++) {
+        let distance = allDivs[i].getBoundingClientRect().width;
+        let gap = marginRight;
+        if (i==idx) {
+            distance = distance / 2;
+            gap = 0;
+        }
+        offset += distance + gap;
+    }
+
+    return offset;
+}
+
+function styleItemCarousel(allDivs, idx) {
+    allDivs.forEach((div, i) => {
+        div.style.color = i === idx ? 'rgba(0, 0, 0, 1)' : 'rgba(0, 0, 0, 0.3)';
+    });
 }
