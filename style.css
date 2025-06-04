@@ -597,6 +597,9 @@ ul#item-list.slide-left li.item {
     opacity: 1;
 }
 
+#click-for-detail {
+    display: none;
+}
 
 #detail {
     position: relative;
@@ -1295,5 +1298,15 @@ ul#item-list.slide-left li.item {
         margin-right: 20px;
         transition: all 0.3s;
     }
+
+    #click-for-detail {
+        display: block;
+        color: white;
+        position: absolute;
+        top: calc(var(--art-subject-width-mobile) * 1.3 + 12vh + 40px); 
+        /* 1.3 is the ratio of the art frame 4/3 -> so we get the height of the frame
+        12vh is the padding-top of overview */
+    }
+
 
   }
