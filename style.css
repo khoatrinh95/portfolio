@@ -1107,6 +1107,9 @@ ul#item-list.slide-left li.item {
 
 
 @media (max-width: 768px) {
+    :root {
+        
+    }
 
     #welcome-background.after-welcome {
         opacity: 0;
@@ -1317,5 +1320,18 @@ ul#item-list.slide-left li.item {
         opacity: 0;
     }
 
+    #artwork-container.move-left {
+        transform: translateY(12vh) scale(1.5);
+    }
+
+    #detail-title {
+        font-size: 8vh;
+        letter-spacing: 0.1em;
+    }
+
+    #detail-title.visible {
+        transform: translateY(100px);
+        opacity: 0.5;
+    }
 
   }
