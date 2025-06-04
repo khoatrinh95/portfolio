@@ -406,7 +406,6 @@ function swipeArtworkMobile(allDivs, items) {
         } else {
             // touch select
             selectArtwork(items[currentIdx]);
-            removeEvents();
         }
         changeArtwork(null, items[currentIdx]);
         styleItemCarousel(allDivs, currentIdx);
@@ -474,6 +473,7 @@ function selectArtwork(item) {
     if (isMobile()) {
         itemCarousel.classList.add('invisible');
         clickForDetails.classList.add('invisible');
+        removeEvents();
     } else {
         list.classList.add('slide-left');
     }
@@ -495,6 +495,7 @@ function backToList() {
     if (isMobile()) {
         itemCarousel.classList.remove('invisible');
         clickForDetails.classList.remove('invisible');
+        addEvents();
     } else {
         list.classList.remove('slide-left');
     }
