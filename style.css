@@ -679,6 +679,7 @@ ul#item-list.slide-left li.item {
     overflow-wrap: break-word;
     position: absolute;
     color: white;
+    transition: all 0.7s ease;
 }
 
 #desc-1 {
@@ -686,12 +687,13 @@ ul#item-list.slide-left li.item {
     top: 30vh;
     left: 2vw;
     text-align: left;
-    transform: translateX(-30vw);
-    transition: transform 0.7s ease;
+    transform: translateX(-10vw);
+    opacity: 0;
 }
 
 #desc-1.visible {
     transform: translateX(0);
+    opacity: 1;
 }
 
 .detail-photo-v {
@@ -750,12 +752,13 @@ ul#item-list.slide-left li.item {
     top: 30vh;
     right: 10vw;
     text-align: right;
-    transform: translateX(60vw);
-    transition: transform 0.7s ease;
+    transform: translateX(10vw);
+    opacity: 0;
 }
 
 #desc-2.visible {
     transform: translateX(0);
+    opacity: 1;
 }
 
 #close-up-art-2 {
