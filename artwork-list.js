@@ -32,6 +32,7 @@ const aboutMeLabel = document.getElementById("l1");
 const aboutMeSection = document.getElementById("about-me-section");
 const aboutMeExit = document.getElementById("top-bar-about-me");
 const itemCarousel = document.getElementById("item-carousel");
+const clickForDetails = document.getElementById("click-for-detail");
 
 
 let onScrollFnc = null;
@@ -70,17 +71,7 @@ resetShopLabel();
 
 
 circleBackToListButton.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    window.removeEventListener('scroll', onScrollFnc);
-    artWorkContainer.classList.remove('move-left');
-    artWorkFrame.classList.remove('invisible');
-    detailSection.classList.remove('visible');
-    list.classList.remove('slide-left');
-    artworkSubject.classList.remove('visible');
-    detailTitle.classList.remove('visible');
-    circleBackToListButton.classList.remove('visible');
-    backToListLabel.classList.remove('visible');
-    resetShopLabel();
+    backToList();
 });
 
 if (!isMobile()) {
@@ -98,93 +89,73 @@ if (!isMobile()) {
 
 
 
+let activeItems = [];
+
 fetch('artworks.json')
     .then(res => res.json())
     .then(items => {
-
-        items.forEach((item, i) => {
-            if (!item.active) {
-                return;
-            }
-
-            const li = document.createElement('li');
-            li.className = 'item';
-            li.textContent = item.title;
-
-            li.style.transitionDelay = `${i * 30}ms`;
-
-            li.addEventListener('mouseover', () => {
-                clearSelection();
-                changeArtwork(li, item);
-            });
-
-            li.addEventListener('click', () => {
-                artWorkContainer.classList.add('move-left');
-                artWorkFrame.classList.add('invisible');
-                detailSection.classList.add('visible');
-                list.classList.add('slide-left');
-                artworkSubject.classList.add('visible');
-                detailTitle.classList.add('visible');
-                circleBackToListButton.classList.add('visible');
-                changeDetailTitle(items[i]);
-                changeDetailPhotos(items[i]);
-                changeDetailVideo(items[i]);
-                changeDescriptions(items[i]);
-                changeShopLabel(items[i]);
-
-                setTimeout(() => {
-                    checkInitialScroll();
-                }, 3000);
-                
-
-                onScrollFnc = function () {onScroll(items[i]);
-                };
-                
-                window.removeEventListener('scroll', onScrollFnc);
-                window.addEventListener('scroll',  onScrollFnc);
-
-            });
-
-            list.appendChild(li);
-        });
-
-
-        // Default showing the first artwork
-        let listItems = document.getElementsByClassName("item");
-        changeArtwork(listItems[0], items[0]);
-
-
-        if (isMobile()) {
-            
-            let activeItems = [];
-
-            items.forEach((item, i) => {
-                if (!item.active) {
-                    return;
-                }
-                activeItems.push(item);
-                const div = document.createElement('div');
-                div.className = 'item-c';
-                div.textContent = item.title;
-
-                itemCarousel.appendChild(div);
-            })
-            const allItemC = Array.from(document.getElementsByClassName("item-c"));
-            const firstItem = allItemC[0];
-            const firstItemLength = firstItem.getBoundingClientRect().width;
-            
-            // move the whole item-carousel to the left to center the first item in the screen
-            itemCarousel.style.transform = `translateX(-${firstItemLength/2}px)`;
-
-            styleItemCarousel(allItemC, 0);
-
-
-            swipeArtworkMobile(allItemC, activeItems);
-
-            
-        }
+        activeItems = items.filter(item => item.active);
+        initializeUI();
     })
     .catch(err => console.error('Error loading JSON:', err));
+
+function initializeUI() {
+    if (isMobile()) {
+        renderMobileView(activeItems);
+    } else {
+        renderDesktopView(activeItems);
+    }
+}
+
+function renderMobileView(items) {
+    items.forEach((item, i) => {
+        const div = document.createElement('div');
+        div.className = 'item-c';
+        div.textContent = item.title;
+        itemCarousel.appendChild(div);
+    });
+
+    const allItemC = Array.from(document.getElementsByClassName("item-c"));
+    const firstItem = allItemC[0];
+    const firstItemLength = firstItem.getBoundingClientRect().width;
+
+    itemCarousel.style.transform = `translateX(-${firstItemLength / 2}px)`;
+
+    styleItemCarousel(allItemC, 0);
+    swipeArtworkMobile(allItemC, items);
+}
+
+function renderDesktopView(items) {
+    items.forEach((item, i) => {
+        const li = document.createElement('li');
+        li.className = 'item';
+        li.textContent = item.title;
+        li.style.transitionDelay = `${i * 30}ms`;
+
+        li.addEventListener('mouseover', () => {
+            clearSelection();
+            changeArtwork(li, item);
+        });
+
+        li.addEventListener('click', () => {
+            selectArtwork(item);
+            setTimeout(() => checkInitialScroll(), 3000);
+
+            onScrollFnc = function () {
+                onScroll(item);
+            };
+
+            window.removeEventListener('scroll', onScrollFnc);
+            window.addEventListener('scroll', onScrollFnc);
+        });
+
+        list.appendChild(li);
+    });
+
+    const listItems = document.getElementsByClassName("item");
+    changeArtwork(listItems[0], items[0]);
+}
+
 
 function clearSelection() {
     const items = Array.from(document.getElementsByClassName("item"));
@@ -432,7 +403,9 @@ function swipeArtworkMobile(allDivs, items) {
             //swipe left
             currentIdx = Math.min(items.length-1, ++currentIdx);
         } else {
-            // touch
+            // touch select
+            selectArtwork(items[currentIdx]);
+            removeEvents();
         }
         changeArtwork(null, items[currentIdx]);
         styleItemCarousel(allDivs, currentIdx);
@@ -445,6 +418,12 @@ function swipeArtworkMobile(allDivs, items) {
         window.addEventListener('touchstart', onTouchStart, { passive: true });
         window.addEventListener('touchmove', onTouchMove, { passive: false });
         window.addEventListener('touchend', onTouchEnd);
+    }
+
+    function removeEvents() {
+        window.removeEventListener('touchstart', onTouchStart);
+        window.removeEventListener('touchmove', onTouchMove);
+        window.removeEventListener('touchend', onTouchEnd);
     }
 
 
@@ -478,4 +457,46 @@ function styleItemCarousel(allDivs, idx) {
     allDivs.forEach((div, i) => {
         div.style.color = i === idx ? 'rgba(0, 0, 0, 1)' : 'rgba(0, 0, 0, 0.3)';
     });
+}
+
+function selectArtwork(item) {
+    artWorkContainer.classList.add('move-left');
+    artWorkFrame.classList.add('invisible');
+    detailSection.classList.add('visible');
+    artworkSubject.classList.add('visible');
+    detailTitle.classList.add('visible');
+    circleBackToListButton.classList.add('visible');
+    changeDetailTitle(item);
+    changeDetailPhotos(item);
+    changeDetailVideo(item);
+    changeDescriptions(item);
+    changeShopLabel(item);
+
+    if (isMobile()) {
+        itemCarousel.classList.add('invisible');
+        clickForDetails.classList.add('invisible');
+    } else {
+        list.classList.add('slide-left');
+    }
+}
+
+function backToList() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.removeEventListener('scroll', onScrollFnc);
+    artWorkContainer.classList.remove('move-left');
+    artWorkFrame.classList.remove('invisible');
+    detailSection.classList.remove('visible');
+    
+    artworkSubject.classList.remove('visible');
+    detailTitle.classList.remove('visible');
+    circleBackToListButton.classList.remove('visible');
+    backToListLabel.classList.remove('visible');
+    resetShopLabel();
+
+    if (isMobile()) {
+        itemCarousel.classList.remove('invisible');
+        clickForDetails.classList.remove('invisible');
+    } else {
+        list.classList.remove('slide-left');
+    }
 }
