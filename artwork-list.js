@@ -38,21 +38,7 @@ const clickForDetails = document.getElementById("click-for-detail");
 let onScrollFnc = null;
 let handleClickShopLabel = null;
 
-circleHomeButton.addEventListener('mouseover', () => {
-    homeLabel.classList.add('visible');
-});
 
-circleHomeButton.addEventListener('mouseleave', () => {
-    homeLabel.classList.remove('visible');
-});
-
-circleBackToListButton.addEventListener('mouseover', () => {
-    backToListLabel.classList.add('visible');
-});
-
-circleBackToListButton.addEventListener('mouseleave', () => {
-    backToListLabel.classList.remove('visible');
-});
 
 getInTouchLabel.addEventListener('click', () => {
     window.location.href = "mailto:dashausvonquoi@gmail.com";
@@ -85,6 +71,21 @@ if (!isMobile()) {
         }
         unmoveLogoCircles();
     })
+    circleHomeButton.addEventListener('mouseover', () => {
+        homeLabel.classList.add('visible');
+    });
+
+    circleHomeButton.addEventListener('mouseleave', () => {
+        homeLabel.classList.remove('visible');
+    });
+
+    circleBackToListButton.addEventListener('mouseover', () => {
+        backToListLabel.classList.add('visible');
+    });
+
+    circleBackToListButton.addEventListener('mouseleave', () => {
+        backToListLabel.classList.remove('visible');
+    });
 }
 
 
