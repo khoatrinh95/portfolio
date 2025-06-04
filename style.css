@@ -1293,7 +1293,7 @@ ul#item-list.slide-left li.item {
     #item-carousel {
         display: flex;
         width: 100%;
-        position: relative;
+        position: absolute;
         top: 8vh;
         left: 50vw;
         transition: all 0.3s;

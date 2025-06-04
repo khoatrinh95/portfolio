@@ -473,7 +473,7 @@ function selectArtwork(item) {
     window.addEventListener('scroll', onScrollFnc);
 
     if (isMobile()) {
-        itemCarousel.classList.add('invisible');
+        hideItemCarousel();
         clickForDetails.classList.add('invisible');
         backToListLabel.classList.add('visible');
         removeEvents();
@@ -496,10 +496,26 @@ function backToList() {
     resetShopLabel();
 
     if (isMobile()) {
-        itemCarousel.classList.remove('invisible');
+        showItemCarousel();
         clickForDetails.classList.remove('invisible');
         addEvents();
     } else {
         list.classList.remove('slide-left');
     }
+}
+
+function hideItemCarousel() {
+    itemCarousel.classList.add('invisible');
+    // need this bc we need to remove the carousel from the DOM
+    // otherwise, it overflows to the left, causing the page to be scrollable horizontally
+    setTimeout(() => {
+        itemCarousel.style.display = 'none';
+    }, 300);
+}
+
+function showItemCarousel() {
+    itemCarousel.classList.remove('invisible');
+    setTimeout(() => {
+        itemCarousel.style.display = 'flex';
+    }, 300);
 }
