@@ -367,6 +367,9 @@ function isMobile() {
   return window.innerWidth <= 768;
 }
 
+let onTouchStart = null;
+let onTouchEnd = null;
+let onTouchMove = null;
 
 function swipeArtworkMobile(allDivs, items) {
     // Shared between events
@@ -377,27 +380,22 @@ function swipeArtworkMobile(allDivs, items) {
     let currentIdx = 0;
 
     // --- Event handlers ---
-    const onTouchStart = (e) => {
+    onTouchStart = (e) => {
         if (e.touches.length !== 1) return;
         startX = e.touches[0].clientX;
         currentX = startX;
         isTouching = true;
     };
 
-    const onTouchMove = (e) => {
+    onTouchMove = (e) => {
         if (!isTouching || e.touches.length !== 1) return;
         currentX = e.touches[0].clientX;
         e.preventDefault();
     };
 
-    const onTouchEnd = () => {
+    onTouchEnd = () => {
         isTouching = false;
-        deltaX = currentX - startX;
-
-        // console.log(`START: ${startX}`);
-        // console.log(`CURRENT: ${currentX}`);
-        // console.log(`DELTA: ${deltaX}`);    
-        // console.log("");    
+        deltaX = currentX - startX;  
         
         if (deltaX > 0) {
             // swipe right
@@ -416,21 +414,19 @@ function swipeArtworkMobile(allDivs, items) {
         itemCarousel.style.transform = `translateX(-${offset}px)`;
 
     };
-
-    function addEvents() {
-        window.addEventListener('touchstart', onTouchStart, { passive: true });
-        window.addEventListener('touchmove', onTouchMove, { passive: false });
-        window.addEventListener('touchend', onTouchEnd);
-    }
-
-    function removeEvents() {
-        window.removeEventListener('touchstart', onTouchStart);
-        window.removeEventListener('touchmove', onTouchMove);
-        window.removeEventListener('touchend', onTouchEnd);
-    }
-
-
     addEvents();
+}
+
+function addEvents() {
+    window.addEventListener('touchstart', onTouchStart, { passive: true });
+    window.addEventListener('touchmove', onTouchMove, { passive: false });
+    window.addEventListener('touchend', onTouchEnd);
+}
+
+function removeEvents() {
+    window.removeEventListener('touchstart', onTouchStart);
+    window.removeEventListener('touchmove', onTouchMove);
+    window.removeEventListener('touchend', onTouchEnd);
 }
 
 function getOffset(allDivs, idx) {
