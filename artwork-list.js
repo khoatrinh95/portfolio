@@ -143,12 +143,7 @@ function renderDesktopView(items) {
             selectArtwork(item);
             setTimeout(() => checkInitialScroll(), 3000);
 
-            onScrollFnc = function () {
-                onScroll(item);
-            };
-
-            window.removeEventListener('scroll', onScrollFnc);
-            window.addEventListener('scroll', onScrollFnc);
+            
         });
 
         list.appendChild(li);
@@ -470,6 +465,12 @@ function selectArtwork(item) {
     changeDetailVideo(item);
     changeDescriptions(item);
     changeShopLabel(item);
+    onScrollFnc = function () {
+        onScroll(item);
+    };
+
+    window.removeEventListener('scroll', onScrollFnc);
+    window.addEventListener('scroll', onScrollFnc);
 
     if (isMobile()) {
         itemCarousel.classList.add('invisible');
