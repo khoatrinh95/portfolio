@@ -124,7 +124,7 @@ function renderMobileView(items) {
     itemCarousel.style.transform = `translateX(-${firstItemLength / 2}px)`;
 
     styleItemCarousel(allItemC, 0);
-    swipeArtworkMobile(allItemC, items);
+    initializeMobileInteraction(allItemC, items);
 }
 
 function renderDesktopView(items) {
@@ -372,7 +372,7 @@ let onTouchStart = null;
 let onTouchEnd = null;
 let onTouchMove = null;
 
-function swipeArtworkMobile(allDivs, items) {
+function initializeMobileInteraction(allDivs, items) {
     // Shared between events
     let isTouching = false;
     let startX = 0;
@@ -474,6 +474,7 @@ function selectArtwork(item) {
     if (isMobile()) {
         itemCarousel.classList.add('invisible');
         clickForDetails.classList.add('invisible');
+        backToListLabel.classList.add('visible');
         removeEvents();
     } else {
         list.classList.add('slide-left');
