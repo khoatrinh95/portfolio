@@ -105,6 +105,7 @@ function initializeUI() {
     } else {
         renderDesktopView(activeItems);
     }
+    renderDefault(activeItems)
 }
 
 function renderMobileView(items) {
@@ -151,7 +152,9 @@ function renderDesktopView(items) {
 
         list.appendChild(li);
     });
+}
 
+function renderDefault(items) {
     const listItems = document.getElementsByClassName("item");
     changeArtwork(listItems[0], items[0]);
 }
