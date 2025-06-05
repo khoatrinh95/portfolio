@@ -37,6 +37,7 @@ const clickForDetails = document.getElementById("click-for-detail");
 
 let onScrollFnc = null;
 let handleClickShopLabel = null;
+let selectedArtworkIdx = 0;
 
 
 
@@ -148,6 +149,7 @@ function renderDesktopView(items) {
         });
 
         li.addEventListener('click', () => {
+            selectedArtworkIdx = i;
             selectArtwork(item);
             setTimeout(() => checkInitialScroll(), 3000);
 
@@ -411,6 +413,7 @@ function initializeMobileInteraction(allDivs, items) {
             // touch select
             selectArtwork(items[currentIdx]);
         }
+        selectedArtworkIdx = currentIdx;
         changeArtwork(null, items[currentIdx]);
         styleItemCarousel(allDivs, currentIdx);
         const offset = getOffset(allDivs, currentIdx);
@@ -502,6 +505,7 @@ function backToList() {
     circleBackToListButton.classList.remove('visible');
     backToListLabel.classList.remove('visible');
     resetShopLabel();
+    changeArtwork(null, activeItems[selectedArtworkIdx])
 
     if (isMobile()) {
         showItemCarousel();
