@@ -60,7 +60,15 @@ circleBackToListButton.addEventListener('click', () => {
     backToList();
 });
 
-if (!isMobile()) {
+if (isMobile()) {
+    backToListLabel.addEventListener('click', () => {
+        backToList();
+    })
+    homeLabel.addEventListener('click', function() {
+        window.location.href='index.html';
+    })
+
+} else {
     footer.addEventListener('mouseover', () => {
         moveLogoCircles();
     })

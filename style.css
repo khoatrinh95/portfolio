@@ -40,6 +40,26 @@
     --detail-photo-h-width: 97vw;
 }
 
+.label-underlined-when-hovered{
+
+}
+.label-underlined-when-hovered::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    height: 1px;
+    width: 100%;
+    background-color: white; /* underline color */
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+
+.label-underlined-when-hovered:hover::after {
+    transform: scaleX(1);
+}
+
 body {
     font-family: "Cutive Mono", monospace;
     background-color: #ffffff;
@@ -1255,10 +1275,11 @@ ul#item-list.slide-left li.item {
         opacity: 1;
         left: calc(var(--home-button-from-left) + var(--home-button-size) + 26px);
         top: calc(var(--home-button-from-left) - 2.5px);
-    }
+    }   
 
     #back-to-list-label {
         top: calc(var(--back-to-list-button-from-top) + var(--back-to-list-button-travel-distanceY) - 2.5px);
+        pointer-events: auto;
     }
 
     ul#item-list {
