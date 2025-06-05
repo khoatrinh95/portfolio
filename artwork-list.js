@@ -381,7 +381,9 @@ function initializeMobileInteraction(allDivs, items) {
     // Shared between events
     let isTouching = false;
     let startX = 0;
+    let startY = 0;
     let currentX = 0;
+    let currentY = 0;
     let deltaX = 0;
     let currentIdx = 0;
 
@@ -389,13 +391,16 @@ function initializeMobileInteraction(allDivs, items) {
     onTouchStart = (e) => {
         if (e.touches.length !== 1) return;
         startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
         currentX = startX;
+        currentY = startY;
         isTouching = true;
     };
 
     onTouchMove = (e) => {
         if (!isTouching || e.touches.length !== 1) return;
         currentX = e.touches[0].clientX;
+        currentY = e.touches[0].clientY;
         e.preventDefault();
     };
 
@@ -411,7 +416,12 @@ function initializeMobileInteraction(allDivs, items) {
             currentIdx = Math.min(items.length-1, ++currentIdx);
         } else {
             // touch select
-            selectArtwork(items[currentIdx]);
+
+            // if touch in the middle section of the screen
+            const viewportHeight = window.innerHeight;
+            if (currentY > viewportHeight/6 && currentY < viewportHeight/8*7) {
+                selectArtwork(items[currentIdx]);
+            }
         }
         selectedArtworkIdx = currentIdx;
         changeArtwork(null, items[currentIdx]);
