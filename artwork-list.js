@@ -38,6 +38,7 @@ const clickForDetails = document.getElementById("click-for-detail");
 let onScrollFnc = null;
 let handleClickShopLabel = null;
 let selectedArtworkIdx = 0;
+let inDetailMode = false;
 
 
 
@@ -47,10 +48,16 @@ getInTouchLabel.addEventListener('click', () => {
 
 aboutMeLabel.addEventListener('click', () => {
     aboutMeSection.classList.add("visible");
+    if (isMobile() && !inDetailMode) {
+        removeEvents();
+    }
 })
 
 aboutMeExit.addEventListener('click', () => {
     aboutMeSection.classList.remove("visible");
+    if (isMobile() && !inDetailMode) {
+        addEvents();
+    }
   })
 
 resetShopLabel();
@@ -475,6 +482,7 @@ function styleItemCarousel(allDivs, idx) {
 }
 
 function selectArtwork(item) {
+    inDetailMode = true;
     artWorkContainer.classList.add('move-left');
     artWorkFrame.classList.add('invisible');
     detailSection.classList.add('visible');
@@ -504,6 +512,7 @@ function selectArtwork(item) {
 }
 
 function backToList() {
+    inDetailMode = false;
     window.scrollTo({ top: 0, behavior: 'smooth' });
     window.removeEventListener('scroll', onScrollFnc);
     artWorkContainer.classList.remove('move-left');
