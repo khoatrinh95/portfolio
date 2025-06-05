@@ -1114,6 +1114,10 @@ ul#item-list.slide-left li.item {
 
     }
 
+    #welcome-logo-mix-circle {
+        width: calc(8px * 2.852);
+    }
+
     #welcome-background.after-welcome {
         opacity: 0;
      }
