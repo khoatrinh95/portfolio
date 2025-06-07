@@ -377,7 +377,9 @@ function getScrollPercent() {
 }
 
 function isMobile() {
-  return window.innerWidth <= 1024 && isIPadOrTablet();
+    //we're not checking screen size bc desktop could resize to small screen size 
+    // this checks whether the device supports touch
+    return "ontouchend" in document;
 }
 
 function isIPadOrTablet() {
