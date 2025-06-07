@@ -314,5 +314,13 @@ if (isMobile()) {
 
 
 function isMobile() {
-  return window.innerWidth <= 768;
+  return window.innerWidth <= 1024 && isIPadOrTablet();
+}
+
+function isIPadOrTablet() {
+  const ua = navigator.userAgent.toLowerCase();
+  return (
+    (ua.includes("ipad") || (ua.includes("macintosh") && "ontouchend" in document)) ||  // iPadOS (iPads now report as Mac sometimes)
+    (ua.includes("android") && !ua.includes("mobile"))  // Android tablets
+  );
 }
