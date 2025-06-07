@@ -622,6 +622,27 @@ ul#item-list.slide-left li.item {
     display: none;
 }
 
+#scroll-down {
+    /* background-image: url('assets/images/Arrow_Down.png'); */
+    color: white;
+    /* width: 15vh;
+    height: 15vh; */
+    font-size: 0.7em;
+    white-space: nowrap;
+    position: absolute;
+    bottom: 100px;
+    left: 50vw;
+    transform: translateX(-50%);
+    /* background-position: center; */
+    /* background-size: cover; */
+    opacity: 0;
+    transition: all 1s ease;
+}
+
+#scroll-down.visible {
+    opacity: 1;
+}
+
 #detail {
     position: relative;
     display: none;
@@ -1336,6 +1357,7 @@ ul#item-list.slide-left li.item {
         display: block;
         color: white;
         position: absolute;
+        font-size: 0.7em;
         top: calc(var(--art-subject-width-mobile) * 1.3 + 12vh + 40px); 
         /* 1.3 is the ratio of the art frame 4/3 -> so we get the height of the frame
         12vh is the padding-top of overview */

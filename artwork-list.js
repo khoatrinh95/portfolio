@@ -33,6 +33,7 @@ const aboutMeSection = document.getElementById("about-me-section");
 const aboutMeExit = document.getElementById("top-bar-about-me");
 const itemCarousel = document.getElementById("item-carousel");
 const clickForDetails = document.getElementById("click-for-detail");
+const scrollDown = document.getElementById("scroll-down");
 
 
 let onScrollFnc = null;
@@ -158,7 +159,7 @@ function renderDesktopView(items) {
         li.addEventListener('click', () => {
             selectedArtworkIdx = i;
             selectArtwork(item);
-            setTimeout(() => checkInitialScroll(), 3000);
+            // setTimeout(() => checkInitialScroll(), 3000);
 
             
         });
@@ -288,10 +289,10 @@ function fadeSections() {
     if (scrollPercent > 0.075) {
         desc1.classList.add("visible");
         detailFullArt.classList.add("visible");
-      
     } else {
         desc1.classList.remove("visible");
         detailFullArt.classList.remove("visible");
+        scrollDown.classList.remove("visible");
     }
 
     if (scrollPercent > 0.25) {
@@ -499,6 +500,7 @@ function selectArtwork(item) {
     artworkSubject.classList.add('visible');
     detailTitle.classList.add('visible');
     circleBackToListButton.classList.add('visible');
+    scrollDown.classList.add('visible');
     changeDetailTitle(item);
     changeDetailPhotos(item);
     changeDetailVideo(item);
@@ -533,6 +535,7 @@ function backToList() {
     detailTitle.classList.remove('visible');
     circleBackToListButton.classList.remove('visible');
     backToListLabel.classList.remove('visible');
+    scrollDown.classList.remove('visible');
     resetShopLabel();
     changeArtwork(null, activeItems[selectedArtworkIdx])
 
