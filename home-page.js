@@ -132,7 +132,7 @@ function toggleCarousel() {
     if (!isRunning || !isTouching || e.touches.length !== 1) return;
     const currentX = e.touches[0].clientX;
     const deltaX = currentX - startX;
-    boostSpeed -= deltaX * 0.5;
+    boostSpeed -= deltaX * 0.1;
     startX = currentX;
     e.preventDefault();
   };
