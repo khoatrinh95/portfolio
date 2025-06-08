@@ -524,7 +524,7 @@ body {
 
 #overview-container {
     position: relative;
-    /* overflow: hidden; */
+    overflow: hidden;
 }
 
 #overview {
@@ -630,7 +630,7 @@ ul#item-list.slide-left li.item {
     font-size: 0.7em;
     white-space: nowrap;
     position: absolute;
-    bottom: 100px;
+    bottom: 20vh;
     left: 50vw;
     transform: translateX(-50%);
     /* background-position: center; */
@@ -1372,6 +1372,10 @@ ul#item-list.slide-left li.item {
         transform: translateY(12vh) scale(1.5);
     }
 
+    #scroll-down {
+        bottom: 25vh;
+    }
+
     #detail-title {
         font-size: 8vh;
         letter-spacing: 0.1em;
@@ -1451,6 +1455,7 @@ ul#item-list.slide-left li.item {
         top: 0;
         left: 0;
         text-align: left;
+        transform: translateX(-10vw);
     }
 
     .video-h {
