@@ -1,3 +1,4 @@
+const mainCarousel = document.querySelectorAll(".main-carousel")[0];
 const artCircles = document.querySelectorAll("#circle-art");
 const artCirclePhotos = document.querySelectorAll(".circle-art-photo");
 const aboutMeCircles = document.querySelectorAll("#circle-about-me");
@@ -42,6 +43,7 @@ if (!hasVisited) {
       welcomeLogoContainer.classList.add("transition", "after-welcome");
       homePageContent.classList.add("visible");
       welcomeBackground.classList.add("transition", "after-welcome");
+      mainCarousel.classList.add("visible");
       clearInterval(waitAnimationInterval);
     }, 5000);
     sessionStorage.setItem('hasVisitedThisSession', 'true');
@@ -52,6 +54,7 @@ if (!hasVisited) {
   welcomeLogoContainer.style.display = 'none';
   homePageContent.classList.add("visible");
   welcomeBackground.classList.add("after-welcome");
+  mainCarousel.classList.add("visible");
 }
 
 

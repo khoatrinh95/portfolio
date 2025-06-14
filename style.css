@@ -264,10 +264,14 @@ body {
 .main-carousel {
     position: fixed;
     bottom: 10px;
-    /* animation: scroll-left 60s linear infinite; */
     display: flex;
     width: max-content;
     justify-content: flex-start;
+    opacity: 0;
+}
+
+.main-carousel.visible{
+    opacity: 1;
 }
 
 .main-carousel:hover {
