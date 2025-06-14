@@ -1,4 +1,5 @@
 const artCircles = document.querySelectorAll("#circle-art");
+const artCirclePhotos = document.querySelectorAll(".circle-art-photo");
 const aboutMeCircles = document.querySelectorAll("#circle-about-me");
 const mixCircles = document.querySelectorAll(".mix-circle");
 const displayText = document.querySelector("p#hovered-item");
@@ -191,9 +192,22 @@ function toggleCarousel() {
 
 toggleCarousel();
 
+let activeItems = [];
+fetch('artworks.json')
+    .then(res => res.json())
+    .then(items => {
+        activeItems = items.filter(item => item.active);
+        initializeUI();
+    })
+    .catch(err => console.error('Error loading JSON:', err));
 
-
-
+function initializeUI() {
+  mainArtPhoto = activeItems[0].folderName;
+  photoPath = `assets/artworks/${mainArtPhoto}/full.webp`;
+  artCirclePhotos.forEach(img => {
+    img.src = photoPath
+  })
+}
 
 artCircles.forEach(circle => {
   circle.addEventListener('mouseenter', () => {
