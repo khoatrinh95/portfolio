@@ -264,7 +264,7 @@ function changeShopLabel(item) {
     shopLabel.textContent= "Shop this print";
     shopLabel.removeEventListener("click", handleClickShopLabel);
     handleClickShopLabel = function () {
-        window.open(item.etsyLink,'_blank');
+        window.open(item.shopLink,'_blank');
     };
     shopLabel.addEventListener("click", handleClickShopLabel);
 }
@@ -273,7 +273,7 @@ function resetShopLabel() {
     shopLabel.textContent= "Shop";
     shopLabel.removeEventListener("click", handleClickShopLabel);
     handleClickShopLabel = function () {
-        window.open('https://dashausvonquoi.etsy.com','_blank');
+        window.open('https://das-haus-von-quoi.square.site','_blank');
     };
     shopLabel.addEventListener("click", handleClickShopLabel);
 }
