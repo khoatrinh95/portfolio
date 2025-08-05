@@ -14,6 +14,9 @@ const topLeftTitle = document.getElementById("top-left-title-home-page");
 const homePageContent = document.getElementById("home-page-content");
 const welcomeLogoContainer = document.getElementById("welcome-logo-container");
 const welcomeBackground = document.getElementById("welcome-background");
+const welcomeBackgroundSubject = document.getElementById("welcome-background-subject");
+const welcomeBackgroundColoredRectangle = document.getElementById("welcome-background-colored-rectangle");
+const welcomeBackgroundColoredLine = document.getElementById("welcome-background-colored-line");
 const welcomeLogoCircles = document.querySelectorAll(".welcome-logo-circle");
 const carousel = document.getElementById('main-carousel');
 
@@ -40,9 +43,12 @@ if (!hasVisited) {
     setTimeout(() => {
       topRightTitle.classList.add("transition", "after-welcome");
       topLeftTitle.classList.add("transition", "after-welcome");
-      welcomeLogoContainer.classList.add("transition", "after-welcome");
+      welcomeLogoContainer.classList.add("after-welcome");
       homePageContent.classList.add("visible");
       welcomeBackground.classList.add("transition", "after-welcome");
+      welcomeBackgroundSubject.classList.add("transition", "after-welcome");
+      welcomeBackgroundColoredRectangle.classList.add("transition", "after-welcome");
+      welcomeBackgroundColoredLine.classList.add("transition", "after-welcome");
       mainCarousel.classList.add("visible");
       clearInterval(waitAnimationInterval);
     }, 5000);
@@ -54,6 +60,9 @@ if (!hasVisited) {
   welcomeLogoContainer.style.display = 'none';
   homePageContent.classList.add("visible");
   welcomeBackground.classList.add("after-welcome");
+  welcomeBackgroundSubject.classList.add("after-welcome");
+  welcomeBackgroundColoredRectangle.classList.add("after-welcome");
+  welcomeBackgroundColoredLine.classList.add("after-welcome");
   mainCarousel.classList.add("visible");
 }
 
