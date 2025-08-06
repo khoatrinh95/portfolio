@@ -62,7 +62,7 @@
 }
 
 body {
-    font-family: "Cutive Mono", monospace;
+    font-family: "Cormorant";
     overflow-x: hidden;
     background-color: #ffffff;
     color: black;
@@ -111,6 +111,8 @@ body {
 }
 
 #top-left-title-home-page {
+    font-weight: normal;
+    letter-spacing: 23%;
     position: absolute;
     top: 35vh;
     left: 50vw;
@@ -132,6 +134,7 @@ body {
 }
 
 #top-right-title-home-page {
+    font-weight: lighter;
     position: absolute;
     top: 35vh;
     left: 50vw;
@@ -210,7 +213,7 @@ body {
     top: 31vh;
     left: 0;
     width: 100%;
-    height: 5px;
+    height: 3px;
     z-index: -1;
     transform: translateX(-100vw);
     background-color: var(--yellow);
