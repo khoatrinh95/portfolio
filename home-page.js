@@ -19,6 +19,7 @@ const welcomeBackgroundColoredRectangle = document.getElementById("welcome-backg
 const welcomeBackgroundColoredHorizontalLine = document.getElementById("welcome-background-colored-horizontal-line");
 const welcomeBackgroundColoredVerticalLine = document.getElementById("welcome-background-colored-vertical-line");
 const welcomeLogoCircles = document.querySelectorAll(".welcome-logo-circle");
+const menuButton = document.getElementById("menu-button");
 const carousel = document.getElementById('main-carousel');
 
 
@@ -51,6 +52,7 @@ if (!hasVisited) {
       welcomeBackgroundColoredRectangle.classList.add("transition", "after-welcome");
       welcomeBackgroundColoredHorizontalLine.classList.add("transition", "after-welcome");
       welcomeBackgroundColoredVerticalLine.classList.add("transition", "after-welcome");
+      menuButton.classList.add("transition", "after-welcome");
       mainCarousel.classList.add("visible");
       clearInterval(waitAnimationInterval);
     }, 5000);
@@ -66,6 +68,7 @@ if (!hasVisited) {
   welcomeBackgroundColoredRectangle.classList.add("after-welcome");
   welcomeBackgroundColoredHorizontalLine.classList.add("after-welcome");
   welcomeBackgroundColoredVerticalLine.classList.add("after-welcome");
+  menuButton.classList.add("after-welcome");
   mainCarousel.classList.add("visible");
 }
 
