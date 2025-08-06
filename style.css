@@ -208,7 +208,7 @@ body {
     transform: translateY(-100vh);
 }
 
-#welcome-background-colored-line {
+#welcome-background-colored-horizontal-line {
     position: absolute;
     top: 31vh;
     left: 0;
@@ -219,8 +219,22 @@ body {
     background-color: var(--yellow);
 }
 
-#welcome-background-colored-line.after-welcome {
+#welcome-background-colored-horizontal-line.after-welcome {
     transform: translateX(0);  
+}
+
+#welcome-background-colored-vertical-line {
+    position: absolute;
+    bottom: 0;
+    left: 50vw;
+    width: 3px;
+    height: 30vh;
+    z-index: 0;
+    background-color: var(--yellow);
+}
+
+#welcome-background-colored-vertical-line.after-welcome {
+    transform: translateY(40vh);
 }
 
 #welcome-logo-container {

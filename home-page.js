@@ -16,7 +16,8 @@ const welcomeLogoContainer = document.getElementById("welcome-logo-container");
 const welcomeBackground = document.getElementById("welcome-background");
 const welcomeBackgroundSubject = document.getElementById("welcome-background-subject");
 const welcomeBackgroundColoredRectangle = document.getElementById("welcome-background-colored-rectangle");
-const welcomeBackgroundColoredLine = document.getElementById("welcome-background-colored-line");
+const welcomeBackgroundColoredHorizontalLine = document.getElementById("welcome-background-colored-horizontal-line");
+const welcomeBackgroundColoredVerticalLine = document.getElementById("welcome-background-colored-vertical-line");
 const welcomeLogoCircles = document.querySelectorAll(".welcome-logo-circle");
 const carousel = document.getElementById('main-carousel');
 
@@ -48,7 +49,8 @@ if (!hasVisited) {
       welcomeBackground.classList.add("transition", "after-welcome");
       welcomeBackgroundSubject.classList.add("transition", "after-welcome");
       welcomeBackgroundColoredRectangle.classList.add("transition", "after-welcome");
-      welcomeBackgroundColoredLine.classList.add("transition", "after-welcome");
+      welcomeBackgroundColoredHorizontalLine.classList.add("transition", "after-welcome");
+      welcomeBackgroundColoredVerticalLine.classList.add("transition", "after-welcome");
       mainCarousel.classList.add("visible");
       clearInterval(waitAnimationInterval);
     }, 5000);
@@ -62,7 +64,8 @@ if (!hasVisited) {
   welcomeBackground.classList.add("after-welcome");
   welcomeBackgroundSubject.classList.add("after-welcome");
   welcomeBackgroundColoredRectangle.classList.add("after-welcome");
-  welcomeBackgroundColoredLine.classList.add("after-welcome");
+  welcomeBackgroundColoredHorizontalLine.classList.add("after-welcome");
+  welcomeBackgroundColoredVerticalLine.classList.add("after-welcome");
   mainCarousel.classList.add("visible");
 }
 
