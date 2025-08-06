@@ -72,8 +72,8 @@ if (!hasVisited) {
   mainCarousel.classList.add("visible");
 }
 
-
-if (!isMobile()) {
+// remove the patterns
+if (false) {
   // Generate dots
   const pattern = document.getElementById('pattern');
   const cols = Math.ceil(window.innerWidth / 75);
