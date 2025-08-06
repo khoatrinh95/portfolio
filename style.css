@@ -113,12 +113,12 @@ body {
 #top-left-title-home-page {
     font-weight: normal;
     letter-spacing: 23%;
+    text-wrap: nowrap;
     position: absolute;
     top: 35vh;
     left: 50vw;
     margin: 0;
     transform: translate(-50%, -90px); /* -100px bc it should be above the middle point*/
-    /* transition: all 1.5s ease; */
 }
 
 .transition {
@@ -126,11 +126,10 @@ body {
 }
 
 #top-left-title-home-page.after-welcome {
-    transform: translate(calc(-50vw + 18px), calc(-35vh + 18px)); 
+    /* transform: translate(calc(-50vw + 18px), calc(-35vh + 18px));  */
     /*18px = 10px (left of top-left-title) + 8px (left of top-bar)*/
     /*18px = 10px (top of top-left-title) + 8px (top of top-bar)*/
-
-    color: white;
+    transform: translate(-50%, -100vh);
 }
 
 #top-right-title-home-page {
@@ -145,11 +144,11 @@ body {
 }
 
 #top-right-title-home-page.after-welcome {
-    transform: translate(calc(50vw - 291px - 30px), calc(-35vh + 18px)); 
+    /* transform: translate(calc(50vw - 291px - 30px), calc(-35vh + 18px));  */
     /*291 is the width of text, 30px is gap from right
     18px = 10px (top of top-right-title) + 8px (top of top-bar)*/
 
-    color: white;
+    transform: translate(-50%, -100vh);
 }
 
 #welcome-background {
@@ -1242,7 +1241,7 @@ ul#item-list.slide-left li.item {
     }
 
     #top-left-title-home-page.after-welcome {
-        transform: translate(-50%, calc(-35vh + 18px + 10px)); 
+        /* transform: translate(-50%, calc(-35vh + 18px + 10px));  */
         /*18px = 10px (left of top-left-title) + 8px (left of top-bar)*/
         /*18px = 10px (top of top-left-title) + 8px (top of top-bar)*/
         /*10px = extra space on top - for design*/
@@ -1250,7 +1249,7 @@ ul#item-list.slide-left li.item {
 
     
     #top-right-title-home-page.after-welcome {
-        transform: translate(-50%, calc(-35vh + 18px + 30px + 10px)); 
+        /* transform: translate(-50%, calc(-35vh + 18px + 30px + 10px));  */
         /*18px = 10px (top of top-left-title) + 8px (top of top-bar)*/
         /*30px = gap between DAS HAUS VON QUOI and title*/
         /*10px = extra space on top - for design*/
