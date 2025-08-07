@@ -282,6 +282,10 @@ mixCircles.forEach(circle => {
   });
 })
 
+menuButton.addEventListener('click', () => {
+  toggleCarousel();
+})
+
 aboutMeExit.addEventListener('click', () => {
   aboutMeSection.classList.remove("visible");
   toggleCarousel();

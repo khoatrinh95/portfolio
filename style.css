@@ -239,16 +239,35 @@ body {
 #menu-button {
     position: absolute;
     margin: 0;
+    padding: 2px;
     top: var(--home-button-from-left);
     left: var(--home-button-from-left);
     color: white;
     font-size: 1.5em;
-    line-height: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    cursor: pointer;
     opacity: 0;
+}
+
+.menu-button .letter-q {
+    display: inline-block;
+    transform: rotateZ(0deg);
+    transition: transform 0.6s ease; /* ✅ only transition transform */
+    will-change: transform;         /* ✅ hint to browser to optimize */
+    /*This prepares the element for GPU compositing, 
+    so the transform won't force layout recalculations 
+    that interfere with the requestAnimationFrame carousel.*/
+}
+
+
+.menu-button:hover .letter-q {
+    transform: rotateZ(60deg); /* Rotate on hover */
 }
 
 #menu-button.after-welcome {
     opacity: 1;
+    cursor: pointer;
 }
 
 #welcome-logo-container {
