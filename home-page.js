@@ -133,7 +133,7 @@ let isRunning = false;
 
 function toggleCarousel() {
   const baseSpeed = 1;
-  const scrollMultiplier = 0.1;
+  const scrollMultiplier = 0.05;
   const contentWidth = carousel.scrollWidth / 2;
 
   // Shared between events
