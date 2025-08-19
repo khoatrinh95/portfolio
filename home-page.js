@@ -21,13 +21,6 @@ const welcomeBackgroundColoredVerticalLine = document.getElementById("welcome-ba
 const welcomeLogoCircles = document.querySelectorAll(".welcome-logo-circle");
 const menuButton = document.getElementById("menu-button");
 const carousel = document.getElementById('main-carousel');
-const menu = document.querySelectorAll(".menu");
-const menuX = document.getElementById('menu-x');
-const menuTitle = document.getElementById('menu-title');
-const menuVerticalLine = document.getElementById('menu-vertical-line');
-const menuLabels = document.querySelectorAll(".menu-label");
-const menuLabelImg = document.getElementById('menu-label-image');
-
 
 const hasVisited = sessionStorage.getItem('hasVisitedThisSession');
 
@@ -288,43 +281,6 @@ mixCircles.forEach(circle => {
   });
 })
 
-menuButton.addEventListener('click', () => {
-  menu[0].classList.add("visible");
-  menuLabels.forEach(m => {
-    m.classList.add('visible');
-  })
-  toggleCarousel()
-})
-
-menuX.addEventListener('click', () => {
-  menu[0].classList.remove("visible");
-  menuLabels.forEach(m => {
-    m.classList.remove('visible');
-  })
-  toggleCarousel()
-})
-
-menuTitle.addEventListener('click', () => {
-  menu[0].classList.remove("visible");
-})
-
-menuLabels.forEach(m => {
-  m.addEventListener('mouseover', () => {
-    menuVerticalLine.style.transition = "transform 0.3s ease";
-    menuVerticalLine.style.transitionDelay = "0.3s";
-    menuVerticalLine.style.transformOrigin = "top";
-    menuVerticalLine.classList.add("visible");
-    changeMenuImage(m, false);
-  });
-
-  m.addEventListener('mouseleave', () => {
-    // Remove delay and animate immediately
-    menuVerticalLine.style.transitionDelay = "0s";
-    menuVerticalLine.style.transition = "none"; 
-    menuVerticalLine.classList.remove("visible");
-    changeMenuImage(m, true);
-  });
-});
 
 
 aboutMeExit.addEventListener('click', () => {
@@ -332,37 +288,6 @@ aboutMeExit.addEventListener('click', () => {
   toggleCarousel();
 })
 
-function changeMenuImage(menuLabel, remove) {
-  if (remove) {
-    menuLabelImg.style.opacity = 0;
-  } else {
-    menuLabelImg.style.opacity = 1;
-    let width = '20vw';
-
-    switch (menuLabel.textContent) {
-      case "Artwork":
-        width = '25vw'
-        menuLabelImg.src = 'assets/artworks/statue/mockup-h-1.webp';
-        break;
-      case "Shop":
-        width = '40vw'
-        menuLabelImg.src = 'assets/images/shop.png';
-        break;
-      case "About":
-        menuLabelImg.src = 'assets/images/about-me.webp';
-        break;
-      case "Events":
-        menuLabelImg.src = 'assets/images/Logo.webp';
-        break;
-      case "Contact":
-        menuLabelImg.src = 'assets/images/about-me-profile.webp';
-        break;
-    }
-
-    menuLabelImg.style.width = width;
-    
-  }
-}
 
 function cursorMovement(e) {
   customCursor.style.left = `${e.clientX - 20}px`;
