@@ -30,22 +30,20 @@ class MyMenu extends HTMLElement {
 
     if (menuButton) {
       menuButton.addEventListener("click", () => {
-        menu.classList.add("visible");
-        menuLabels.forEach(m => m.classList.add("visible"));
+        showElements([menu, ...menuLabels]);
         toggleCarousel(); // global function
       });
     }
 
     // ---- Close button ----
     menuX.addEventListener("click", () => {
-      menu.classList.remove("visible");
-      menuLabels.forEach(m => m.classList.remove("visible"));
+      hideElements([menu, ...menuLabels]);
       toggleCarousel(); // global function
     });
 
     // ---- Clicking the title closes menu ----
     menuTitle.addEventListener("click", () => {
-      menu.classList.remove("visible");
+      hideElements([menu, ...menuLabels]);
     });
 
     // ---- Hover effects on labels ----
@@ -63,6 +61,33 @@ class MyMenu extends HTMLElement {
         menuVerticalLine.style.transition = "none";
         menuVerticalLine.classList.remove("visible");
         changeMenuImage(m, true); // global function
+      });
+
+      m.addEventListener("click", () => {
+        switch (m.textContent) {
+            case "Artwork":
+                
+                break;
+            case "Shop":
+                window.open('https://das-haus-von-quoi.square.site','_blank');
+                break;
+            case "About":
+                this.dispatchEvent(new CustomEvent("show-about", {
+                  bubbles: true,        // important! lets event go up DOM
+                  composed: true        // important! lets event escape shadow DOM
+                }));
+                break;
+            case "Events":
+                
+                break;
+            case "Contact":
+                this.dispatchEvent(new CustomEvent("show-contact", {
+                  bubbles: true,        // important! lets event go up DOM
+                  composed: true        // important! lets event escape shadow DOM
+                }));
+                break;
+            }
+        hideElements([menu, ...menuLabels]);
       });
     });
 
