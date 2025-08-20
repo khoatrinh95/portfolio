@@ -6,7 +6,6 @@ const mixCircles = document.querySelectorAll(".mix-circle");
 const displayText = document.querySelector("p#hovered-item");
 const customCursor = document.getElementById("custom-cursor");
 const aboutMeSection = document.getElementById("about-me-section");
-const aboutMeExit = document.getElementById("top-bar-about-me");
 const circleButtonHome = document.querySelectorAll(".mix-circle");
 const backgroundCircles = document.getElementById("background-circles");
 const topRightTitle = document.getElementById("top-right-title-home-page");
@@ -257,10 +256,6 @@ aboutMeCircles.forEach(circle => {
   circle.addEventListener('mousemove', (e) => {
     cursorMovement(e);
   });
-  circle.addEventListener('click', () => {
-    aboutMeSection.classList.add("visible");
-    toggleCarousel();
-  });
 })
 
 mixCircles.forEach(circle => {
@@ -282,11 +277,6 @@ mixCircles.forEach(circle => {
 })
 
 
-
-aboutMeExit.addEventListener('click', () => {
-  aboutMeSection.classList.remove("visible");
-  toggleCarousel();
-})
 
 
 function cursorMovement(e) {
@@ -359,4 +349,17 @@ function isIPadOrTablet() {
     (ua.includes("ipad") || (ua.includes("macintosh") && "ontouchend" in document)) ||  // iPadOS (iPads now report as Mac sometimes)
     (ua.includes("android") && !ua.includes("mobile"))  // Android tablets
   );
+}
+
+function showElements(elements) {
+  elements.forEach(e => {
+    if (e) e.classList.add("visible");
+  });
+}
+
+
+function hideElements(elements) {
+  elements.forEach(e => {
+    if (e) e.classList.remove("visible");
+  });
 }

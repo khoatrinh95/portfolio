@@ -7,15 +7,17 @@
 */
 
 .menu {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100vh;
+    height: 100%;
     background-color: var(--yellow);
     z-index: 10;
     transform: translateY(-100vh);
     transition: transform 0.5s cubic-bezier(.76, 0.03,.53,.87);
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .menu.visible {
