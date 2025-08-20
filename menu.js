@@ -44,6 +44,7 @@ class MyMenu extends HTMLElement {
     // ---- Clicking the title closes menu ----
     menuTitle.addEventListener("click", () => {
       hideElements([menu, ...menuLabels]);
+      toggleCarousel();
     });
 
     // ---- Hover effects on labels ----
@@ -76,6 +77,7 @@ class MyMenu extends HTMLElement {
                   bubbles: true,        // important! lets event go up DOM
                   composed: true        // important! lets event escape shadow DOM
                 }));
+                hideElements([menu, ...menuLabels]);
                 break;
             case "Events":
                 
@@ -85,9 +87,9 @@ class MyMenu extends HTMLElement {
                   bubbles: true,        // important! lets event go up DOM
                   composed: true        // important! lets event escape shadow DOM
                 }));
+                hideElements([menu, ...menuLabels]);
                 break;
             }
-        hideElements([menu, ...menuLabels]);
       });
     });
 
