@@ -1,0 +1,35 @@
+[
+  {
+    "title": "Pop & Fade",
+    "shopLink": "https://das-haus-von-quoi.square.site/product/when-logic-fails/V3DB7PPNS5NNNGOP634DVG5P",
+    "active": true,
+    "locked" : false,
+    "backgroundColor": "#6A2C2A",
+    "mainColor": "#732727",
+    "folderName": "statue",
+    "desc1": "\"When Logic Fails\" is a modern surrealist art print that merges hyper-realistic textures with an imaginative twist. At the heart of the piece is a digitally hand-painted classical Roman statue, blindfolded, yet not entirely hidden. The blindfold is surrealistically sliced open, offering a glimpse into a world that defies logic.",
+    "desc2": "This piece plays with contradiction: marble meets fabric, realism meets surrealism, structure meets distortion. It's for those who find beauty in things that don’t quite make sense, an ode to the curious, the analytical dreamers, and the lovers of paradox"
+  },
+  {
+    "title": "Col. 2",
+    "shopLink": "https://das-haus-von-quoi.square.site/product/melting-queen/CEHBPZD5VDA35CGQXV3QWIKI",
+    "active": true,
+    "locked" : false,
+    "backgroundColor": "#224132",
+    "mainColor": "#1E3227",
+    "folderName": "queen",
+    "desc1": "Meet the regal counterpart to The Melting King: a hyper-realistic portrait of a queen chess piece, rendered entirely by hand in digital form. Every stroke was painted with care to capture the rich, reflective quality of gold and the graceful drips that melt down its form.",
+    "desc2": "Set against a deep royal green backdrop, the simplicity of the background allows the richness of the chess piece to take center stage. A balance of elegance, power, and decay. This piece is a celebration of digital craft, where traditional painting techniques meet modern boldness."
+  },
+  {
+    "title": "Col. 3",
+    "shopLink": "https://das-haus-von-quoi.square.site/product/melting-king/2WAGNVSCGBBZ4ZDWJJ63EKA5",
+    "active": true,
+    "locked" : true,
+    "backgroundColor": "#CF7243",
+    "mainColor": "#D7582B",
+    "folderName": "king",
+    "desc1": "This striking modern artwork features a hyper-realistic chrome king chess piece, melting against a bold, vibrant backdrop. Painted digitally by hand, stroke by stroke, this piece incorporates 15 different shades of blue to achieve its striking depth and metallic realism. ",
+    "desc2": "The fusion of surrealism and contemporary design makes it a true statement piece, perfect for those with bold personalities who appreciate unique, modern decor. Whether you're a chess lover, an art collector, or someone who enjoys daring aesthetics, this piece adds an edgy yet sophisticated touch to any space."
+  }
+]

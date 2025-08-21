@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DAS HAUS VON QUOI ART</title>
+    <link rel="stylesheet" href="/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cutive+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <script type="module" src="menu.js"></script>
+    <script type="module" src="about.js"></script>
+    <script type="module" src="contact.js"></script>
+    <script type="module" src="artwork-transition.js"></script>
+</head>
+
+<body>
+    <div id="menu-button" class="menu-button" style="--text-color: black;">
+        <span class="letter-q">Q</span>
+    </div>
+
+    <div id="art-type-labels">
+        <span class="label-underlined-when-hovered atl" id="atl1">Singles</span>
+        <span class="label-underlined-when-hovered atl" id="atl2">Series</span>
+    </div>
+
+    <ul id="item-list-single"></ul>
+    <ul id="item-list-series"></ul>
+
+    <div class="artwork-container" id="ac1">
+        <span class="warning" id="w1">(Coming soon)</span>
+        <div class="inner-rectangle" id="ir1"></div>
+        
+        <img class="frame" src="/assets/images/Frame.webp" alt="">
+    </div>
+
+    <div class="artwork-container" id="ac2">
+        <div class="inner-rectangle" id="ir2"></div>
+        <span class="warning" id="w2">(Coming soon)</span>
+        <img class="frame" src="/assets/images/Frame.webp" alt="">
+    </div>
+
+    <span id="note">(Click for details)</span>
+    <my-about></my-about>
+    <my-contact></my-contact>
+    <my-artwork-transition></my-artwork-transition>
+    <my-menu></my-menu>
+    
+    <script type="module" src="./artwork-page.js"></script>
+</body>
+
+</html>

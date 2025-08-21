@@ -1,3 +1,5 @@
+import { hideElements, showElements } from './utils.js';
+
 class MyContact extends HTMLElement {
   async connectedCallback() {
     const shadow = this.attachShadow({ mode: "open" });

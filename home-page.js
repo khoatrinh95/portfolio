@@ -239,7 +239,20 @@ artCircles.forEach(circle => {
     cursorMovement(e);
   });
   circle.addEventListener('click', () => {
-    window.location.href = 'artwork-list.html';
+    circle.dispatchEvent(new CustomEvent("show-artwork-transition", {
+      bubbles: true,        // important! lets event go up DOM
+      composed: true        // important! lets event escape shadow DOM
+    }));
+
+    setTimeout(() => {
+      window.location.href = 'artwork-page.html';
+      circle.dispatchEvent(new CustomEvent("hide-artwork-transition", {
+      bubbles: true,        // important! lets event go up DOM
+      composed: true        // important! lets event escape shadow DOM
+    }));
+    }, 1000);
+    
+    
   });
 })
 

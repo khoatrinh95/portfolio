@@ -1,3 +1,5 @@
+import { hideElements, showElements, isHomePage } from './utils.js';
+
 class MyMenu extends HTMLElement {
   async connectedCallback() {
     const shadow = this.attachShadow({ mode: "open" });
@@ -31,20 +33,21 @@ class MyMenu extends HTMLElement {
     if (menuButton) {
       menuButton.addEventListener("click", () => {
         showElements([menu, ...menuLabels]);
-        toggleCarousel(); // global function
+        toggleHomePageCarousel(); // global function
       });
     }
 
     // ---- Close button ----
     menuX.addEventListener("click", () => {
       hideElements([menu, ...menuLabels]);
-      toggleCarousel(); // global function
+      toggleHomePageCarousel(); // global function
     });
 
-    // ---- Clicking the title closes menu ----
+    // ---- Clicking the title goes to home page ----
     menuTitle.addEventListener("click", () => {
       hideElements([menu, ...menuLabels]);
-      toggleCarousel();
+      window.location.href = 'index.html';
+      toggleHomePageCarousel();
     });
 
     // ---- Hover effects on labels ----
@@ -67,7 +70,19 @@ class MyMenu extends HTMLElement {
       m.addEventListener("click", () => {
         switch (m.textContent) {
             case "Artwork":
-                
+                this.dispatchEvent(new CustomEvent("show-artwork-transition", {
+                  bubbles: true,        // important! lets event go up DOM
+                  composed: true        // important! lets event escape shadow DOM
+                }));
+                hideElements([menu, ...menuLabels]);
+
+                setTimeout(() => {
+                  window.location.href = 'artwork-page.html';
+                  this.dispatchEvent(new CustomEvent("hide-artwork-transition", {
+                  bubbles: true,        // important! lets event go up DOM
+                  composed: true        // important! lets event escape shadow DOM
+                }));
+                }, 1000);
                 break;
             case "Shop":
                 window.open('https://das-haus-von-quoi.square.site','_blank');
@@ -123,6 +138,12 @@ class MyMenu extends HTMLElement {
             menuLabelImg.style.width = width;
             
         }
+    }
+
+    function toggleHomePageCarousel() {
+      if (isHomePage()) {
+        toggleCarousel();
+      }
     }
   }
 }
