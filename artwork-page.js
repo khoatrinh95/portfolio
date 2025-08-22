@@ -37,6 +37,7 @@ const desc2 = document.getElementById("desc-2");
 const desc3 = document.getElementById("desc-3");
 const shadows = document.querySelectorAll(".shadow");
 const backToTopLabel = document.getElementById("back-to-top-label-container");
+const shopLabel = document.getElementById("desc-4");
 
 setTimeout(() => {
       menuButton.classList.add("transition", "after-welcome");
@@ -293,6 +294,7 @@ function selectArtwork(item) {
     changeDetailPhotos(item);
     changeDescriptions(item);
     changeDetailVideo(item);
+    changeShopLabel(item);
     deregisterClickArtworks();
     note.textContent = "(Slide down for details)";
     note.style.color= "white";
@@ -376,4 +378,13 @@ function changeDescriptions(item) {
     span.style.marginLeft = "100px";
     span.textContent = "Digital Painting";
     desc3.appendChild(span);
+}
+
+function handleClickShopLabel() {
+    window.open(selectedItem.shopLink,'_blank');
+}
+
+function changeShopLabel(item) {
+    shopLabel.removeEventListener("click", handleClickShopLabel);
+    shopLabel.addEventListener("click", handleClickShopLabel);
 }
