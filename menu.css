@@ -42,7 +42,7 @@
     transform: rotateZ(90deg); /* Rotate on hover */
 }
 
-#menu-title {
+#menu-title-container {
     position: absolute;
     letter-spacing: 50%;
     margin: 0;
@@ -53,12 +53,13 @@
     white-space: nowrap;
     overflow: hidden;
     cursor: pointer;
+    display: inline-block;
     transform: translateX(-50%);
-    transition: all 0.6s ease;
 }
 
-#menu-title:hover {
-    letter-spacing: 100%;
+#menu-title {
+    position: relative;
+    
 }
 
 #menu-logo {

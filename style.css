@@ -281,7 +281,6 @@ body {
     overflow: hidden;
     cursor: pointer;
     opacity: 0;
-    z-index: 3;
 }
 
 .menu-button .letter-q {

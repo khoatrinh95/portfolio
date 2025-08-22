@@ -41,6 +41,7 @@ const shopLabel = document.getElementById("desc-4");
 
 setTimeout(() => {
       menuButton.classList.add("transition", "after-welcome");
+      menuButton.style.zIndex = "3";
 }, 500);
 
 let onScrollFnc;
