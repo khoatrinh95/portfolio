@@ -18,10 +18,32 @@ function showElements(elements) {
   });
 }
 
+function showElementsWithTransition(elements) {
+  elements.forEach(e => {
+    if (e) e.classList.add("visible", "transition");
+  });
+}
+
 
 function hideElements(elements) {
   elements.forEach(e => {
     if (e) e.classList.remove("visible");
+  });
+}
+
+function addInvisibleWithTransition(elements) {
+  elements.forEach(e => {
+    if (e) {
+      e.classList.add("invisible", "transition");
+    }
+  });
+}
+
+function removeInvisibleWithTransition(elements) {
+  elements.forEach(e => {
+    if (e) {
+      e.classList.remove("invisible", "transition");
+    }
   });
 }
 
@@ -42,4 +64,34 @@ function isHomePage() {
   return getCurrentPageName() == "index";
 }
 
-export {doesFileExist, showElements, hideElements, getCurrentPageName, isHomePage};
+function toggleHomePageCarousel() {
+      if (isHomePage()) {
+        toggleCarousel();
+      }
+    }
+
+function isMobile() {
+    //we're not checking screen size bc desktop could resize to small screen size 
+    // this checks whether the device supports touch
+    return "ontouchend" in document;
+}
+
+function getScrollPercent() {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    return (scrollTop / docHeight) * 100;
+}
+
+export {
+  doesFileExist, 
+  showElements, 
+  hideElements, 
+  getCurrentPageName, 
+  isHomePage, 
+  isMobile, 
+  showElementsWithTransition, 
+  addInvisibleWithTransition,
+  removeInvisibleWithTransition,
+  toggleHomePageCarousel,
+  getScrollPercent
+};

@@ -1,6 +1,6 @@
 #artwork-transition {
     background-color: white;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
@@ -9,6 +9,7 @@
     transform: translateY(100vh);
     transition: transform 0.5s cubic-bezier(.76, 0.03,.53,.87);
     overflow-y: scroll;
+    z-index: 11;
 }
 
 #artwork-transition.visible {

@@ -1,4 +1,4 @@
-import { hideElements, showElements } from './utils.js';
+import { hideElements, toggleHomePageCarousel, showElements } from './utils.js';
 
 class MyAbout extends HTMLElement {
   async connectedCallback() {
@@ -36,7 +36,7 @@ class MyAbout extends HTMLElement {
     aboutMeCircles.forEach(circle => {
         circle.addEventListener('click', () => {
             showElements([about, hl1, vl1, hl2, ...block1p, ...block2p, aboutLogo]);
-            toggleCarousel();
+            toggleHomePageCarousel();
         });
     })
 
@@ -44,7 +44,7 @@ class MyAbout extends HTMLElement {
     aboutX.addEventListener("click", () => {
         hideElements([about, hl1, vl1, hl2, ...block1p, ...block2p, aboutLogo]);
         // menuLabels.forEach(m => m.classList.remove("visible"));
-        toggleCarousel(); // global function
+        toggleHomePageCarousel(); // global function
     });
 
     document.addEventListener("show-about", () => {

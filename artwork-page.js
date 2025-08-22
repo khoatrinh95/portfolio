@@ -1,4 +1,13 @@
-import { hideElements, showElements } from './utils.js';
+import { 
+    hideElements, 
+    showElements, 
+    isMobile, 
+    showElementsWithTransition, 
+    addInvisibleWithTransition,
+    removeInvisibleWithTransition,
+    getScrollPercent,
+    doesFileExist
+} from './utils.js';
 
 const menuButton = document.getElementById("menu-button");
 const itemListSingle = document.getElementById('item-list-single');
@@ -11,13 +20,30 @@ const ac1 = document.getElementById("ac1");
 const ac2 = document.getElementById("ac2");
 const warnings = document.querySelectorAll(".warning");
 const note = document.getElementById("note");
+const detailSection = document.getElementById("detail-section");
+const subject = document.getElementById("subject");
+const backToListLabel = document.getElementById("back-to-list-label");
+const detailVerticalLine = document.getElementById("detail-vertical-line");
+const detailInfo = document.getElementById("detail-info");
+const detailComponents = document.querySelectorAll(".detail-component");
+const mockupV1 = document.getElementById("mockup-v-1");
+const mockupV2 = document.getElementById("mockup-v-2");
+const mockupH1 = document.getElementById("mockup-h-1");
+const video1 = document.getElementById("video");
+const closeUpArt1 = document.getElementById("detail-1");
+const closeUpArt2 = document.getElementById("detail-2");
+const desc1 = document.getElementById("desc-1");
+const desc2 = document.getElementById("desc-2");
+const desc3 = document.getElementById("desc-3");
+const shadows = document.querySelectorAll(".shadow");
+const backToTopLabel = document.getElementById("back-to-top-label-container");
 
 setTimeout(() => {
       menuButton.classList.add("transition", "after-welcome");
 }, 500);
 
-
-
+let onScrollFnc;
+let selectedItem;
 let activeSingleItems = [];
 let activeSeries = [];
 
@@ -87,7 +113,6 @@ function populateSinglesList(items) {
         });
 
         li.addEventListener('click', () => {
-            selectedArtworkIdx = i;
             selectArtwork(item);
 
             
@@ -117,7 +142,6 @@ function populateSeriesList(items) {
         });
 
         li.addEventListener('click', () => {
-            selectedArtworkIdx = i;
             selectArtwork(item);
 
             
@@ -136,7 +160,7 @@ function registerEvents(singleItems, seriesItems) {
         showElements([...singleItems]);
         hideElements([...seriesItems]);
         enableSinglesMode();
-        resetSelection();
+        clearSelectionAndArtWork();
     })
 
     atl2.addEventListener("click", () => {
@@ -147,15 +171,24 @@ function registerEvents(singleItems, seriesItems) {
         hideElements([...singleItems]);
         showElements([...seriesItems]);
         enableSeriesMode()
-        resetSelection();
+        clearSelectionAndArtWork();
+    })
+
+    backToListLabel.addEventListener("click", () => {
+        backToList()
+    })
+
+    backToTopLabel.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     })
 }
 
 
-function resetSelection() {
+function clearSelectionAndArtWork() {
     clearSelection();
     clearArtworks();
     hideElements([...warnings, note]);
+    deregisterClickArtworks();
 }
 
 
@@ -168,21 +201,17 @@ function clearSelection() {
 }
 
 function hoverSelection(listItem, item, mode = "singles") {
-    menuButton.style.color = item.mainColor;
     if (listItem != null) {
         listItem.style.transform = mode=="singles" ? "translateX(50px)" : "translateX(-50px)";
         listItem.classList.add('remain');
     }
-    
-
-    
-    // preloadAndChangeBackgroundImage(artworkSubject, `assets/artworks/${item.folderName}/subject.webp`);
 
     if (mode == "series") {
         if (item.locked) {
             clearArtworks();
             showElements([...warnings]);
             hideElements([note]);
+            
             return;
         } else {
             preloadAndChangeBackgroundImage(artWork1, `assets/artworks/${item.folderName}/full.webp`);
@@ -191,13 +220,32 @@ function hoverSelection(listItem, item, mode = "singles") {
     } else {
         preloadAndChangeBackgroundImage(artWork1, `assets/artworks/${item.folderName}/full.webp`);
     }
+    registerClickArtworks();
+    preloadAndChangeBackgroundImage(subject, `assets/artworks/${item.folderName}/subject.webp`);
     showElements([note]);
     hideElements([...warnings]);
+    selectedItem = item;
 }
+
+function enterDetailModeFnc() {
+    selectArtwork(selectedItem);
+}
+
+function registerClickArtworks() {
+    ac1.addEventListener("click", enterDetailModeFnc);
+    ac2.addEventListener("click", enterDetailModeFnc);
+}
+
+function deregisterClickArtworks() {
+    ac1.removeEventListener("click", enterDetailModeFnc);
+    ac2.removeEventListener("click", enterDetailModeFnc);
+}
+
 
 function clearArtworks() {
     artWork1.style.backgroundImage = "none";
     artWork2.style.backgroundImage = "none";
+    subject.style.backgroundImage = "none";
 }
 
 
@@ -234,9 +282,98 @@ function enableSinglesMode() {
     ac2.classList.remove('series');
 }
 
+function selectArtwork(item) {
+    const items = Array.from(document.getElementsByClassName("item"));
 
-function isMobile() {
-    //we're not checking screen size bc desktop could resize to small screen size 
-    // this checks whether the device supports touch
-    return "ontouchend" in document;
+    clearSelection();
+    showElementsWithTransition([subject, backToListLabel]);
+    hideElements([...items]);
+    addInvisibleWithTransition([ac1, ac2, atl1, atl2]);
+    changeBackgroundColor(item.mainColor);
+    changeDetailPhotos(item);
+    changeDescriptions(item);
+    changeDetailVideo(item);
+    deregisterClickArtworks();
+    note.textContent = "(Slide down for details)";
+    note.style.color= "white";
+    menuButton.style.color = "white";
+    detailInfo.style.display = "flex";
+    document.body.style.overflow = "scroll";
+    onScrollFnc = function () {
+        onScroll(item);
+    };
+
+    window.removeEventListener('scroll', onScrollFnc);
+    window.addEventListener('scroll', onScrollFnc);
+}
+
+function backToList(item) {
+    const items = Array.from(document.getElementsByClassName("single-item"));
+    registerClickArtworks();
+    hideElements([subject, backToListLabel, detailVerticalLine]);
+    removeInvisibleWithTransition([ac1, ac2, atl1, atl2]);
+    note.textContent = "(Click for details)";
+    note.style.color= "black";
+    changeBackgroundColor("white");
+    menuButton.style.color = "black";
+    document.body.style.overflow = "hidden";
+    detailInfo.style.display = "none";
+    window.removeEventListener('scroll', onScrollFnc);
+    setTimeout(() => {
+      showElementsWithTransition([...items]);
+    }, 500);
+}
+
+function onScroll(item) {
+    const scrollPercent = Math.min(getScrollPercent() / 100, 1);
+    if (scrollPercent > 0.1) {
+        showElementsWithTransition([detailVerticalLine, ...shadows, ...detailComponents, backToTopLabel]);
+        changeBackgroundColor('#000000');
+        note.style.opacity = "0";
+    } else {
+        hideElements([detailVerticalLine, ...shadows, ...detailComponents, backToTopLabel]);
+        changeBackgroundColor(item.mainColor); 
+        backToTopLabel.style.opacity = "0";  
+    }  
+}
+
+function changeDetailPhotos(item) {
+    mockupV1.style.backgroundImage = `url(assets/artworks/${item.folderName}/mockup-v-1.webp)`;
+    closeUpArt1.style.backgroundImage = `url(assets/artworks/${item.folderName}/detail-1.webp)`;
+    closeUpArt2.style.backgroundImage = `url(assets/artworks/${item.folderName}/detail-2.webp)`;
+    mockupH1.style.backgroundImage = `url(assets/artworks/${item.folderName}/mockup-h-1.webp)`;
+    mockupV2.style.backgroundImage = `url(assets/artworks/${item.folderName}/mockup-v-2.webp)`;
+}
+
+async function changeDetailVideo(item) {
+  const file = `assets/artworks/${item.folderName}/video.webm`;
+
+  const exists = await doesFileExist(file);
+
+  if (exists) {
+    video1.src = file;
+    video1.style.display = 'block';
+    video1.load();
+  } else {
+    // Clear src so browser doesn't even try
+    video1.removeAttribute('src');
+    video1.style.display = 'none';
+    video1.load(); // important: resets the video element
+    detailVerticalLine.style.transform = "scale(0.74)"
+  }
+}
+
+
+function changeDescriptions(item) {
+    desc1.textContent = item.desc1;
+    desc2.textContent = item.desc2;
+
+    desc3.textContent = item.title;
+    desc3.style.fontSize = "regular";
+
+    const span = document.createElement("span");
+    span.style.fontSize = "small";
+    span.style.marginLeft = "100px";
+    span.textContent = "Digital Painting";
+    desc3.appendChild(span);
 }

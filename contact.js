@@ -1,4 +1,4 @@
-import { hideElements, showElements } from './utils.js';
+import { hideElements, showElements, toggleHomePageCarousel } from './utils.js';
 
 class MyContact extends HTMLElement {
   async connectedCallback() {
@@ -39,7 +39,7 @@ class MyContact extends HTMLElement {
     contactX.addEventListener("click", () => {
         hideElements([contact, contactLogo, hl1, hl2, vl1]);
         // menuLabels.forEach(m => m.classList.remove("visible"));
-        toggleCarousel(); // global function
+        toggleHomePageCarousel(); // global function
     });
 
     document.addEventListener("show-contact", () => {
