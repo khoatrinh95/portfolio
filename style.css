@@ -1143,6 +1143,11 @@ ul#item-list.slide-left li.item {
     transform: translateX(calc((var(--art-subject-width) + var(--art-frame-width)) * -0.5 - 20px));
 }
 
+#ac1.series.invisible {
+    opacity: 0;
+    transform: scale(1.5);
+}
+
 #ac2 {
     opacity: 0;
 }
@@ -1255,6 +1260,10 @@ li.item.visible {
 
 #subject.visible {
     transform: translate(-50%, -50%) scale(1.5);
+}
+
+#subject.series {
+    transform: translate(calc((var(--art-subject-width) + var(--art-frame-width)) * -0.5 - 20px - 50%), -50%);
 }
 
 #back-to-list-label {

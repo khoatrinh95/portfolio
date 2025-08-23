@@ -35,6 +35,7 @@ const closeUpArt2 = document.getElementById("detail-2");
 const desc1 = document.getElementById("desc-1");
 const desc2 = document.getElementById("desc-2");
 const desc3 = document.getElementById("desc-3");
+const desc4 = document.getElementById("desc-4");
 const shadows = document.querySelectorAll(".shadow");
 const backToTopLabel = document.getElementById("back-to-top-label-container");
 const shopLabel = document.getElementById("desc-4");
@@ -44,6 +45,7 @@ setTimeout(() => {
       menuButton.style.zIndex = "3";
 }, 500);
 
+let mode;
 let onScrollFnc;
 let selectedItem;
 let activeSingleItems = [];
@@ -114,11 +116,11 @@ function populateSinglesList(items) {
             hoverSelection(li, item);
         });
 
-        li.addEventListener('click', () => {
-            selectArtwork(item);
-
-            
-        });
+        if (!item.locked) {
+            li.addEventListener('click', () => {
+                selectArtwork(item);  
+            });
+        }
         itemListSingle.appendChild(li);
     });
 }
@@ -142,12 +144,13 @@ function populateSeriesList(items) {
             clearSelection();
             hoverSelection(li, item, "series");
         });
-
-        li.addEventListener('click', () => {
-            selectArtwork(item);
-
-            
-        });
+        
+        if (!item.locked) {
+            li.addEventListener('click', () => {
+                selectArtwork(item);  
+            });
+        }
+        
         itemListSeries.appendChild(li);
     });
     
@@ -161,8 +164,9 @@ function registerEvents(singleItems, seriesItems) {
         atl2.classList.remove("remain");
         showElements([...singleItems]);
         hideElements([...seriesItems]);
-        enableSinglesMode();
+        disableSeriesMode([ac1, ac2, subject]);
         clearSelectionAndArtWork();
+        mode = "singles";
     })
 
     atl2.addEventListener("click", () => {
@@ -172,8 +176,9 @@ function registerEvents(singleItems, seriesItems) {
         atl1.classList.remove("remain");
         hideElements([...singleItems]);
         showElements([...seriesItems]);
-        enableSeriesMode()
+        enableSeriesMode([ac1, ac2, subject])
         clearSelectionAndArtWork();
+        mode = "series";
     })
 
     backToListLabel.addEventListener("click", () => {
@@ -203,22 +208,22 @@ function clearSelection() {
 }
 
 function hoverSelection(listItem, item, mode = "singles") {
+    if (item.locked) {
+        clearArtworks();
+        showElements([...warnings]);
+        hideElements([note]);
+        deregisterClickArtworks();
+        return;
+    }
     if (listItem != null) {
         listItem.style.transform = mode=="singles" ? "translateX(50px)" : "translateX(-50px)";
         listItem.classList.add('remain');
     }
 
     if (mode == "series") {
-        if (item.locked) {
-            clearArtworks();
-            showElements([...warnings]);
-            hideElements([note]);
-            
-            return;
-        } else {
-            preloadAndChangeBackgroundImage(artWork1, `assets/artworks/${item.folderName}/full.webp`);
-            preloadAndChangeBackgroundImage(artWork2, `assets/artworks/${item.folderName}/mockup-v-1.webp`); /*TODO: change the path here*/ 
-        }
+        preloadAndChangeBackgroundImage(artWork1, `assets/artworks/${item.folderName}/full.webp`);
+        preloadAndChangeBackgroundImage(artWork2, `assets/artworks/${item.folderName}/mockup-v-1.webp`); /*TODO: change the path here*/ 
+
     } else {
         preloadAndChangeBackgroundImage(artWork1, `assets/artworks/${item.folderName}/full.webp`);
     }
@@ -234,13 +239,17 @@ function enterDetailModeFnc() {
 }
 
 function registerClickArtworks() {
-    ac1.addEventListener("click", enterDetailModeFnc);
-    ac2.addEventListener("click", enterDetailModeFnc);
+    [ac1, ac2].forEach(el => {
+        el.addEventListener("click", enterDetailModeFnc);
+        el.style.cursor = "pointer";
+    })
 }
 
 function deregisterClickArtworks() {
-    ac1.removeEventListener("click", enterDetailModeFnc);
-    ac2.removeEventListener("click", enterDetailModeFnc);
+    [ac1, ac2].forEach(el => {
+        el.removeEventListener("click", enterDetailModeFnc);
+        el.style.cursor = "auto";
+    })
 }
 
 
@@ -274,14 +283,16 @@ function setListItemLabels(el, item) {
     }
 }
 
-function enableSeriesMode() {
-    ac1.classList.add('series');
-    ac2.classList.add('series');
+function enableSeriesMode(els) {
+    els.forEach(el => {
+        el.classList.add('series');
+    })
 }
 
-function enableSinglesMode() {
-    ac1.classList.remove('series');
-    ac2.classList.remove('series');
+function disableSeriesMode(els) {
+    els.forEach(el => {
+        el.classList.remove('series');
+    })
 }
 
 function selectArtwork(item) {
@@ -308,10 +319,18 @@ function selectArtwork(item) {
 
     window.removeEventListener('scroll', onScrollFnc);
     window.addEventListener('scroll', onScrollFnc);
+
+    if (mode == "series") {
+        disableSeriesMode([subject]);
+        desc4.textContent = "Shop this series"
+    } else {
+        desc4.textContent = "Shop this print"
+    }
 }
 
 function backToList(item) {
-    const items = Array.from(document.getElementsByClassName("single-item"));
+    const singleItems = Array.from(document.getElementsByClassName("single-item"));
+    const seriesItems = Array.from(document.getElementsByClassName("series-item"));
     registerClickArtworks();
     hideElements([subject, backToListLabel, detailVerticalLine]);
     removeInvisibleWithTransition([ac1, ac2, atl1, atl2]);
@@ -322,9 +341,18 @@ function backToList(item) {
     document.body.style.overflow = "hidden";
     detailInfo.style.display = "none";
     window.removeEventListener('scroll', onScrollFnc);
-    setTimeout(() => {
-      showElementsWithTransition([...items]);
-    }, 500);
+    
+
+    if (mode == "series") {
+        enableSeriesMode([subject]);
+        setTimeout(() => {
+            showElementsWithTransition([...seriesItems]);
+        }, 500);
+    } else {
+        setTimeout(() => {
+            showElementsWithTransition([...singleItems]);
+        }, 500);
+    }
 }
 
 function onScroll(item) {
@@ -332,11 +360,11 @@ function onScroll(item) {
     if (scrollPercent > 0.1) {
         showElementsWithTransition([detailVerticalLine, ...shadows, ...detailComponents, backToTopLabel]);
         changeBackgroundColor('#000000');
-        note.style.opacity = "0";
+        hideElements([note])
     } else {
         hideElements([detailVerticalLine, ...shadows, ...detailComponents, backToTopLabel]);
         changeBackgroundColor(item.mainColor); 
-        backToTopLabel.style.opacity = "0";  
+        showElements([note])
     }  
 }
 
