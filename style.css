@@ -3,6 +3,8 @@
     --dark-grey: #a4a6a4;
     --yellow: #FFBD2F;
 
+    /* carousel */
+    --carousel-height: 60vh;
 
     /* artwork size */
     --art-subject-width: 30vw;
@@ -209,6 +211,7 @@ body {
     height: calc(50vw * 2); /* 1/2 is the ratio of the img */
     z-index: 0;
     overflow: hidden;
+    display: none;
 }
 
 #welcome-background-subject img {
@@ -248,6 +251,7 @@ body {
     z-index: -1;
     transform: translateX(-100vw);
     background-color: var(--yellow);
+    display: none;
 }
 
 #welcome-background-colored-horizontal-line.after-welcome {
@@ -446,8 +450,8 @@ body {
 
 .mix-circle {
     position: relative;
-    height: 500px;
-    width: 1426px;
+    height: var(--carousel-height);
+    aspect-ratio: 1426 / 500;
     padding: 0;
     margin: 0;
     mask-image: url('assets/images/mix-circle.webp');
@@ -461,31 +465,22 @@ body {
 
 .embedded-video-container1 {
     position: fixed;
-    left: 950px;
-    top: -50px;
     overflow: hidden;
-    max-height: 550px;
-    max-width: 1600px;
 }
 
 .embedded-video-container2 {
     position: fixed;
-    left: 3450px;
-    top: -50px;
     overflow: hidden;
-    max-height: 550px;
-    max-width: 1600px;
 }
 
 .main-iframe {
-    width: 2000px;
-    height: 1000px;
+    width: calc(var(--carousel-height) * 2.852); /* 2.852: ratio of mixed-circle */
     pointer-events: none;
 }
 
 .circle-drop-shadow {
-    width: 500px;
-    height: 500px;
+    height: var(--carousel-height);
+    aspect-ratio: 1 / 1;
     border-radius: 50%;
     background-color: #ffffff;
     display: flex;
@@ -500,8 +495,8 @@ body {
 }
 
 .circle-art {
-    width: 500px;
-    height: 500px;
+    height: var(--carousel-height);
+    aspect-ratio: 1 / 1;
 
     mask-image: url('assets/images/circle.webp');
     mask-size: contain;
@@ -511,10 +506,7 @@ body {
 }
 
 .carousel-image {
-    display: flex;
-    justify-content: center;
-    width: 500px;
-    /* height: 500px; */
+    width: var(--carousel-height);
 }
 
 #home-label {
@@ -922,217 +914,18 @@ li.item.visible {
     ------------------------------------------------------------------------------------------------------------------------
     */
 
-    .footer {
-        font-weight: 14;
-        left: 0;
+    #welcome-background-colored-rectangle {
+        left: calc(50vw - 35vw);
+        width: 70vw;
     }
 
-    #name-footer {
+    #welcome-background-subject {
         display: none;
     }
 
-    .logo-footer {
-        margin: 2px;
-        height: 8px;
-        width: 8px;
-    }
-
-    #mix-circle-footer {
-        width: calc(8px * 2.852);
-    }
-
-    #logo-labels-container {
-        justify-content: space-between;
-        width: 90vw;
-        left: 50%;
-        transform: translateX(-50%);
-    }
-
-    .label {
-        margin: 0;
-    }
-
-    #l2 {
-        display: none;
-    }
-
-    #home-label {
-        opacity: 1;
-        left: calc(var(--home-button-from-left) + var(--home-button-size) + 26px);
-        top: calc(var(--home-button-from-left) - 2.5px);
-    }   
-
-
-    ul#item-list {
-        display: none;
-    }
-
-    #overview {
-        display: flex;
-        justify-content: center;
-        padding-top: 12vh;
-        height: 88vh;
-        /* padding-top and height must add up to 100vh */
-    }
-
-    #artwork-container {
+    .mix-circle {
         position: relative;
-        left: 0;
-    }
-
-    #outer-rectangle {
-        padding: var(--art-frame-width-mobile);
-    }
-
-    #inner-rectangle {
-        width: var(--art-subject-width-mobile);
-    }
-
-    #artwork-subject {
-        width: var(--art-subject-width-mobile);
-        margin: var(--art-frame-width-mobile);
-    }
-
-    #item-carousel {
-        display: flex;
-        width: 100%;
-        position: absolute;
-        top: 8vh;
-        left: 50vw;
-        transition: all 0.3s;
-    }
-
-    #item-carousel.invisible {
-        opacity: 0;
-    } 
-
-    .item-c {
-        text-wrap: nowrap;
-        margin-right: 20px;
-        transition: all 0.3s;
-    }
-
-    #click-for-detail {
-        display: block;
-        color: white;
-        position: absolute;
-        font-size: 0.7em;
-        top: calc(var(--art-subject-width-mobile) * 1.3 + 12vh + 40px); 
-        /* 1.3 is the ratio of the art frame 4/3 -> so we get the height of the frame
-        12vh is the padding-top of overview */
-        transition: all 0.3s;
-    }
-
-    #click-for-detail.invisible {
-        opacity: 0;
-    }
-
-    #artwork-container.move-left {
-        transform: translateY(12vh) scale(1.5);
-    }
-
-    #scroll-down {
-        bottom: 25vh;
-    }
-
-    #detail-title {
-        font-size: 8vh;
-        letter-spacing: 0.1em;
-    }
-
-    #detail-title.visible {
-        transform: translateY(100px);
-        opacity: 0.5;
-    }
-
-    #detail {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    #detail.visible {
-        display: flex;
-    }
-
-    .center-art-section {
-        flex-direction: column;
-        align-items: center;
-        width: 90vw;
-        margin: 0;
-    }
-
-    .left-art-section {
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        width: 90vw;
-        margin: 0;
-    }
-
-    .desc {
-        position: static;
-        margin-top: 15px;
-        margin-bottom: 15px;
-    }
-
-    .detail-photo-v {
-        width: 100%;
-        margin-top: 15px;
-        margin-bottom: 15px;
-    }
-
-    #full-art {
-        order: -1;
-    }
-
-    #desc-1 {
-        width: 100%;
-        top: 0;
-        left: 0;
-        
-    }
-
-    #close-up-art-section {
-        display: flex;
-        justify-content: space-between;
-        margin-left: 0;
-        margin-top: 15px;
-        margin-bottom: 15px;
-        height: auto;
-    }
-
-    .detail-photo-v-sm {
-        width: 45%;
-    }
-
-    #close-up-art-2 {
-        position: static;
-    }
-
-    #desc-2{
-        width: 100%;
-        top: 0;
-        left: 0;
-        text-align: left;
-        transform: translateX(-10vw);
-    }
-
-    .video-h {
-        margin-top: 15px;
-        margin-bottom: 15px;
-    }
-
-    #video-1 {
-        width: 100%; 
-    }
-
-    .detail-photo-h {
-        width: 100%;
-        margin-top: 15px;
-        margin-bottom: 15px;
-    }
-
-    #mockup-v-2 {
-        margin-bottom: 50px;
+        height: 500px;
+        width: 1426px;
     }
   }
