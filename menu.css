@@ -82,7 +82,6 @@
     text-align: left;
     margin-top: var(--home-button-from-left);
     margin-bottom: var(--home-button-from-left);
-    font-size: large;
     cursor: pointer;
     position: relative;
     display: block;
