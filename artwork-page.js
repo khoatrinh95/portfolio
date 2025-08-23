@@ -278,7 +278,7 @@ function setListItemLabels(el, item) {
     if (item.locked) {
         const span = document.createElement("span");
         span.style.color = "red";
-        span.textContent = " (Coming soon)";
+        span.textContent = " (*)";
         el.appendChild(span);
     }
 }
