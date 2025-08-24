@@ -43,6 +43,7 @@
 }
 
 #menu-title-container {
+    background-color: var(--yellow);
     position: absolute;
     letter-spacing: 50%;
     margin: 0;
@@ -161,3 +162,42 @@
 .label-underlined-when-hovered:hover::after {
     transform: scaleX(1);
 }
+
+@media (max-width: 1024px) and (hover: none) and (pointer: coarse)  {
+
+    #menu-labels {
+        left: 50vw;;
+        transform: translate(-50%, -50%);
+        background-color: var(--yellow);
+    }
+    
+    .menu-label {
+        text-align: center;
+    }
+
+    #menu-label-image {
+        display: none;
+    }
+
+    .label-underlined-when-hovered{
+        transform-origin: center;
+    }
+
+    #menu-vertical-line-mobile {
+        width: 1px;
+        height: 100%;
+        background-color: black;
+        position: absolute;
+        left: 50vw;
+        bottom: var(--home-button-from-left);
+        transform-origin: top;
+        transform: scale(0);
+        transition: transform 1s ease;
+        transition-delay: 0.5s;
+    }
+
+    #menu-vertical-line-mobile.visible {
+        transform: scale(1);
+    }
+
+  }

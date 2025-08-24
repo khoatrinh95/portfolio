@@ -1,4 +1,4 @@
-import { hideElements, showElements, isHomePage } from './utils.js';
+import { hideElements, showElements, isHomePage, isMobile } from './utils.js';
 
 class MyMenu extends HTMLElement {
   async connectedCallback() {
@@ -24,6 +24,7 @@ class MyMenu extends HTMLElement {
     const menuX = shadow.getElementById("menu-x");
     const menuTitle = shadow.getElementById("menu-title");
     const menuVerticalLine = shadow.getElementById("menu-vertical-line");
+    const menuVerticalLineMobile = shadow.getElementById("menu-vertical-line-mobile");
     const menuLabels = shadow.querySelectorAll(".menu-label");
     const menuLabelImg = shadow.getElementById("menu-label-image");
 
@@ -34,6 +35,10 @@ class MyMenu extends HTMLElement {
       menuButton.addEventListener("click", () => {
         showElements([menu, ...menuLabels]);
         toggleHomePageCarousel(); // global function
+
+        if (isMobile()) {
+          showElements([menuVerticalLineMobile]);
+        }
       });
     }
 
@@ -41,6 +46,10 @@ class MyMenu extends HTMLElement {
     menuX.addEventListener("click", () => {
       hideElements([menu, ...menuLabels]);
       toggleHomePageCarousel(); // global function
+
+      if (isMobile()) {
+          hideElements([menuVerticalLineMobile]);
+      }
     });
 
     // ---- Clicking the title goes to home page ----
