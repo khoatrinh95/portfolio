@@ -45,7 +45,6 @@
 #menu-title-container {
     background-color: var(--yellow);
     position: absolute;
-    letter-spacing: 50%;
     margin: 0;
     padding: 2px;
     top: var(--home-button-from-left);
