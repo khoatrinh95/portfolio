@@ -92,7 +92,7 @@ function populateMobileList(items, mode="singles") {
     items.forEach((item, i) => {
         const div = document.createElement('div');
         div.classList.add('item-c', itemClass);
-        div.textContent = item.title;
+        setListItemLabels(div, item);
         itemCarousel.appendChild(div);
     });
 
@@ -578,19 +578,15 @@ function removeItemsFromDOM() {
         [singleItemCarousel, seriesItemCarousel, ac1, ac2].forEach(el => {
             el.style.display = 'none'
         })
-    }, 300);
+    }, 1000);
 }
 
 function putBackItemsInDOM() {
     let itemCarousel = mode=="singles" ? singleItemCarousel : seriesItemCarousel;
-    setTimeout(() => {
-        console.log("ac1:", ac1, "ac2:", ac2);
-        console.log("itemCarousel", itemCarousel);
-        [itemCarousel].forEach(el => {
-            el.style.display = 'flex'
-        });
-        [ac1, ac2].forEach(el => {
-            el.style.display = 'block'
-        });
-    }, 300);
+    [itemCarousel].forEach(el => {
+        el.style.display = 'flex'
+    });
+    [ac1, ac2].forEach(el => {
+        el.style.display = 'block'
+    });
 }

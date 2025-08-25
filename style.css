@@ -10,7 +10,9 @@
     /* artwork size */
     --art-subject-width: 30vw;
     --art-subject-height: 40vh;
-    --art-frame-width: 2.4vw;
+    --art-frame-width: 1.2vw;
+    --art-frame-from-top: 52vh;
+    --art-frame-from-left: 50vw;
 
     --art-subject-width-mobile: 80vw;
     --art-subject-height-mobile: 80vh;
@@ -604,7 +606,7 @@ body {
 
 .frame {
     position: absolute;
-    width: calc(var(--art-subject-width) + var(--art-frame-width));
+    width: calc(var(--art-subject-width) + var(--art-frame-width) * 2);
     filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.4));
     transform: translate(-50%, -50%);
 }
@@ -635,8 +637,8 @@ body {
 
 .artwork-container {
     position: fixed;
-    top: 52vh;
-    left: 50vw;
+    top: var(--art-frame-from-top);
+    left: var(--art-frame-from-left);
     transition: all 1s ease;
     z-index: 2;
 }
@@ -758,14 +760,13 @@ li.item.visible {
 
 #subject {
     position: absolute;
-    top: 50vh;
-    left: 50vw;
+    top: var(--art-frame-from-top);
+    left: var(--art-frame-from-left);
     transform: translate(-50%, -50%);
     width: var(--art-subject-width);
     aspect-ratio: 3 / 4;
     background-size: cover;
     background-position: center;
-    margin-top: calc(var(--art-frame-width) *0.5);
     z-index: 1;
 }
 
@@ -940,7 +941,7 @@ li.item.visible {
         /* artwork size */
         --art-subject-width: 70vw;
         --art-subject-height: 40vh;
-        --art-frame-width: 5vw;
+        --art-frame-width: 2.5vw;
     }
 
     #welcome-background-colored-rectangle {
@@ -1007,7 +1008,6 @@ li.item.visible {
     }
 
     #subject {
-        margin-top: calc(var(--art-frame-width) *0.75);
     }
 
     #subject.series {
