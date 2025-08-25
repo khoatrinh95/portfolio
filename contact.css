@@ -143,3 +143,30 @@
 #hl-2.visible {
     transform: scaleX(1);
 }
+
+@media (max-width: 1024px) and (hover: none) and (pointer: coarse)  {
+    #socials {
+        width: 100%;
+        left: 50vw;
+    }
+
+    .line {
+        position: absolute;
+        background-color: white;
+        transition: transform 0.5s linear;
+    }
+
+    #vl-1 {
+        top: 0;
+        height: calc(100vh - 100px);
+        left: 80vw;
+    }
+
+    #hl-2 {
+        width: calc(30vw - 36px);
+        right: 20vw;
+        transition: transform 0.3s linear;
+        transition-delay: 1.5s;
+    }
+
+}

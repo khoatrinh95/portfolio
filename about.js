@@ -32,26 +32,6 @@ class MyAbout extends HTMLElement {
     const aboutLogo = shadow.getElementById("about-logo");
     const socialsContainerMobile = shadow.getElementById("socials-container-mobile");
 
-    // ---- Hook up external button (global, outside component) ----
-    const aboutMeCircles = document.querySelectorAll("#circle-about-me");
-
-
-    aboutMeCircles.forEach(circle => {
-        circle.addEventListener('click', () => {
-            showElements([about, hl1, vl1, hl2, ...block1p, ...block2p, aboutLogo]);
-            toggleHomePageCarousel();
-
-            if(isMobile()) {
-              let sectionHeight = getOuterHeight(aboutImg) + getOuterHeight(textBlocks) + getOuterHeight(socialsContainerMobile);
-              let vl1TopValue = parseFloat(getComputedStyle(vl1).top);
-              console.log(sectionHeight);
-              console.log(vl1TopValue);
-              vl1.style.height = `calc(${sectionHeight}px - ${vl1TopValue}px)`;
-
-            }
-        });
-    })
-
     // ---- Close button ----
     aboutX.addEventListener("click", () => {
         hideElements([about, hl1, vl1, hl2, ...block1p, ...block2p, aboutLogo]);
@@ -61,6 +41,13 @@ class MyAbout extends HTMLElement {
 
     document.addEventListener("show-about", () => {
       showElements([about, hl1, vl1, hl2, ...block1p, ...block2p, aboutLogo]);
+      toggleHomePageCarousel();
+
+      if(isMobile()) {
+        let sectionHeight = getOuterHeight(aboutImg) + getOuterHeight(textBlocks) + getOuterHeight(socialsContainerMobile);
+        let vl1TopValue = parseFloat(getComputedStyle(vl1).top);
+        vl1.style.height = `calc(${sectionHeight}px - ${vl1TopValue}px)`;
+      }
     });
   }
 }

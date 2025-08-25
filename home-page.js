@@ -269,6 +269,13 @@ aboutMeCircles.forEach(circle => {
   circle.addEventListener('mousemove', (e) => {
     cursorMovement(e);
   });
+
+  circle.addEventListener('click', () => {
+    circle.dispatchEvent(new CustomEvent("show-about", {
+      bubbles: true,        // important! lets event go up DOM
+      composed: true        // important! lets event escape shadow DOM
+    }));
+  });
 })
 
 mixCircles.forEach(circle => {
