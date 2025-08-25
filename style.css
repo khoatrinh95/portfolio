@@ -866,6 +866,12 @@ li.item.visible {
     position: absolute;
     left: 25vw;
     transform: translateX(-50%);
+    text-wrap: nowrap;
+}
+
+#desc-3 > span {
+    font-size: small;
+    margin-left: 100px;
 }
 
 #desc-4-container {
@@ -1027,4 +1033,29 @@ li.item.visible {
         opacity: 1;
     }
 
+    .desc {
+        width: 90vw;
+    }
+
+    .detail-img {
+        background-position: center;
+        background-size: cover;
+        width: 100vw;
+    }
+
+    #desc-4 {
+        transform: translateX(0);
+        left: 25vw;
+    }
+
+    #desc-3 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #video {
+        width: 100vw;
+        height: auto;
+    }
   }

@@ -351,7 +351,7 @@ function selectArtwork(item) {
 
     if (isMobile()) {
         removeEvents();
-        hideItemCarousel();
+        removeItemsFromDOM();
     }
 }
 
@@ -384,7 +384,7 @@ function backToList(item) {
 
     if (isMobile()) {
         addEvents();
-        showItemCarousel();
+        putBackItemsInDOM();
     }
 }
 
@@ -418,6 +418,9 @@ async function changeDetailVideo(item) {
     video1.src = file;
     video1.style.display = 'block';
     video1.load();
+    if (isMobile()) {
+        detailVerticalLine.style.transform = "scale(0.87)"
+    }
   } else {
     // Clear src so browser doesn't even try
     video1.removeAttribute('src');
@@ -435,9 +438,7 @@ function changeDescriptions(item) {
     desc3.textContent = item.title;
     desc3.style.fontSize = "regular";
 
-    const span = document.createElement("span");
-    span.style.fontSize = "small";
-    span.style.marginLeft = "100px";
+    const span = isMobile() ? document.createElement("p") : document.createElement("span");
     span.textContent = "Digital Painting";
     desc3.appendChild(span);
 }
@@ -570,18 +571,26 @@ function getOffset(allDivs, idx) {
     return offset;
 }
 
-function hideItemCarousel() {
-    let itemCarousel = mode=="singles" ? singleItemCarousel : seriesItemCarousel;
-    // need this bc we need to remove the carousel from the DOM
+function removeItemsFromDOM() {
+    // need this bc we need to remove the items from the DOM
     // otherwise, it overflows to the left, causing the page to be scrollable horizontally
     setTimeout(() => {
-        itemCarousel.style.display = 'none';
+        [singleItemCarousel, seriesItemCarousel, ac1, ac2].forEach(el => {
+            el.style.display = 'none'
+        })
     }, 300);
 }
 
-function showItemCarousel() {
+function putBackItemsInDOM() {
     let itemCarousel = mode=="singles" ? singleItemCarousel : seriesItemCarousel;
     setTimeout(() => {
-        itemCarousel.style.display = 'flex';
+        console.log("ac1:", ac1, "ac2:", ac2);
+        console.log("itemCarousel", itemCarousel);
+        [itemCarousel].forEach(el => {
+            el.style.display = 'flex'
+        });
+        [ac1, ac2].forEach(el => {
+            el.style.display = 'block'
+        });
     }, 300);
 }
