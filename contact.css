@@ -169,4 +169,8 @@
         transition-delay: 1.5s;
     }
 
+    .label-underlined-when-hovered::after {
+        transform: scale(1);
+    }
+
 }
