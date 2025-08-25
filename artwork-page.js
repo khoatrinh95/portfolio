@@ -582,8 +582,7 @@ function removeItemsFromDOM() {
 }
 
 function putBackItemsInDOM() {
-    let itemCarousel = mode=="singles" ? singleItemCarousel : seriesItemCarousel;
-    [itemCarousel].forEach(el => {
+    [singleItemCarousel, seriesItemCarousel].forEach(el => {
         el.style.display = 'flex'
     });
     [ac1, ac2].forEach(el => {
