@@ -1,5 +1,5 @@
 .about {
-    background-color: #863429;
+    background-color: var(--brick-red);
     position: fixed;
     top: 0;
     left: 0;
@@ -9,6 +9,7 @@
     transform: translateY(100vh);
     transition: transform 0.5s cubic-bezier(.76, 0.03,.53,.87);
     overflow-y: scroll;
+    overflow-x: hidden;
     z-index: 11;
 }
 
@@ -229,4 +230,94 @@
 
 .label-underlined-when-hovered:hover::after {
     transform: scaleX(1);
+}
+
+@media (max-width: 1024px) and (hover: none) and (pointer: coarse)  {
+    .about {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    #about-img {
+        position: static;
+        margin: 0;
+        width: 100vw;
+        margin-top: 10vh;
+        left: 0;
+    }
+
+    .horizontal-line {
+        display: none;
+    }
+
+    .line {
+        transition: transform 1s linear;
+    }
+
+    #vl-1 {
+        top: calc(10vh + 100vw * 0.75);
+        position: absolute;
+        z-index: -1;
+
+    }
+
+    #text-blocks {
+        position: static;
+        top: 10vh;
+        right: 0;
+        margin-left: var(--home-button-from-left);
+        margin-right: var(--home-button-from-left);
+    }
+    
+    #block-1 {
+        margin: 0;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    #block-2 {
+        margin: 0;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    #block-1 > p {
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    #block-2 > p {
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .gap {
+        height: 30vh;
+    }
+
+    #socials-container-mobile {
+        position: static;
+        margin-left: 60px;
+        margin-top: 100px;
+        margin-bottom: 150px;
+        width: 100%;
+        display: flex;
+        justify-content: start;
+    }
+
+    #socials {
+        position: static;
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        gap: 15px;
+    }
+
+    .label-underlined-when-hovered::after {
+        transform: scale(1);
+    }
+
 }

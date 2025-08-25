@@ -82,6 +82,14 @@ function getScrollPercent() {
     return (scrollTop / docHeight) * 100;
 }
 
+function getOuterHeight(el) {
+  const style = getComputedStyle(el);
+  return el.offsetHeight +
+         parseFloat(style.marginTop) +
+         parseFloat(style.marginBottom);
+}
+
+
 export {
   doesFileExist, 
   showElements, 
@@ -93,5 +101,6 @@ export {
   addInvisibleWithTransition,
   removeInvisibleWithTransition,
   toggleHomePageCarousel,
-  getScrollPercent
+  getScrollPercent,
+  getOuterHeight
 };
