@@ -930,6 +930,11 @@ li.item.visible {
 
     :root {
         --carousel-height: 30vh;
+
+        /* artwork size */
+        --art-subject-width: 70vw;
+        --art-subject-height: 40vh;
+        --art-frame-width: 5vw;
     }
 
     #welcome-background-colored-rectangle {
@@ -940,4 +945,86 @@ li.item.visible {
     #welcome-background-subject {
         display: none;
     }
+
+    /* 
+------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------    ARTWORK-PAGE NEW----------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------
+*/
+    #art-type-labels {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        position: fixed;
+        top: 6vh;
+        transform: translateX(0);
+    }
+
+    .atl {
+        position: relative;
+        cursor: pointer;
+        margin: 6vh;
+        transition: all 0.5s ease;
+    }
+
+    .label-underlined-when-hovered::after {
+        transform: scale(1);
+    }
+
+    .item-carousel {
+        display: flex;
+        width: 100%;
+        position: absolute;
+        top: 19vh;
+        left: 50vw;
+        transition: all 0.3s;
+        opacity: 0;
+    }
+
+    .item-carousel.invisible {
+        opacity: 0;
+    } 
+
+    .item-carousel.visible {
+        opacity: 1;
+    } 
+
+    .item-c {
+        text-wrap: nowrap;
+        margin-right: 20px;
+        transition: all 0.3s;
+    }
+
+    #single-item-carousel {
+    }
+
+    #subject {
+        margin-top: calc(var(--art-frame-width) *0.75);
+    }
+
+    #subject.series {
+        transform: translate(calc(-50% + 20px), calc(-50% + 20px));
+    }
+
+    #ac1.series {
+        transform: translate(20px, 20px);
+        z-index: 10;
+    }
+
+    #ac1.series.invisible {
+        opacity: 0;
+        transform: scale(1.5);
+    }
+
+    #ac2 {
+        opacity: 0;
+    }
+
+    #ac2.series {
+        transform: translate(-20px, -20px);
+        opacity: 1;
+    }
+
   }

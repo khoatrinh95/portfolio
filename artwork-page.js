@@ -39,6 +39,8 @@ const desc4 = document.getElementById("desc-4");
 const shadows = document.querySelectorAll(".shadow");
 const backToTopLabel = document.getElementById("back-to-top-label-container");
 const shopLabel = document.getElementById("desc-4");
+const singleItemCarousel = document.getElementById("single-item-carousel");
+const seriesItemCarousel = document.getElementById("series-item-carousel");
 
 setTimeout(() => {
       menuButton.classList.add("transition", "after-welcome");
@@ -50,6 +52,10 @@ let onScrollFnc;
 let selectedItem;
 let activeSingleItems = [];
 let activeSeries = [];
+let onTouchStart = null;
+let onTouchEnd = null;
+let onTouchMove = null;
+let selectedArtworkIdx = 0;
 
 const [artworksResponse, seriesResponse] = await Promise.all([
       fetch("artworks.json"),
@@ -66,28 +72,37 @@ initializeUI()
 
 function initializeUI() {
     if (isMobile()) {
-        renderMobileView(activeSingleItems);
+        renderMobileView(activeSingleItems, activeSeries);
     } else {
         renderDesktopView(activeSingleItems, activeSeries);
     }
 }
 
-function renderMobileView(items) {
+function renderMobileView(singleItems, seriesItems) {
+    populateMobileList(singleItems, "singles");
+    populateMobileList(seriesItems, "series");
+    registerEvents([singleItemCarousel], [seriesItemCarousel]);
+    initializeMobileInteraction(singleItems, seriesItems);
+}
+
+function populateMobileList(items, mode="singles") {
+    let itemCarousel = mode=="singles" ? singleItemCarousel : seriesItemCarousel;
+    let itemClass = mode=="singles" ? "single-item-c" : "series-item-c";
+
     items.forEach((item, i) => {
         const div = document.createElement('div');
-        div.className = 'item-c';
+        div.classList.add('item-c', itemClass);
         div.textContent = item.title;
         itemCarousel.appendChild(div);
     });
 
-    const allItemC = Array.from(document.getElementsByClassName("item-c"));
+    const allItemC = Array.from(document.getElementsByClassName(itemClass));
     const firstItem = allItemC[0];
     const firstItemLength = firstItem.getBoundingClientRect().width;
 
     itemCarousel.style.transform = `translateX(-${firstItemLength / 2}px)`;
 
     styleItemCarousel(allItemC, 0);
-    initializeMobileInteraction(allItemC, items);
 }
 
 function renderDesktopView(singleItems, seriesItem) {
@@ -158,6 +173,7 @@ function populateSeriesList(items) {
 
 function registerEvents(singleItems, seriesItems) {
     atl1.addEventListener("click", () => {
+        // Singles mode
         atl1.classList.add("remain");
         atl1.classList.remove("unselected");
         atl2.classList.add("unselected");
@@ -167,9 +183,12 @@ function registerEvents(singleItems, seriesItems) {
         disableSeriesMode([ac1, ac2, subject]);
         clearSelectionAndArtWork();
         mode = "singles";
+        selectedArtworkIdx = 0;
+        showHoverSelectionMobile(selectedArtworkIdx);
     })
 
     atl2.addEventListener("click", () => {
+        // Series mode
         atl2.classList.add("remain");
         atl2.classList.remove("unselected");
         atl1.classList.add("unselected");
@@ -179,6 +198,8 @@ function registerEvents(singleItems, seriesItems) {
         enableSeriesMode([ac1, ac2, subject])
         clearSelectionAndArtWork();
         mode = "series";
+        selectedArtworkIdx = 0;
+        showHoverSelectionMobile(selectedArtworkIdx);
     })
 
     backToListLabel.addEventListener("click", () => {
@@ -208,14 +229,14 @@ function clearSelection() {
 }
 
 function hoverSelection(listItem, item, mode = "singles") {
-    if (item.locked) {
+    if (item.locked === true) {
         clearArtworks();
         showElements([...warnings]);
         hideElements([note]);
         deregisterClickArtworks();
         return;
     }
-    if (listItem != null) {
+    if (!isMobile() && listItem != null) {
         listItem.style.transform = mode=="singles" ? "translateX(50px)" : "translateX(-50px)";
         listItem.classList.add('remain');
     }
@@ -300,7 +321,7 @@ function selectArtwork(item) {
 
     clearSelection();
     showElementsWithTransition([subject, backToListLabel]);
-    hideElements([...items]);
+    hideElements([...items, singleItemCarousel, seriesItemCarousel]);
     addInvisibleWithTransition([ac1, ac2, atl1, atl2]);
     changeBackgroundColor(item.mainColor);
     changeDetailPhotos(item);
@@ -312,7 +333,8 @@ function selectArtwork(item) {
     note.style.color= "white";
     menuButton.style.color = "white";
     detailInfo.style.display = "flex";
-    document.body.style.overflow = "scroll";
+    document.body.style.overflowY = "scroll";
+    document.body.style.overflowX = "hidden";
     onScrollFnc = function () {
         onScroll(item);
     };
@@ -326,6 +348,11 @@ function selectArtwork(item) {
     } else {
         desc4.textContent = "Shop this print"
     }
+
+    if (isMobile()) {
+        removeEvents();
+        hideItemCarousel();
+    }
 }
 
 function backToList(item) {
@@ -338,7 +365,8 @@ function backToList(item) {
     note.style.color= "black";
     changeBackgroundColor("white");
     menuButton.style.color = "black";
-    document.body.style.overflow = "hidden";
+    document.body.style.overflowY = "hidden";
+    document.body.style.overflowX = "hidden";
     detailInfo.style.display = "none";
     window.removeEventListener('scroll', onScrollFnc);
     
@@ -346,12 +374,17 @@ function backToList(item) {
     if (mode == "series") {
         enableSeriesMode([subject]);
         setTimeout(() => {
-            showElementsWithTransition([...seriesItems]);
+            showElementsWithTransition([...seriesItems, seriesItemCarousel]);
         }, 500);
     } else {
         setTimeout(() => {
-            showElementsWithTransition([...singleItems]);
+            showElementsWithTransition([...singleItems, singleItemCarousel]);
         }, 500);
+    }
+
+    if (isMobile()) {
+        addEvents();
+        showItemCarousel();
     }
 }
 
@@ -416,4 +449,139 @@ function handleClickShopLabel() {
 function changeShopLabel(item) {
     shopLabel.removeEventListener("click", handleClickShopLabel);
     shopLabel.addEventListener("click", handleClickShopLabel);
+}
+
+function styleItemCarousel(allDivs, idx) {
+    allDivs.forEach((div, i) => {
+        div.style.color = i === idx ? 'rgba(0, 0, 0, 1)' : 'rgba(0, 0, 0, 0.3)';
+    });
+}
+
+
+function initializeMobileInteraction(singleItems, seriesItems) {
+
+    // Shared between events
+    let isTouching = false;
+    let startX = 0;
+    let startY = 0;
+    let currentX = 0;
+    let currentY = 0;
+    let deltaX = 0;
+
+    // --- Event handlers ---
+    onTouchStart = (e) => {
+        if (e.touches.length !== 1) return;
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+        currentX = startX;
+        currentY = startY;
+        isTouching = true;
+    };
+
+    onTouchMove = (e) => {
+        if (!isTouching || e.touches.length !== 1) return;
+        currentX = e.touches[0].clientX;
+        currentY = e.touches[0].clientY;
+        e.preventDefault();
+    };
+
+    onTouchEnd = () => {
+        if (mode === undefined) return
+        let items = mode=="singles" ? singleItems : seriesItems;
+
+
+        isTouching = false;
+        deltaX = currentX - startX;  
+        const viewportHeight = window.innerHeight;
+        
+        if (currentY < viewportHeight/5) {
+            // if touch above the labels -> do not register
+            return;
+        }
+        if (deltaX > 0) {
+            // swipe right
+            selectedArtworkIdx = Math.max(0, --selectedArtworkIdx);
+        }  else if (deltaX < 0) {
+            //swipe left
+            selectedArtworkIdx = Math.min(items.length-1, ++selectedArtworkIdx);
+        } else {
+            // touch select
+
+            // if touch in the middle section of the screen
+            
+            if (currentY > viewportHeight/6 && currentY < viewportHeight/8*7) {
+                if(items[selectedArtworkIdx].locked === true) {
+                    return;
+                }
+                selectArtwork(items[selectedArtworkIdx]);
+            }
+        }
+        showHoverSelectionMobile(selectedArtworkIdx);
+    };
+    addEvents();
+}
+
+function showHoverSelectionMobile(idx) {
+    let itemClass = mode=="singles" ? "single-item-c" : "series-item-c";
+    let items = mode=="singles" ? activeSingleItems : activeSeries;
+    let itemCarousel = mode=="singles" ? singleItemCarousel : seriesItemCarousel;
+    const allDivs = Array.from(document.getElementsByClassName(itemClass));
+    
+    hoverSelection(null, items[idx]);
+    styleItemCarousel(allDivs, idx);
+    const offset = getOffset(allDivs, idx);
+    itemCarousel.style.transform = `translateX(-${offset}px)`;
+}
+
+
+
+function addEvents() {
+    window.addEventListener('touchstart', onTouchStart, { passive: true });
+    window.addEventListener('touchmove', onTouchMove, { passive: false });
+    window.addEventListener('touchend', onTouchEnd);
+}
+
+function removeEvents() {
+    window.removeEventListener('touchstart', onTouchStart);
+    window.removeEventListener('touchmove', onTouchMove);
+    window.removeEventListener('touchend', onTouchEnd);
+}
+
+function getOffset(allDivs, idx) {
+    // to know how much to move the item-carousel by currentIdx
+    
+    const marginRight = 20; // this comes from the margin-right of .item-c
+
+    if (idx < 0 || idx >= allDivs.length) {
+        return 0;
+    }
+    
+    let offset = 0;
+    for (let i = 0; i <= idx; i++) {
+        let distance = allDivs[i].getBoundingClientRect().width;
+        let gap = marginRight;
+        if (i==idx) {
+            distance = distance / 2;
+            gap = 0;
+        }
+        offset += distance + gap;
+    }
+
+    return offset;
+}
+
+function hideItemCarousel() {
+    let itemCarousel = mode=="singles" ? singleItemCarousel : seriesItemCarousel;
+    // need this bc we need to remove the carousel from the DOM
+    // otherwise, it overflows to the left, causing the page to be scrollable horizontally
+    setTimeout(() => {
+        itemCarousel.style.display = 'none';
+    }, 300);
+}
+
+function showItemCarousel() {
+    let itemCarousel = mode=="singles" ? singleItemCarousel : seriesItemCarousel;
+    setTimeout(() => {
+        itemCarousel.style.display = 'flex';
+    }, 300);
 }
