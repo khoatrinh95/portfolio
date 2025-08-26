@@ -734,9 +734,12 @@ ul#item-list-series {
 }
 
 li.item {
+    text-align: left;
     font-size: small;
     width: max-content;
+    min-width: 250px;
     pointer-events: none;
+    cursor: pointer;
     opacity: 0;
     transition: transform 1s ease, opacity 0.6s ease;
 }
@@ -744,6 +747,10 @@ li.item {
 li.item.visible {
     pointer-events: all;
     opacity: 1;
+}
+
+li.series-item {
+    text-align: right;
 }
 
 #note {
