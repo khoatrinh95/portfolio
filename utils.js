@@ -61,7 +61,7 @@ function getCurrentPageName() {
 }
 
 function isHomePage() {
-  return getCurrentPageName() == "index";
+  return getCurrentPageName() == "index" || getCurrentPageName() == "";
 }
 
 function toggleHomePageCarousel() {
