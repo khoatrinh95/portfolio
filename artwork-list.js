@@ -191,8 +191,8 @@ function changeArtwork(listItem, item) {
     }
     
 
-    preloadAndChangeBackgroundImage(artWork, `assets/artworks/${item.folderName}/full.webp`);
-    preloadAndChangeBackgroundImage(artworkSubject, `assets/artworks/${item.folderName}/subject.webp`);
+    preloadAndChangeBackgroundImage(artWork, `assets/artworks/singles/${item.folderName}/full.webp`);
+    preloadAndChangeBackgroundImage(artworkSubject, `assets/artworks/singles/${item.folderName}/subject.webp`);
 }
 
 
@@ -216,15 +216,15 @@ function changeDetailTitle(item) {
 }
 
 function changeDetailPhotos(item) {
-    detailFullArt.style.backgroundImage = `url(assets/artworks/${item.folderName}/mockup-v-1.webp)`;
-    closeUpArt1.style.backgroundImage = `url(assets/artworks/${item.folderName}/detail-1.webp)`;
-    closeUpArt2.style.backgroundImage = `url(assets/artworks/${item.folderName}/detail-2.webp)`;
-    mockupH1.style.backgroundImage = `url(assets/artworks/${item.folderName}/mockup-h-1.webp)`;
-    mockupV2.style.backgroundImage = `url(assets/artworks/${item.folderName}/mockup-v-2.webp)`;
+    detailFullArt.style.backgroundImage = `url(assets/artworks/singles/${item.folderName}/mockup-v-1.webp)`;
+    closeUpArt1.style.backgroundImage = `url(assets/artworks/singles/${item.folderName}/detail-1.webp)`;
+    closeUpArt2.style.backgroundImage = `url(assets/artworks/singles/${item.folderName}/detail-2.webp)`;
+    mockupH1.style.backgroundImage = `url(assets/artworks/singles/${item.folderName}/mockup-h-1.webp)`;
+    mockupV2.style.backgroundImage = `url(assets/artworks/singles/${item.folderName}/mockup-v-2.webp)`;
 }
 
 async function changeDetailVideo(item) {
-  const file = `assets/artworks/${item.folderName}/video.webm`;
+  const file = `assets/artworks/singles/${item.folderName}/video.webm`;
   const exists = await doesFileExist(file);
 
   if (exists) {

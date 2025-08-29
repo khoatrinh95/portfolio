@@ -127,7 +127,7 @@ class MyMenu extends HTMLElement {
             switch (menuLabel.textContent) {
             case "Artwork":
                 width = '25vw'
-                menuLabelImg.src = 'assets/artworks/statue/mockup-h-1.webp';
+                menuLabelImg.src = 'assets/artworks/singles/statue/mockup-h-1.webp';
                 break;
             case "Shop":
                 width = '40vw'
