@@ -152,12 +152,12 @@ function populateSeriesList(items) {
 
         li.addEventListener('mouseover', () => {
             clearSelection();
-            hoverSelection(li, item, "series");
+            hoverSelection(li, item);
         });
 
         li.addEventListener('mouseleave', () => {
             clearSelection();
-            hoverSelection(li, item, "series");
+            hoverSelection(li, item);
         });
         
         if (!item.locked) {
@@ -228,7 +228,7 @@ function clearSelection() {
     });
 }
 
-function hoverSelection(listItem, item, mode = "singles") {
+function hoverSelection(listItem, item) {
     if (item.locked === true) {
         // clearArtworks();
         if (mode == "series") {
@@ -528,15 +528,20 @@ function initializeMobileInteraction(singleItems, seriesItems) {
 }
 
 function showHoverSelectionMobile(idx) {
-    let itemClass = mode=="singles" ? "single-item-c" : "series-item-c";
-    let items = mode=="singles" ? activeSingleItems : activeSeries;
-    let itemCarousel = mode=="singles" ? singleItemCarousel : seriesItemCarousel;
-    const allDivs = Array.from(document.getElementsByClassName(itemClass));
-    
-    hoverSelection(null, items[idx]);
-    styleItemCarousel(allDivs, idx);
-    const offset = getOffset(allDivs, idx);
-    itemCarousel.style.transform = `translateX(-${offset}px)`;
+    if (isMobile()) {
+        let itemClass = mode=="singles" ? "single-item-c" : "series-item-c";
+        let items = mode=="singles" ? activeSingleItems : activeSeries;
+        let itemCarousel = mode=="singles" ? singleItemCarousel : seriesItemCarousel;
+        const allDivs = Array.from(document.getElementsByClassName(itemClass));
+        
+        hoverSelection(null, items[idx]);
+        styleItemCarousel(allDivs, idx);
+        const offset = getOffset(allDivs, idx);
+        itemCarousel.style.transform = `translateX(-${offset}px)`;
+    } else {
+        return;
+    }
+
 }
 
 
