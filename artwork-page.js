@@ -230,7 +230,12 @@ function clearSelection() {
 
 function hoverSelection(listItem, item, mode = "singles") {
     if (item.locked === true) {
-        clearArtworks();
+        // clearArtworks();
+        if (mode == "series") {
+            preloadAndChangeBackgroundImage(artWork1, `assets/artworks/series/${item.folderName}/main-1.webp`);
+            preloadAndChangeBackgroundImage(artWork2, `assets/artworks/series/${item.folderName}/main-2.webp`);
+
+        }
         showElements([...warnings]);
         hideElements([note]);
         deregisterClickArtworks();
@@ -242,8 +247,8 @@ function hoverSelection(listItem, item, mode = "singles") {
     }
 
     if (mode == "series") {
-        preloadAndChangeBackgroundImage(artWork1, `assets/artworks/singles/${item.folderName}/full.webp`);
-        preloadAndChangeBackgroundImage(artWork2, `assets/artworks/singles/${item.folderName}/mockup-v-1.webp`); /*TODO: change the path here*/ 
+        preloadAndChangeBackgroundImage(artWork1, `assets/artworks/series/${item.folderName}/full.webp`);
+        preloadAndChangeBackgroundImage(artWork2, `assets/artworks/series/${item.folderName}/mockup-v-1.webp`);
 
     } else {
         preloadAndChangeBackgroundImage(artWork1, `assets/artworks/singles/${item.folderName}/full.webp`);
