@@ -2,6 +2,7 @@ const mainCarousel = document.querySelectorAll(".main-carousel")[0];
 const artCircles = document.querySelectorAll("#circle-art");
 const artCirclePhotos = document.querySelectorAll(".circle-art-photo");
 const aboutMeCircles = document.querySelectorAll("#circle-about-me");
+const tinyZineClubCircles = document.querySelectorAll("#circle-tinyzine-club");
 const mixCircles = document.querySelectorAll(".mix-circle");
 const displayText = document.querySelector("p#hovered-item");
 const customCursor = document.getElementById("custom-cursor");
@@ -296,6 +297,24 @@ mixCircles.forEach(circle => {
   });
 })
 
+tinyZineClubCircles.forEach(circle => {
+  circle.addEventListener('mouseenter', () => {
+    displayText.textContent = "TinyZine Club";
+    customCursor.textContent = "TinyZine Club";
+    customCursor.style.display = isMobile() ? "none" : "block";
+  });
+  circle.addEventListener('mouseleave', () => {
+    displayText.textContent = '';
+    customCursor.style.display = "none";
+  });
+  circle.addEventListener('mousemove', (e) => {
+    cursorMovement(e);
+  });
+  circle.addEventListener('click', () => {
+    window.open('https://das-haus-von-quoi.square.site/tinyzine-club','_blank');
+  });
+})
+
 
 
 
@@ -339,6 +358,15 @@ if (isMobile()) {
 
       if (leftX > rangeStart && leftX < rangeEnd) {
         displayText.textContent = "Youtube";
+      }
+    });
+
+    tinyZineClubCircles.forEach(circle => {
+      const rect = circle.getBoundingClientRect();
+      const leftX = rect.left;
+
+      if (leftX > rangeStart && leftX < rangeEnd) {
+        displayText.textContent = "TinyZine Club";
       }
     });
   }
