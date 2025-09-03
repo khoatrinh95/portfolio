@@ -103,8 +103,8 @@ class MyMenu extends HTMLElement {
                 }));
                 hideElements([menu, ...menuLabels]);
                 break;
-            case "Events":
-                
+            case "TinyZine Club":
+                window.open('https://das-haus-von-quoi.square.site/tinyzine-club','_blank');
                 break;
             case "Contact":
                 this.dispatchEvent(new CustomEvent("show-contact", {
@@ -136,8 +136,8 @@ class MyMenu extends HTMLElement {
             case "About":
                 menuLabelImg.src = 'assets/images/about-me.webp';
                 break;
-            case "Events":
-                menuLabelImg.src = 'assets/images/Logo.webp';
+            case "TinyZine Club":
+                menuLabelImg.src = 'assets/images/tinyzine-club.webp';
                 break;
             case "Contact":
                 menuLabelImg.src = 'assets/images/about-me-profile.webp';
