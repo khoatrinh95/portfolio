@@ -802,8 +802,8 @@ li.series-item {
 #detail-vertical-line {
     position: absolute;
     width: 1px;
-    height: 1100vh;
-    top: 100vh;
+    height: 1150vh;
+    top: 50vh;
     left: 50vw;
     background-color: white;
     opacity: 0;
@@ -849,6 +849,16 @@ li.series-item {
 #mockup-h-1 {
     aspect-ratio: 4 / 3;
 }
+
+.photo-title {
+    text-align: center;
+    padding: 12px;
+    font-size: 14px;
+    color: white;
+    background-color: #000000;
+    z-index: 1;
+}
+
 
 #video {
     height: 100vh;
@@ -1064,5 +1074,9 @@ li.series-item {
     #video {
         width: 100vw;
         height: auto;
+    }
+
+    #mockup-h-1 {
+        height: 40vh;
     }
   }

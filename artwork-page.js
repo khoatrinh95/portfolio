@@ -247,14 +247,14 @@ function hoverSelection(listItem, item) {
     }
 
     if (mode == "series") {
-        preloadAndChangeBackgroundImage(artWork1, `assets/artworks/series/${item.folderName}/full.webp`);
-        preloadAndChangeBackgroundImage(artWork2, `assets/artworks/series/${item.folderName}/mockup-v-1.webp`);
+        preloadAndChangeBackgroundImage(artWork1, `assets/artworks/series/${item.folderName}/full-1.webp`);
+        preloadAndChangeBackgroundImage(artWork2, `assets/artworks/series/${item.folderName}/full-2.webp`);
 
     } else {
         preloadAndChangeBackgroundImage(artWork1, `assets/artworks/singles/${item.folderName}/full.webp`);
     }
     registerClickArtworks();
-    preloadAndChangeBackgroundImage(subject, `assets/artworks/singles/${item.folderName}/subject.webp`);
+    preloadAndChangeBackgroundImage(subject, `assets/artworks/${mode}/${item.folderName}/subject.webp`);
     showElements([note]);
     hideElements([...warnings]);
     selectedItem = item;
@@ -350,8 +350,14 @@ function selectArtwork(item) {
     if (mode == "series") {
         disableSeriesMode([subject]);
         desc4.textContent = "Shop this series"
+        // rearrange elements
+        mockupV1.parentNode.insertBefore(desc1, mockupV1);
+        addPhotoTitles(item);
     } else {
         desc4.textContent = "Shop this print"
+        // rearrange elements
+        mockupV1.parentNode.insertBefore(mockupV1, desc1);
+        removePhotoTitles();
     }
 
     if (isMobile()) {
@@ -395,7 +401,8 @@ function backToList(item) {
 
 function onScroll(item) {
     const scrollPercent = Math.min(getScrollPercent() / 100, 1);
-    if (scrollPercent > 0.1) {
+    const threshold = mode=="singles" ? 0.1 : 0.01;
+    if (scrollPercent > threshold) {
         showElementsWithTransition([detailVerticalLine, ...shadows, ...detailComponents, backToTopLabel]);
         changeBackgroundColor('#000000');
         hideElements([note])
@@ -407,15 +414,15 @@ function onScroll(item) {
 }
 
 function changeDetailPhotos(item) {
-    mockupV1.style.backgroundImage = `url(assets/artworks/singles/${item.folderName}/mockup-v-1.webp)`;
-    closeUpArt1.style.backgroundImage = `url(assets/artworks/singles/${item.folderName}/detail-1.webp)`;
-    closeUpArt2.style.backgroundImage = `url(assets/artworks/singles/${item.folderName}/detail-2.webp)`;
-    mockupH1.style.backgroundImage = `url(assets/artworks/singles/${item.folderName}/mockup-h-1.webp)`;
-    mockupV2.style.backgroundImage = `url(assets/artworks/singles/${item.folderName}/mockup-v-2.webp)`;
+    mockupV1.style.backgroundImage = `url(assets/artworks/${mode}/${item.folderName}/mockup-v-1.webp)`;
+    closeUpArt1.style.backgroundImage = `url(assets/artworks/${mode}/${item.folderName}/detail-1.webp)`;
+    closeUpArt2.style.backgroundImage = `url(assets/artworks/${mode}/${item.folderName}/detail-2.webp)`;
+    mockupH1.style.backgroundImage = `url(assets/artworks/${mode}/${item.folderName}/mockup-h-1.webp)`;
+    mockupV2.style.backgroundImage = `url(assets/artworks/${mode}/${item.folderName}/mockup-v-2.webp)`;
 }
 
 async function changeDetailVideo(item) {
-  const file = `assets/artworks/singles/${item.folderName}/video.webm`;
+  const file = `assets/artworks/${mode}/${item.folderName}/video.webm`;
 
   const exists = await doesFileExist(file);
 
@@ -423,15 +430,13 @@ async function changeDetailVideo(item) {
     video1.src = file;
     video1.style.display = 'block';
     video1.load();
-    if (isMobile()) {
-        detailVerticalLine.style.transform = "scale(0.87)"
-    }
+    detailVerticalLine.style.transform = isMobile() ? "scale(0.82)" : "scale(1)"
   } else {
     // Clear src so browser doesn't even try
     video1.removeAttribute('src');
     video1.style.display = 'none';
     video1.load(); // important: resets the video element
-    detailVerticalLine.style.transform = "scale(0.74)"
+    detailVerticalLine.style.transform = isMobile() ? "scale(0.68)" : "scale(0.74)"
   }
 }
 
@@ -598,4 +603,25 @@ function putBackItemsInDOM() {
     [ac1, ac2].forEach(el => {
         el.style.display = 'block'
     });
+}
+
+function addPhotoTitles(item) {
+    let numberOfPieces = item.numberOfPieces;
+    const artworkPhotos = document.querySelectorAll(".detail-img");
+
+    for (let i = 0; i < numberOfPieces; i++) {
+        const div = document.createElement('div');
+        div.textContent = `0${i + 1}`;
+        div.classList.add('photo-title');
+
+        // Insert title after the corresponding photo
+        artworkPhotos[i].insertAdjacentElement("afterend", div);
+    }
+}
+
+function removePhotoTitles() {
+    const artworkPhotos = document.querySelectorAll(".photo-title");
+    for (let p of artworkPhotos) {
+        p.style.display = "none";
+    }
 }

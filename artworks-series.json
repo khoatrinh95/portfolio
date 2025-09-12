@@ -3,11 +3,12 @@
     "title": "Pop & Fade",
     "shopLink": "https://das-haus-von-quoi.square.site/product/when-logic-fails/V3DB7PPNS5NNNGOP634DVG5P",
     "active": true,
-    "locked" : true,
-    "backgroundColor": "#6A2C2A",
-    "mainColor": "#732727",
+    "locked" : false,
+    "backgroundColor": "#1E2542",
+    "mainColor": "#1E2542",
     "folderName": "popFade",
-    "desc1": "\"When Logic Fails\" is a modern surrealist art print that merges hyper-realistic textures with an imaginative twist. At the heart of the piece is a digitally hand-painted classical Roman statue, blindfolded, yet not entirely hidden. The blindfold is surrealistically sliced open, offering a glimpse into a world that defies logic.",
-    "desc2": "This piece plays with contradiction: marble meets fabric, realism meets surrealism, structure meets distortion. It's for those who find beauty in things that don’t quite make sense, an ode to the curious, the analytical dreamers, and the lovers of paradox"
+    "numberOfPieces": 3,
+    "desc1": "This series of three (3) digital paintings explores the fragile tension between playfulness and impermanence. Each work is painted meticulously, stroke by stroke, with careful attention to shading and highlights. Every crease, wrinkle, and sagging form is rendered entirely by hand.",
+    "desc2": "The subjects are balloon animals, iconic symbols of joy and childhood wonder, yet half-deflated under the weight of time. It is a reminder that delight and decay often coexist."
   }
 ]
