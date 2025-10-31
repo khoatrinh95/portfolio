@@ -449,7 +449,7 @@ function changeDescriptions(item) {
     desc3.style.fontSize = "regular";
 
     const span = isMobile() ? document.createElement("p") : document.createElement("span");
-    span.textContent = "Digital Painting";
+    span.textContent = item.medium == null ? "Digital Painting" : item.medium;
     desc3.appendChild(span);
 }
 
