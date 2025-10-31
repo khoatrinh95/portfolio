@@ -352,12 +352,12 @@ function selectArtwork(item) {
         desc4.textContent = "Shop this series"
         // rearrange elements
         mockupV1.parentNode.insertBefore(desc1, mockupV1);
-        addPhotoTitles(item);
+        // addPhotoTitles(item); // no need for numbers
     } else {
         desc4.textContent = "Shop this print"
         // rearrange elements
         mockupV1.parentNode.insertBefore(mockupV1, desc1);
-        removePhotoTitles();
+        // removePhotoTitles();
     }
 
     if (isMobile()) {
