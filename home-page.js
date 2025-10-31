@@ -54,7 +54,7 @@ if (!hasVisited) {
       menuButton.classList.add("transition", "after-welcome");
       mainCarousel.classList.add("visible");
       clearInterval(waitAnimationInterval);
-    }, 5000);
+    }, 3000);
     sessionStorage.setItem('hasVisitedThisSession', 'true');
   })
 } else {
