@@ -137,7 +137,8 @@ function toggleCarousel() {
   const onWheel = (e) => {
     if (!isRunning) return;
     e.preventDefault();
-    boostSpeed += e.deltaY * scrollMultiplier;
+    const delta = e.deltaX == 0 ? e.deltaY : e.deltaX;
+    boostSpeed += delta * scrollMultiplier;
   };
 
   const onTouchStart = (e) => {
