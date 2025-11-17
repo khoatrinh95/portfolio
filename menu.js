@@ -96,6 +96,9 @@ class MyMenu extends HTMLElement {
             case "Shop":
                 window.open('https://das-haus-von-quoi.square.site','_blank');
                 break;
+            case "Commissions":
+                window.open('https://das-haus-von-quoi.square.site/commissions','_blank');
+                break;
             case "About":
                 this.dispatchEvent(new CustomEvent("show-about", {
                   bubbles: true,        // important! lets event go up DOM
@@ -132,6 +135,9 @@ class MyMenu extends HTMLElement {
             case "Shop":
                 width = '40vw'
                 menuLabelImg.src = 'assets/images/shop.png';
+                break;
+            case "Commissions":
+                menuLabelImg.src = 'assets/images/commissions.webp';
                 break;
             case "About":
                 menuLabelImg.src = 'assets/images/about-me.webp';
