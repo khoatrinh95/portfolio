@@ -12,40 +12,23 @@ async function doesFileExist(fileUrl) {
 
 
 
-function showElements(elements) {
-  elements.forEach(e => {
-    if (e) e.classList.add("visible");
-  });
-}
-
-function showElementsWithTransition(elements) {
-  elements.forEach(e => {
-    if (e) e.classList.add("visible", "transition");
-  });
-}
-
-
-function hideElements(elements) {
-  elements.forEach(e => {
-    if (e) e.classList.remove("visible");
-  });
-}
-
-function addInvisibleWithTransition(elements) {
+function showElements(elements, classNames = ["visible"]) {
   elements.forEach(e => {
     if (e) {
-      e.classList.add("invisible", "transition");
+      classNames.forEach(className => e.classList.add(className));
     }
   });
 }
 
-function removeInvisibleWithTransition(elements) {
+
+function hideElements(elements, classNames = ["visible"]) {
   elements.forEach(e => {
     if (e) {
-      e.classList.remove("invisible", "transition");
+      classNames.forEach(className => e.classList.remove(className));
     }
   });
 }
+
 
 function getCurrentPageName() {
   // Get the full path after the domain
@@ -97,9 +80,6 @@ export {
   getCurrentPageName, 
   isHomePage, 
   isMobile, 
-  showElementsWithTransition, 
-  addInvisibleWithTransition,
-  removeInvisibleWithTransition,
   toggleHomePageCarousel,
   getScrollPercent,
   getOuterHeight

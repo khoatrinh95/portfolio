@@ -2,9 +2,6 @@ import {
     hideElements, 
     showElements, 
     isMobile, 
-    showElementsWithTransition, 
-    addInvisibleWithTransition,
-    removeInvisibleWithTransition,
     getScrollPercent,
     doesFileExist
 } from './utils.js';
@@ -325,9 +322,9 @@ function selectArtwork(item) {
     const items = Array.from(document.getElementsByClassName("item"));
 
     clearSelection();
-    showElementsWithTransition([subject, backToListLabel]);
+    showElements([subject, backToListLabel], ["visible", "transition"]);
     hideElements([...items, singleItemCarousel, seriesItemCarousel]);
-    addInvisibleWithTransition([ac1, ac2, atl1, atl2]);
+    showElements([ac1, ac2, atl1, atl2], ["invisible", "transition"]);
     changeBackgroundColor(item.mainColor);
     changeDetailPhotos(item);
     changeDescriptions(item);
@@ -371,7 +368,7 @@ function backToList(item) {
     const seriesItems = Array.from(document.getElementsByClassName("series-item"));
     registerClickArtworks();
     hideElements([subject, backToListLabel, detailVerticalLine]);
-    removeInvisibleWithTransition([ac1, ac2, atl1, atl2]);
+    hideElements([ac1, ac2, atl1, atl2], ["invisible", "transition"]);
     note.textContent = "(Click for details)";
     note.style.color= "black";
     changeBackgroundColor("white");
@@ -385,11 +382,11 @@ function backToList(item) {
     if (mode == "series") {
         enableSeriesMode([subject]);
         setTimeout(() => {
-            showElementsWithTransition([...seriesItems, seriesItemCarousel]);
+            showElements([...seriesItems, seriesItemCarousel], ["visible", "transition"]);
         }, 500);
     } else {
         setTimeout(() => {
-            showElementsWithTransition([...singleItems, singleItemCarousel]);
+            showElements([...singleItems, singleItemCarousel], ["visible", "transition"]);
         }, 500);
     }
 
@@ -403,7 +400,7 @@ function onScroll(item) {
     const scrollPercent = Math.min(getScrollPercent() / 100, 1);
     const threshold = mode=="singles" ? 0.1 : 0.01;
     if (scrollPercent > threshold) {
-        showElementsWithTransition([detailVerticalLine, ...shadows, ...detailComponents, backToTopLabel]);
+        showElements([detailVerticalLine, ...shadows, ...detailComponents, backToTopLabel], ["visible", "transition"]);
         changeBackgroundColor('#000000');
         hideElements([note])
     } else {
