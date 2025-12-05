@@ -13,6 +13,7 @@ const artWork1 = document.getElementById("ir1");
 const artWork2 = document.getElementById("ir2");
 const atl1 = document.getElementById("atl1");
 const atl2 = document.getElementById("atl2");
+const atl3 = document.getElementById("atl3");
 const ac1 = document.getElementById("ac1");
 const ac2 = document.getElementById("ac2");
 const warnings = document.querySelectorAll(".warning");
@@ -49,21 +50,25 @@ let onScrollFnc;
 let selectedItem;
 let activeSingleItems = [];
 let activeSeries = [];
+let activeOilPastelItems = [];
 let onTouchStart = null;
 let onTouchEnd = null;
 let onTouchMove = null;
 let selectedArtworkIdx = 0;
 
-const [artworksResponse, seriesResponse] = await Promise.all([
+const [artworksResponse, seriesResponse, oilPastelResponse] = await Promise.all([
       fetch("artworks.json"),
-      fetch("artworks-series.json")
+      fetch("artworks-series.json"),
+      fetch("oil-pastel.json")
 ]);
 
 const artworks = await artworksResponse.json();
 const series = await seriesResponse.json();
+const oilPastels = await oilPastelResponse.json();
 
 activeSingleItems = artworks.filter(a => a.active);
 activeSeries = series.filter(s => s.active);
+activeOilPastelItems = oilPastels.filter(s => s.active);
 initializeUI()
 
 
@@ -173,14 +178,15 @@ function registerEvents(singleItems, seriesItems) {
         // Singles mode
         atl1.classList.add("remain");
         atl1.classList.remove("unselected");
-        atl2.classList.add("unselected");
-        atl2.classList.remove("remain");
+        showElements([atl2, atl3], ["unselected"]);
+        hideElements([atl2, atl3], ["remain"]);
         showElements([...singleItems]);
         hideElements([...seriesItems]);
         disableSeriesMode([ac1, ac2, subject]);
         clearSelectionAndArtWork();
         mode = "singles";
         selectedArtworkIdx = 0;
+        hoverSelection(null, activeSingleItems[selectedArtworkIdx]);
         showHoverSelectionMobile(selectedArtworkIdx);
     })
 
@@ -188,14 +194,30 @@ function registerEvents(singleItems, seriesItems) {
         // Series mode
         atl2.classList.add("remain");
         atl2.classList.remove("unselected");
-        atl1.classList.add("unselected");
-        atl1.classList.remove("remain");
+        showElements([atl1, atl3], ["unselected"]);
+        hideElements([atl1, atl3], ["remain"]);
         hideElements([...singleItems]);
         showElements([...seriesItems]);
         enableSeriesMode([ac1, ac2, subject])
         clearSelectionAndArtWork();
         mode = "series";
         selectedArtworkIdx = 0;
+        hoverSelection(null, activeSeries[selectedArtworkIdx]);
+        showHoverSelectionMobile(selectedArtworkIdx);
+    })
+
+    atl3.addEventListener("click", () => {
+        // Oil Pastel mode
+        atl3.classList.add("remain");
+        atl3.classList.remove("unselected");
+        showElements([atl1, atl2], ["unselected"]);
+        hideElements([atl1, atl2], ["remain"]);
+        hideElements([...singleItems, ...seriesItems]);
+        disableSeriesMode([ac1, ac2, subject])
+        clearSelectionAndArtWork();
+        mode = "oilPastel";
+        selectedArtworkIdx = 0;
+        hoverSelection(null, activeOilPastelItems[selectedArtworkIdx]);
         showHoverSelectionMobile(selectedArtworkIdx);
     })
 
@@ -247,8 +269,10 @@ function hoverSelection(listItem, item) {
         preloadAndChangeBackgroundImage(artWork1, `assets/artworks/series/${item.folderName}/full-1.webp`);
         preloadAndChangeBackgroundImage(artWork2, `assets/artworks/series/${item.folderName}/full-2.webp`);
 
-    } else {
+    } else if (mode == "singles") {
         preloadAndChangeBackgroundImage(artWork1, `assets/artworks/singles/${item.folderName}/full.webp`);
+    } else if (mode == "oilPastel") {
+        preloadAndChangeBackgroundImage(artWork1, `assets/artworks/oilPastel/${item.folderName}/cover.webp`);
     }
     registerClickArtworks();
     preloadAndChangeBackgroundImage(subject, `assets/artworks/${mode}/${item.folderName}/subject.webp`);
@@ -324,7 +348,7 @@ function selectArtwork(item) {
     clearSelection();
     showElements([subject, backToListLabel], ["visible", "transition"]);
     hideElements([...items, singleItemCarousel, seriesItemCarousel]);
-    showElements([ac1, ac2, atl1, atl2], ["invisible", "transition"]);
+    showElements([ac1, ac2, atl1, atl2, atl3], ["invisible", "transition"]);
     changeBackgroundColor(item.mainColor);
     changeDetailPhotos(item);
     changeDescriptions(item);
@@ -368,7 +392,7 @@ function backToList(item) {
     const seriesItems = Array.from(document.getElementsByClassName("series-item"));
     registerClickArtworks();
     hideElements([subject, backToListLabel, detailVerticalLine]);
-    hideElements([ac1, ac2, atl1, atl2], ["invisible", "transition"]);
+    hideElements([ac1, ac2, atl1, atl2, atl3], ["invisible", "transition"]);
     note.textContent = "(Click for details)";
     note.style.color= "black";
     changeBackgroundColor("white");
@@ -384,7 +408,7 @@ function backToList(item) {
         setTimeout(() => {
             showElements([...seriesItems, seriesItemCarousel], ["visible", "transition"]);
         }, 500);
-    } else {
+    } else if (mode == "singles"){
         setTimeout(() => {
             showElements([...singleItems, singleItemCarousel], ["visible", "transition"]);
         }, 500);
@@ -495,7 +519,7 @@ function initializeMobileInteraction(singleItems, seriesItems) {
 
     onTouchEnd = () => {
         if (mode === undefined) return
-        let items = mode=="singles" ? singleItems : seriesItems;
+        let items = mode=="singles" ? singleItems : (mode=="series" ? seriesItems : activeOilPastelItems);
 
 
         isTouching = false;
