@@ -202,7 +202,9 @@
     display: inline-block;
     position: absolute;
     top: calc(20vh + 538px - 10px); 
-    left: 30px;
+    /* left: 30px; */
+    right: calc(770px + 10vw - 77px + 100px); 
+
 }
 
 #socials > span {

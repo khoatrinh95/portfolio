@@ -221,7 +221,7 @@ fetch('artworks.json')
 
 function initializeUI() {
   mainArtPhoto = activeItems[0].folderName;
-  photoPath = `assets/artworks/singles/${mainArtPhoto}/full.webp`;
+  photoPath = `assets/artworks/oilPastel/oilPastel/cover.webp`;
   artCirclePhotos.forEach(img => {
     img.src = photoPath
   })

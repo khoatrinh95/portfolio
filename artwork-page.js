@@ -73,6 +73,7 @@ initializeUI()
 
 
 function initializeUI() {
+    activateOilPastelMode();
     if (isMobile()) {
         renderMobileView(activeSingleItems, activeSeries);
     } else {
@@ -272,7 +273,7 @@ function hoverSelection(listItem, item) {
     } else if (mode == "singles") {
         preloadAndChangeBackgroundImage(artWork1, `assets/artworks/singles/${item.folderName}/full.webp`);
     } else if (mode == "oilPastel") {
-        preloadAndChangeBackgroundImage(artWork1, `assets/artworks/oilPastel/${item.folderName}/cover.webp`);
+        preloadAndChangeBackgroundImage(artWork1, `assets/artworks/oilPastel/${item.folderName}/main.webp`);
     }
     registerClickArtworks();
     preloadAndChangeBackgroundImage(subject, `assets/artworks/${mode}/${item.folderName}/subject.webp`);
@@ -375,7 +376,7 @@ function selectArtwork(item) {
         mockupV1.parentNode.insertBefore(desc1, mockupV1);
         // addPhotoTitles(item); // no need for numbers
     } else {
-        desc4.textContent = "Shop this print"
+        desc4.textContent = mode== "oilPastel" ? "See more on my Instagram" : "Shop this print"
         // rearrange elements
         mockupV1.parentNode.insertBefore(mockupV1, desc1);
         // removePhotoTitles();
@@ -626,23 +627,16 @@ function putBackItemsInDOM() {
     });
 }
 
-function addPhotoTitles(item) {
-    let numberOfPieces = item.numberOfPieces;
-    const artworkPhotos = document.querySelectorAll(".detail-img");
-
-    for (let i = 0; i < numberOfPieces; i++) {
-        const div = document.createElement('div');
-        div.textContent = `0${i + 1}`;
-        div.classList.add('photo-title');
-
-        // Insert title after the corresponding photo
-        artworkPhotos[i].insertAdjacentElement("afterend", div);
-    }
+function activateOilPastelMode() {
+    atl3.classList.add("remain");
+    atl3.classList.remove("unselected");
+    showElements([atl1, atl2], ["unselected"]);
+    hideElements([atl1, atl2], ["remain"]);
+    disableSeriesMode([ac1, ac2, subject]);
+    clearSelectionAndArtWork();
+    mode = "oilPastel";
+    selectedArtworkIdx = 0;
+    hoverSelection(null, activeOilPastelItems[selectedArtworkIdx]);
+    showHoverSelectionMobile(selectedArtworkIdx);
 }
 
-function removePhotoTitles() {
-    const artworkPhotos = document.querySelectorAll(".photo-title");
-    for (let p of artworkPhotos) {
-        p.style.display = "none";
-    }
-}
