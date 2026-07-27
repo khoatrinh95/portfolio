@@ -1,5 +1,35 @@
 [
   {
+    "title": "Ghe Tra Da",
+    "shopLink": "https://das-haus-von-quoi.square.site/product/ghe-tra-da/MFXPJ6E6TEJSFZRXUBVLQKR7",
+    "active": true,
+    "backgroundColor": "#B2DAA4",
+    "mainColor": "#B2DAA4",
+    "folderName": "ghe",
+    "desc1": "The tiny red stools are emblematic of the bustling life in Vietnam. You’d see them everywhere - in restaurants, coffee shops, wherever workers grab a quick meal before heading back out into the day or pause for a beer after long hours of work.",
+    "desc2": "They’re woven into the fabric of daily Vietnamese life. And though they may seem unglamorous, they’re undeniably one of Vietnam’s most iconic symbols."
+  },
+  {
+    "title": "Cassette",
+    "shopLink": "https://das-haus-von-quoi.square.site/product/cassette/2RY5FU552EMOJPHQVXMFO7WY",
+    "active": true,
+    "backgroundColor": "#F04951",
+    "mainColor": "#F04951",
+    "folderName": "cassette",
+    "desc1": "I grew up in a musical household. Both my parents used to be in a band, so our house was always full of musical instruments, CDs, and cassette tapes. I spent hours playing with those tiny cassettes, winding and unwinding them with a pencil. ",
+    "desc2": "Music has this incredible way of pulling you back to the past, and cassette tapes - as vessels that carry it - feel like time capsules, holding entire worlds in their small plastic frames."
+  },
+  {
+    "title": "Lotus Flower (Hoa Sen)",
+    "shopLink": "https://das-haus-von-quoi.square.site/product/hoa-sen/KJUHOWFT4TEU57P6ULWYUBQZ",
+    "active": true,
+    "backgroundColor": "#9BB192",
+    "mainColor": "#9BB192",
+    "folderName": "lotus",
+    "desc1": "n Vietnam, the lotus flower holds deep cultural significance as a symbol of resilience. After the war, we lost so much and our collective spirit was low.",
+    "desc2": "People clung to whatever hope they could find, and the lotus became that symbol - a flower that grows in mud, an unglamorous place, yet still blooms into something beautiful. It reminds us that our background does not define who we are."
+  },
+  {
     "title": "Peach Blossom (Hoa Đào)",
     "shopLink": "https://das-haus-von-quoi.square.site/product/peach-blossom-hoa-o-/FCPCEMX5OMCHJWIFR2H4XKGD",
     "active": true,
